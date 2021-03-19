@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# SCRIPT_DIR=$(cd $(`dirname -- $0`/userhome); pwd)
 USERHOME=$(cd $(dirname -- $0); pwd)/userhome
 cd $USERHOME
 
