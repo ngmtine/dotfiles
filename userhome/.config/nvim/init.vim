@@ -15,6 +15,7 @@ set hidden
 set autoread
 set tabstop=4
 set shiftwidth=4
+" set foldmethod=indent
 
 " カーソル位置の保持
 augroup KeepLastPosition
@@ -46,8 +47,8 @@ nnoremap > >>
 nnoremap x "_x
 
 " w/bの単語移動の際記号は無視、vscodeでは無理そう
-nnoremap <silent> w :call search('\<\w', 'W')<cr>
-nnoremap <silent> b :call search('\<\w', 'bW')<cr>
+" nnoremap <silent> w :call search('\<\w', 'W')<cr>
+" nnoremap <silent> b :call search('\<\w', 'bW')<cr>
 
 " eacs-likeキーバインド
 inoremap <C-a> <Esc>^i
