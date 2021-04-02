@@ -30,15 +30,15 @@ augroup END
 
 " キーバインド ----------------------------------------
 inoremap <C-j> <esc><Right>
-nnoremap <C-j> <esc>
-vnoremap <C-j> <esc>
+nnoremap <C-j> <esc><Right>
+vnoremap <C-j> <esc><Right>
+inoremap <Esc> <Esc><Right>
 nnoremap j gj
 nnoremap k gk
 nnoremap J }
 nnoremap K {
 nnoremap H ^
 nnoremap L $
-inoremap <Esc> <Esc><Right>
 nnoremap Y y$
 vnoremap < <gv
 nnoremap < <<
@@ -63,6 +63,8 @@ inoremap <C-s> <ESC>:w<CR>
 " 参考：https://stackoverflow.com/questions/18948491/running-python-code-in-vim
 autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+
+" nnoremap <C-w>- 
 
 " リーダーキー ----------------------------------------
 " let mapleader = "\<Space>" # この書き方だとターミナルの機能でペーストする時、貼り付け文字列に空白が含まれてるとリーダーキーが発動してしまうことに注意
