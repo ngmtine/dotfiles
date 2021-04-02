@@ -30,9 +30,8 @@ augroup END
 
 " キーバインド ----------------------------------------
 inoremap <C-j> <esc><Right>
-nnoremap <C-j> <esc><Right>
-vnoremap <C-j> <esc><Right>
-inoremap <Esc> <Esc><Right>
+nnoremap <C-j> <esc>
+vnoremap <C-j> <esc>
 nnoremap j gj
 nnoremap k gk
 nnoremap J }
