@@ -63,7 +63,9 @@ inoremap <C-s> <ESC>:w<CR>
 autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
-" nnoremap <C-w>- 
+" ウィンドウの分割
+nnoremap <C-w>/ :rightbelow vnew<CR>
+nnoremap <C-w>- :rightbelow new<CR>
 
 " リーダーキー ----------------------------------------
 " let mapleader = "\<Space>" # この書き方だとターミナルの機能でペーストする時、貼り付け文字列に空白が含まれてるとリーダーキーが発動してしまうことに注意
