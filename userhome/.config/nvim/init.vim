@@ -59,11 +59,6 @@ nnoremap <C-a> ggVG
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>
 
-" <C-Enter>とかで改行（windows terminalみたいに）
-" " 修飾キー+Enterとかの特殊キーは設定できないらしい、のでkeyhac側で実装
-" keymap_Winterminal["C-Enter"] = "Esc", "o"
-" keymap_Winterminal["C-S-Enter"] = "Esc", "S-o"
-
 " 編集中のファイルを実行
 " 参考：https://stackoverflow.com/questions/18948491/running-python-code-in-vim
 autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
