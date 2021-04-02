@@ -29,7 +29,7 @@ augroup SaveUndoFile
 augroup END
 
 " キーバインド ----------------------------------------
-inoremap <C-j> <esc>
+inoremap <C-j> <esc><Right>
 nnoremap <C-j> <esc>
 vnoremap <C-j> <esc>
 nnoremap j gj
@@ -38,7 +38,7 @@ nnoremap J }
 nnoremap K {
 nnoremap H ^
 nnoremap L $
-inoremap <Esc> <Esc><Right> " ノーマルモード入ったときにカーソルずらさない
+inoremap <Esc> <Esc><Right>
 nnoremap Y y$
 vnoremap < <gv
 nnoremap < <<
