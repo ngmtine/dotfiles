@@ -210,6 +210,8 @@ nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
 let g:tmux_navigator_save_on_switch = 2
 
+autocmd WinNew <c-w> =
+
 " タブ移動のキーバインド
 " nnoremap <A-h> <C-w>h
 " nnoremap <A-j> <C-w>j
