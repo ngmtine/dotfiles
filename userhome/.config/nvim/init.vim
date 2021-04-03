@@ -13,9 +13,13 @@ set noswapfile
 set virtualedit=onemore
 set hidden
 set autoread
-set tabstop=4
-set shiftwidth=4
-" set foldmethod=indent
+set tabstop=4 " tabの入力による見た目のスペース数
+set shiftwidth=4 " インデントの見た目のスペース数
+" set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
+" " set foldmethod=indent
+set smarttab
+set noexpandtab " tabの入力をスペースに置き換えない
+set list listchars=tab:\▸\-,eol:↲
 
 " カーソル位置の保持
 augroup KeepLastPosition
