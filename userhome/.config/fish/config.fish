@@ -17,3 +17,6 @@ function nvim -d "tmuxの同一ウインドウ内にnvimが起動済みならば
 		end
 	end
 end
+
+abbr -a cdd cd /mnt/d/win/denon
+# abbr -a yp youtube-dl --download-archive ./downloaded.txt
