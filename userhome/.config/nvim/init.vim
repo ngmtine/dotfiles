@@ -13,8 +13,8 @@ set noswapfile
 set virtualedit=onemore
 set hidden
 set autoread
-" set foldmethod=indent " 折りたたみをインデント単位で行う
-" set foldlevel=100 " ファイルオープン時に折りたたまない
+set foldmethod=indent " 折りたたみをインデント単位で行う
+set foldlevel=100 " ファイルオープン時に折りたたまない
 set tabstop=4 " tabの入力による見た目のスペース数
 set shiftwidth=4 " インデントの見た目のスペース数
 set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
