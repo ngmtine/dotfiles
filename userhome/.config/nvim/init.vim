@@ -13,10 +13,11 @@ set noswapfile
 set virtualedit=onemore
 set hidden
 set autoread
+" set foldmethod=indent " 折りたたみをインデント単位で行う
+" set foldlevel=100 " ファイルオープン時に折りたたまない
 set tabstop=4 " tabの入力による見た目のスペース数
 set shiftwidth=4 " インデントの見た目のスペース数
-" set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
-" " set foldmethod=indent
+set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
 set smarttab
 set noexpandtab " tabの入力をスペースに置き換えない
 set list listchars=tab:\▸\-,eol:↲
@@ -82,7 +83,7 @@ call plug#begin('~/.config/nvim/autoload')
 Plug 'cocopon/iceberg.vim'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdcommenter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'airblade/vim-gitgutter'
 Plug 'ojroques/vim-oscyank'
 Plug 'christoomey/vim-tmux-navigator'
@@ -180,20 +181,20 @@ vmap <C-_> <Plug>NERDCommenterToggle
 
 " coc.nvim ----------------------------------------
 " プロキシ環境だと503エラー出るので:CocConfingにてプロキシ記述すること
-set statusline^=%{coc#status()}
-let g:coc_global_extensions = ['coc-pairs']
+" set statusline^=%{coc#status()}
+" let g:coc_global_extensions = ['coc-pairs']
 
-" set completeopt=menuone "補完候補1つでも表示する
-" 三項演算子
-" a の評価結果が1(true)ならb、0(false)ならc
-" a ? b : c"
-" 補完候補表示時での<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ
-inoremap <expr> <Tab> pumvisible() ? "<C-n>" : "<Tab>"
-inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
-" 補完取り消す時に元の入力内容に戻す
-inoremap <expr> <Esc>umvisible() ? "\<c-e>" : "<Esc>"
+" " set completeopt=menuone "補完候補1つでも表示する
+" " 三項演算子
+" " a の評価結果が1(true)ならb、0(false)ならc
+" " a ? b : c"
+" " 補完候補表示時での<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ
+" inoremap <expr> <Tab> pumvisible() ? "<C-n>" : "<Tab>"
+" inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
+" inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
+" inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
+" " 補完取り消す時に元の入力内容に戻す
+" inoremap <expr> <Esc>umvisible() ? "\<c-e>" : "<Esc>"
 
 " vim-oscyank --------------------------------------
 set clipboard+=unnamedplus
