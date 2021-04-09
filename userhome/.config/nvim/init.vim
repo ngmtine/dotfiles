@@ -33,6 +33,8 @@ augroup SaveUndoFile
 	set undofile
 augroup END
 
+autocmd BufEnter *.fish set filetype=sh
+
 " キーバインド ----------------------------------------
 inoremap <C-j> <esc><Right>
 nnoremap <C-j> <esc>
