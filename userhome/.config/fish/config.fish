@@ -22,22 +22,18 @@ abbr -a cdd cd /mnt/d/win/denon
 # abbr -a yp youtube-dl --download-archive ./downloaded.txt
 
 
-# function unko
-	# set ifs
-	# set all_nvim_proc (ps -efl | grep [n]vim) # セッション問わず起動中のnvimプロセス全て
-	# set ifs \n" "\t
-	
-	# echo $all_nvim_proc
-	# for pane_start_pid in (string split ' ' (echo (tmux list-panes -F "#{pane_pid}")))
-		# echo $pane_start_pid
-		# # if contains $pane_start_pid (echo $all_nvim_proc | awk '{print $5}')
-		# if (echo $all_nvim_proc | awk -v psp=$pane_start_pid '$5 == psp && $2 == S')
-			# echo このウインドウ内にnvimが存在し、それはフォアグラウンドです
-		# else if (echo $all_nvim_proc | awk -v psp=$pane_start_pid '$5==psp && $2==T')
-			# echo このウインドウ内にnvimが存在し、それはバックグラウンドです
-		# else
-			# echo なんもひっかからんかった, $status
-		# end
-	# end
-# end
+function nvim_test
+	set IFS
+	set all_nvim_proc (ps -efl | grep [n]vim) # セッション問わず起動中のnvimプロセス全て
+	set IFS \n" "\t
+
+	for pane_start_pid in (string split ' ' (echo (tmux list-panes -F "#{pane_pid}")))
+		# このウィンドウ内に存在する、全てのペインの起動時pidを列挙
+		if test (echo $all_nvim_proc | awk -v psp=$pane_start_pid '{if ($5==psp && $2=="S") print 0}')
+			# このウインドウ内にフォアグラウンドのnvimが存在する
+		else if test (echo $all_nvim_proc | awk -v psp=$pane_start_pid '{if ($5==psp && $2=="T") print 0}')
+			# このウインドウ内にバックグラウンドのnvimが存在する
+		end
+	end
+end
 
