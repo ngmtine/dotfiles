@@ -18,12 +18,14 @@ function nvim -d "tmuxの同一ウインドウ内にnvimが起動済みならば
 			set IFS \n" "\t
 			for pane_start_pid in (string split ' ' (echo (tmux list-panes -F "#{pane_pid}")))
 				# このウィンドウ内に存在する、全てのペインの起動時pidを列挙
-				if test (echo $all_nvim_proc | awk -v psp=$pane_start_pid '{if ($5==psp && $2=="S") print 0}')
+				if test (echo $all_nvim_proc | awk -v psp=$pane_start_pid '{if ($5==psp && $2=="S") print 0}') = 0
 					# このウインドウ内にフォアグラウンドのnvimが存在する
 					nvr --remote-tab --servername $socket_path $argv
-				else if test (echo $all_nvim_proc | awk -v psp=$pane_start_pid '{if ($5==psp && $2=="T") print 0}')
+				else if test (echo $all_nvim_proc | awk -v psp=$pane_start_pid '{if ($5==psp && $2=="T") print 0}') = 0
 					# このウインドウ内にバックグラウンドのnvimが存在する
 					echo フォアグラウンドにもってきてnvrする
+				else
+					echo statがSとT以外です
 				end
 			end
 		else
