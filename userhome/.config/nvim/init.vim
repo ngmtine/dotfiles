@@ -36,9 +36,12 @@ augroup END
 autocmd BufEnter *.fish set filetype=sh
 
 " キーバインド ----------------------------------------
-inoremap <C-j> <esc><Right>
-nnoremap <C-j> <esc>
-vnoremap <C-j> <esc>
+" C-jをescに当てるのはahkで行うので以下2行は不要であるはず、コメントアウトしておくけど後で消す
+" inoremap <C-j> <esc><Right>
+" nnoremap <C-j> <esc>
+" インサートモード抜けたときカーソルを右にずらすやつだけど、vscode neovimではなぜか2割くらいの確率で失敗するキモい状態になってる
+inoremap <esc> <esc><Right>
+
 nnoremap j gj
 nnoremap k gk
 nnoremap H ^
