@@ -50,6 +50,12 @@ vnoremap > >gv
 nnoremap > >>
 nnoremap x "_x
 
+" 行を移動
+nnoremap <C-Up> "zdd<Up>"zP
+nnoremap <C-Down> "zdd"zp
+vnoremap <C-Up> "zx<Up>"zP`[V`]
+vnoremap <C-Down> "zx"zp`[V`]
+
 " w/bの単語移動の際記号は無視、vscodeでは無理そう
 " nnoremap <silent> w :call search('\<\w', 'W')<cr>
 " nnoremap <silent> b :call search('\<\w', 'bW')<cr>
