@@ -36,16 +36,12 @@ augroup END
 autocmd BufEnter *.fish set filetype=sh
 
 " キーバインド ----------------------------------------
-" C-jをescに当てるのはahkで行うので以下2行は不要であるはず、コメントアウトしておくけど後で消す
-" inoremap <C-j> <esc><Right>
-" nnoremap <C-j> <esc>
-" インサートモード抜けたときカーソルを右にずらすやつだけど、vscode neovimではなぜか2割くらいの確率で失敗するキモい状態になってる
 inoremap <esc> <esc><Right>
 
 nnoremap j gj
 nnoremap k gk
-nnoremap H ^
-nnoremap L $
+" nnoremap H ^
+" nnoremap L $
 nnoremap Y y$
 vnoremap < <gv
 nnoremap < <<
@@ -54,8 +50,8 @@ nnoremap > >>
 nnoremap x "_x
 
 " w/bの単語移動の際記号は無視、vscodeでは無理そう
-nnoremap <silent> w :call search('\<\w', 'W')<cr>
-nnoremap <silent> b :call search('\<\w', 'bW')<cr>
+" nnoremap <silent> w :call search('\<\w', 'W')<cr>
+" nnoremap <silent> b :call search('\<\w', 'bW')<cr>
 
 " eacs-likeキーバインド
 inoremap <C-a> <Esc>^i
@@ -96,9 +92,10 @@ if has('nvim')
 	Plug 'christoomey/vim-tmux-navigator'
 	Plug 'vim-airline/vim-airline'
 	Plug 'edkolev/tmuxline.vim'
+	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	" Plug 'ryanoasis/vim-devicons'
 	" Plug 'tpope/vim-surround'
-	" Plug 'mg979/vim-visual-multi'
+	Plug 'mg979/vim-visual-multi'
 endif
 call plug#end()
 
