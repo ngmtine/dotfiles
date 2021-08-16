@@ -86,7 +86,7 @@ if has('nvim')
 	Plug 'cocopon/iceberg.vim'
 	Plug 'tpope/vim-surround'
 	Plug 'preservim/nerdcommenter'
-	" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'airblade/vim-gitgutter'
 	Plug 'ojroques/vim-oscyank'
 	Plug 'christoomey/vim-tmux-navigator'
@@ -94,8 +94,6 @@ if has('nvim')
 	Plug 'edkolev/tmuxline.vim'
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	" Plug 'ryanoasis/vim-devicons'
-	" Plug 'tpope/vim-surround'
-	Plug 'mg979/vim-visual-multi'
 endif
 call plug#end()
 
