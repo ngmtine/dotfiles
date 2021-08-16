@@ -63,6 +63,16 @@ nnoremap <C-a> ggVG
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>
 
+" コマンドラインのキーバインド
+cnoremap <C-h> <Left>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
+cnoremap <C-l> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
+cnoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
+
 " nvim特有の設定（vscode neovimには適用させたくないもの） -------------------
 if has('nvim')
 	" 参考：https://stackoverflow.com/questions/18948491/running-python-code-in-vim
@@ -95,6 +105,7 @@ if has('nvim')
 	Plug 'edkolev/tmuxline.vim'
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	" Plug 'ryanoasis/vim-devicons'
+	Plug 'puremourning/vimspector'
 endif
 call plug#end()
 
