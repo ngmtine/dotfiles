@@ -21,6 +21,7 @@ set softtabstop=0 " tabの入力による見た目のスペース数、0でtabst
 set smarttab
 set noexpandtab " tabの入力をスペースに置き換えない
 set list listchars=tab:\▸\-,eol:↲
+set timeoutlen=10 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字は適当
 
 " カーソル位置の保持
 augroup KeepLastPosition
@@ -186,20 +187,20 @@ if has('nvim')
 
 	" coc.nvim ----------------------------------------
 	" プロキシ環境だと503エラー出るので:CocConfingにてプロキシ記述すること
-	" set statusline^=%{coc#status()}
-	" let g:coc_global_extensions = ['coc-pairs']
+	set statusline^=%{coc#status()}
+	let g:coc_global_extensions = ['coc-pairs']
 
-	" " set completeopt=menuone "補完候補1つでも表示する
-	" " 三項演算子
-	" " a の評価結果が1(true)ならb、0(false)ならc
-	" " a ? b : c"
-	" " 補完候補表示時での<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ
-	" inoremap <expr> <Tab> pumvisible() ? "<C-n>" : "<Tab>"
-	" inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
-	" inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
-	" inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
-	" " 補完取り消す時に元の入力内容に戻す
-	" inoremap <expr> <Esc>umvisible() ? "\<c-e>" : "<Esc>"
+	" set completeopt=menuone "補完候補1つでも表示する
+	" 三項演算子
+	" a の評価結果が1(true)ならb、0(false)ならc
+	" a ? b : c"
+	" 補完候補表示時での<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ
+	inoremap <expr> <Tab> pumvisible() ? "<C-n>" : "<Tab>"
+	inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
+	inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
+	inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
+	" 補完取り消す時に元の入力内容に戻す
+	inoremap <expr> <Esc>umvisible() ? "\<c-e>" : "<Esc>"
 
 	" vim-oscyank --------------------------------------
 	set clipboard+=unnamedplus
