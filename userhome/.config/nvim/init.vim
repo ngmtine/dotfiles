@@ -20,7 +20,7 @@ if exists('g:vscode')
 	nnoremap k :call VSCodeCall('cursorUp')<CR>
 endif
 
-if !exists('g:vscode')
+if !exists('g:vscode') && has('nvim')
 	" 基本設定 --------------------------------------------
 	set encoding=utf-8
 	scriptencoding utf-8
@@ -131,6 +131,7 @@ if !exists('g:vscode')
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	" Plug 'ryanoasis/vim-devicons'
 	Plug 'puremourning/vimspector'
+	Plug 'jacquesbh/vim-showmarks'
 	call plug#end()
 
 	" カラースキーム --------------------------------------
@@ -241,7 +242,8 @@ if !exists('g:vscode')
 
 	augroup OSCYank
 		autocmd!
-		autocmd TextYankPost * :call YankOSC52(getreg('+'))
+		" autocmd TextYankPost * :call YankOSC52(getreg('+'))
+		autocmd TextYankPost OSCYankReg()
 	augroup END
 
 	" vim-tmux-navigator ------------------------------
@@ -252,4 +254,12 @@ if !exists('g:vscode')
 	nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
 	nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
 	let g:tmux_navigator_save_on_switch = 2
+
+	" vim-showmarks -------------------------------------
+	" 但しマークを自動更新してくれない、特定のエディタコマンド実行後を示すイベントも見つからないし微妙かも
+	aug show-marks-sync
+		au!
+		au BufReadPost * sil! DoShowMarks
+	aug END
+
 endif
