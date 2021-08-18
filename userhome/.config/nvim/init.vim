@@ -79,40 +79,35 @@ cnoremap <C-e> <End>
 cnoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 cnoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
 
-" nvim特有の設定（vscode neovimには適用させたくないもの） -------------------
-if has('nvim')
-	" 参考：https://stackoverflow.com/questions/18948491/running-python-code-in-vim
-	" 編集中のファイルを実行
-	autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-	autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+" 参考：https://stackoverflow.com/questions/18948491/running-python-code-in-vim
+" 編集中のファイルを実行
+autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
-	" ウィンドウの分割
-	nnoremap <C-w>/ :rightbelow vnew<CR>
-	nnoremap <C-w>- :rightbelow new<CR>
+" ウィンドウの分割
+nnoremap <C-w>/ :rightbelow vnew<CR>
+nnoremap <C-w>- :rightbelow new<CR>
 
-	" リーダーキー ----------------------------------------
-	" let mapleader = "\<Space>" # この書き方だとターミナルの機能でペーストする時、貼り付け文字列に空白が含まれてるとリーダーキーが発動してしまうことに注意
+" リーダーキー ----------------------------------------
+" let mapleader = "\<Space>" # この書き方だとターミナルの機能でペーストする時、貼り付け文字列に空白が含まれてるとリーダーキーが発動してしまうことに注意
 
-	set pastetoggle=<leader>p " ペーストモードトグル
-	" nnoremap <leader>r :source $MYVIMRC<CR> " init.vimのリロード、ただしairlineが再描画されない？tmuxでウインドウ切り替えれば再描画されるっぽい
-endif
+set pastetoggle=<leader>p " ペーストモードトグル
+" nnoremap <leader>r :source $MYVIMRC<CR> " init.vimのリロード、ただしairlineが再描画されない？tmuxでウインドウ切り替えれば再描画されるっぽい
 
 " プラグイン ------------------------------------------
 call plug#begin('~/.config/nvim/autoload')
-if has('nvim')
-	Plug 'cocopon/iceberg.vim'
-	Plug 'tpope/vim-surround'
-	Plug 'preservim/nerdcommenter'
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'airblade/vim-gitgutter'
-	Plug 'ojroques/vim-oscyank'
-	Plug 'christoomey/vim-tmux-navigator'
-	Plug 'vim-airline/vim-airline'
-	Plug 'edkolev/tmuxline.vim'
-	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-	" Plug 'ryanoasis/vim-devicons'
-	Plug 'puremourning/vimspector'
-endif
+Plug 'cocopon/iceberg.vim'
+Plug 'tpope/vim-surround'
+Plug 'preservim/nerdcommenter'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'airblade/vim-gitgutter'
+Plug 'ojroques/vim-oscyank'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'vim-airline/vim-airline'
+Plug 'edkolev/tmuxline.vim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+" Plug 'ryanoasis/vim-devicons'
+Plug 'puremourning/vimspector'
 call plug#end()
 
 " カラースキーム --------------------------------------
