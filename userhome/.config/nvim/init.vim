@@ -4,7 +4,9 @@ set noexpandtab " tabの入力をスペースに置き換えない
 
 inoremap <esc> <esc><Right>
 nnoremap H ^
+vnoremap H ^
 nnoremap L $
+vnoremap L $
 nnoremap J }
 nnoremap K {
 nnoremap Y y$
@@ -15,6 +17,16 @@ vnoremap > >gv
 nnoremap <C-a> ggVG
 nnoremap x "_x
 nnoremap U <C-r>
+nnoremap <silent> p p`]
+vnoremap <silent> p p`]
+nnoremap q <Nop> " マクロ封印
+nnoremap Q <Nop> " exモード封印
+nnoremap <Tab> % " 対応ペアに移動
+vnoremap <Tab> % " 対応ペアに移動
+nnoremap dh d0 " 行頭削除
+nnoremap dl d$ " 行末削除
+nnoremap ch c0 " 行頭変更
+nnoremap cl c$ " 行末変更
 
 if exists('g:vscode') " vscode -----------------------------------
 	" 置換
@@ -65,7 +77,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	" キーバインド ----------------------------------------
 	nnoremap j gj
 	nnoremap k gk
-	inoremap <C-v> <Esc>pa
+	inoremap <C-v> <Esc>pa " 貼り付け
 
 	" 行を移動（なんか動かん）
 	nnoremap <C-Up> "zdd<Up>"zP
