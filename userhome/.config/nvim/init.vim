@@ -20,7 +20,7 @@ if exists('g:vscode')
 	nnoremap k :call VSCodeCall('cursorUp')<CR>
 endif
 
-if has('nvim')
+if !exists('g:vscode')
 	" 基本設定 --------------------------------------------
 	set encoding=utf-8
 	scriptencoding utf-8
