@@ -1,28 +1,31 @@
-" set clipboard+=unnamedplus
-if exists('g:vscode')
-	set noexpandtab
-	set clipboard+=unnamedplus
+" 共通設定（nvim, vscode）--------------------------------------------
+set clipboard+=unnamedplus " クリップボード共有
+set noexpandtab " tabの入力をスペースに置き換えない
 
-	inoremap <esc> <esc><Right>
-	nnoremap Y y$
-	vnoremap < <gv
-	nnoremap < <<
-	vnoremap > >gv
-	nnoremap > >>
-	nnoremap <C-a> ggVG
-	nnoremap J }
-	nnoremap K {
+inoremap <esc> <esc><Right>
+nnoremap H ^
+nnoremap L $
+nnoremap J }
+nnoremap K {
+nnoremap Y y$
+nnoremap < <<
+vnoremap < <gv
+nnoremap > >>
+vnoremap > >gv
+nnoremap <C-a> ggVG
+nnoremap x "_x
+nnoremap U <C-r>
 
+if exists('g:vscode') " vscode -----------------------------------
 	" 置換
-	nnoremap <C-g> <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction')<CR>
+	nnoremap <C-r> <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction')<CR>
 
 	" 畳んだコードを跨ぐ時に展開しない
 	nnoremap j :call VSCodeCall('cursorDown')<CR>
 	nnoremap k :call VSCodeCall('cursorUp')<CR>
 endif
 
-if !exists('g:vscode') && has('nvim')
-	" 基本設定 --------------------------------------------
+if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	set encoding=utf-8
 	scriptencoding utf-8
 	set fileencodings=utf-8,cp932
@@ -43,7 +46,6 @@ if !exists('g:vscode') && has('nvim')
 	set shiftwidth=4 " インデントの見た目のスペース数
 	set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
 	set smarttab
-	set noexpandtab " tabの入力をスペースに置き換えない
 	set list listchars=tab:\▸\-,eol:↲
 	set timeoutlen=10 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字は適当
 
@@ -61,20 +63,10 @@ if !exists('g:vscode') && has('nvim')
 	autocmd BufEnter *.fish set filetype=sh
 
 	" キーバインド ----------------------------------------
-	inoremap <esc> <esc><Right>
-
 	nnoremap j gj
 	nnoremap k gk
-	" nnoremap H ^
-	" nnoremap L $
-	nnoremap Y y$
-	vnoremap < <gv
-	nnoremap < <<
-	vnoremap > >gv
-	nnoremap > >>
-	nnoremap x "_x
 
-	" 行を移動
+	" 行を移動（なんか動かん）
 	nnoremap <C-Up> "zdd<Up>"zP
 	nnoremap <C-Down> "zdd"zp
 	vnoremap <C-Up> "zx<Up>"zP`[V`]
@@ -89,7 +81,6 @@ if !exists('g:vscode') && has('nvim')
 	inoremap <C-e> <Esc>$i<Right>
 
 	" windows-likeキーバインド
-	nnoremap <C-a> ggVG
 	nnoremap <C-s> :w<CR>
 	inoremap <C-s> <ESC>:w<CR>
 
