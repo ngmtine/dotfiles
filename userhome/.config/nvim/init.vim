@@ -1,3 +1,25 @@
+if exists('g:vscode')
+	set noexpandtab
+	set clipboard+=unnamedplus
+
+	inoremap <esc> <esc><Right>
+	nnoremap Y y$
+	vnoremap < <gv
+	nnoremap < <<
+	vnoremap > >gv
+	nnoremap > >>
+	nnoremap <C-a> ggVG
+	nnoremap J }
+	nnoremap K {
+
+	" 置換
+	nnoremap <C-g> <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction')<CR>
+
+	" 畳んだコードを跨ぐ時に展開しない
+	nnoremap j :call VSCodeCall('cursorDown')<CR>
+	nnoremap k :call VSCodeCall('cursorUp')<CR>
+endif
+
 if has('nvim')
 	" 基本設定 --------------------------------------------
 	set encoding=utf-8
