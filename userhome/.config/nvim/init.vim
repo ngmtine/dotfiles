@@ -1,3 +1,4 @@
+" set clipboard+=unnamedplus
 if exists('g:vscode')
 	set noexpandtab
 	set clipboard+=unnamedplus
@@ -124,7 +125,6 @@ if !exists('g:vscode') && has('nvim')
 	Plug 'preservim/nerdcommenter'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'airblade/vim-gitgutter'
-	Plug 'ojroques/vim-oscyank'
 	Plug 'christoomey/vim-tmux-navigator'
 	Plug 'vim-airline/vim-airline'
 	Plug 'edkolev/tmuxline.vim'
@@ -132,6 +132,7 @@ if !exists('g:vscode') && has('nvim')
 	" Plug 'ryanoasis/vim-devicons'
 	Plug 'puremourning/vimspector'
 	Plug 'jacquesbh/vim-showmarks'
+	Plug 'greymd/oscyank.vim'
 	call plug#end()
 
 	" カラースキーム --------------------------------------
@@ -236,15 +237,6 @@ if !exists('g:vscode') && has('nvim')
 	inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 	" 補完取り消す時に元の入力内容に戻す
 	inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
-
-	" vim-oscyank --------------------------------------
-	set clipboard+=unnamedplus
-
-	augroup OSCYank
-		autocmd!
-		" autocmd TextYankPost * :call YankOSC52(getreg('+'))
-		autocmd TextYankPost OSCYankReg()
-	augroup END
 
 	" vim-tmux-navigator ------------------------------
 	let g:tmux_navigator_no_mappings = 1
