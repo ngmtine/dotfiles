@@ -8,7 +8,9 @@ vnoremap H ^
 nnoremap L $
 vnoremap L $
 nnoremap J }
+vnoremap J }
 nnoremap K {
+vnoremap K {
 nnoremap Y y$
 nnoremap < <<
 vnoremap < <gv
@@ -31,7 +33,7 @@ nnoremap cl c$ " 行末変更
 if exists('g:vscode') " vscode -----------------------------------
 	" 置換
 	nnoremap <C-r> <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction')<CR>
-	vnoremap <C-r> <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction')<CR>
+	" vnoremap <C-r> <Cmd>call VSCodeNotify('editor.action.startFindReplaceAction')<CR>
 
 	" 畳んだコードを跨ぐ時に展開しない
 	nnoremap j :call VSCodeCall('cursorDown')<CR>
