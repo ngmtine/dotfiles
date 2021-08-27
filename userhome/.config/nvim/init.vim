@@ -262,3 +262,12 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	aug END
 
 endif
+
+" インデント関係の設定がpython用のプラグインで上書きされるので、さらに上書き
+augroup python_indent
+	autocmd!
+	autocmd FileType python setlocal noexpandtab
+	autocmd FileType python setlocal tabstop=4 " tabの入力による見た目のスペース数
+	autocmd FileType python setlocal shiftwidth=4 " インデントの見た目のスペース数
+	autocmd FileType python setlocal softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
+augroup END
