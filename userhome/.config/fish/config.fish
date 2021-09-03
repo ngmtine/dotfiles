@@ -25,3 +25,12 @@ function mkmainpy
 		echo "vscode上で実行してね～"
 	end
 end
+
+function gitsimplesync
+	set _pwd (basename @(pwd))
+	if test $_pwd = "memo"
+		git pull && git add . && git commit -m "a" && git push
+	else
+		echo 所定のフォルダでのみ実行してね！
+	end
+end
