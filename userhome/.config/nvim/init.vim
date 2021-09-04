@@ -62,7 +62,8 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
 	set smarttab
 	set list listchars=tab:\▸\-,eol:↲
-	set timeoutlen=10 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字は適当
+	set timeoutlen=1000 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字によってはmap <C-w>/ みたいな複数入力の受付に影響するっぽい
+	set nowrap " 折り返さない
 
 	" カーソル位置の保持
 	augroup KeepLastPosition
@@ -115,9 +116,12 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 	autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
-	" ウィンドウの分割
+	" タブとウィンドウのキーバインド
 	nnoremap <C-w>/ :rightbelow vnew<CR>
 	nnoremap <C-w>- :rightbelow new<CR>
+	nnoremap <C-w>\ :rightbelow new<CR>
+	nnoremap <tab> gt
+	nnoremap <S-tab> gT
 
 	" リーダーキー ----------------------------------------
 	" let mapleader = "\<Space>" # この書き方だとターミナルの機能でペーストする時、貼り付け文字列に空白が含まれてるとリーダーキーが発動してしまうことに注意
