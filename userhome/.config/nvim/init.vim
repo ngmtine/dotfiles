@@ -61,7 +61,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	set shiftwidth=4 " インデントの見た目のスペース数
 	set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
 	set smarttab
-	set list listchars=tab:\▸\-,eol:↲
+	set list listchars=tab:\▸\-,eol:↲,trail:_
 	set timeoutlen=1000 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字によってはmap <C-w>/ みたいな複数入力の受付に影響するっぽい
 	set nowrap " 折り返さない
 
