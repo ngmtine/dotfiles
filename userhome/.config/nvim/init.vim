@@ -144,6 +144,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	Plug 'puremourning/vimspector'
 	Plug 'jacquesbh/vim-showmarks'
 	Plug 'greymd/oscyank.vim'
+	Plug 'lambdalisue/suda.vim'
 	call plug#end()
 
 	" カラースキーム --------------------------------------
