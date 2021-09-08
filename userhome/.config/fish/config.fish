@@ -34,3 +34,4 @@ function gitsimplesync
 		echo 所定のフォルダでのみ実行してね！
 	end
 end
+abbr -a gss gitsimplesync
