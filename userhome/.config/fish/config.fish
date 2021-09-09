@@ -50,7 +50,7 @@ end
 function gitsimplesync
 	set _pwd (basename @(pwd))
 	if test $_pwd = "memo"
-		git pull && git add . && git commit -m "a" && git push
+		git pull && git add . && git commit -m "push with gitsimplesync" && git push
 	else
 		echo 所定のフォルダでのみ実行してね！
 	end
