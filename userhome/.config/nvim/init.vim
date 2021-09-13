@@ -271,6 +271,12 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 		au BufReadPost * sil! DoShowMarks
 	aug END
 
+	" vimでファイルを開いたときに、tmuxのwindow名にファイル名を表示
+	if exists('$TMUX') && !exists('$NORENAME')
+		au BufEnter * if empty(&buftype) | call system('tmux rename-window "[vim]"'.expand('%:t:S')) | endif
+		au VimLeave * call system('tmux set-window automatic-rename on')
+	endif
+
 endif
 
 " インデント関係の設定がpython用のプラグインで上書きされるので、さらに上書き
