@@ -123,6 +123,20 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	nnoremap <tab> gt
 	nnoremap <S-tab> gT
 
+	" 補完の挙動
+	set completeopt=menu,menuone,noinsert,noselect
+	" 三項演算子
+	" 評価 ? true : false
+	inoremap <expr> <CR>  pumvisible() ? "<C-y>" : "<CR>"
+	cnoremap <expr> <CR>  pumvisible() ? "<C-n>" : "<CR>"
+	" 補完候補表示時での<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ
+	inoremap <expr> <Tab> pumvisible() ? "<C-n>" : "<Tab>"
+	inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
+	inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
+	inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
+	" 補完取り消す時に元の入力内容に戻す
+	inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
+
 	" リーダーキー ----------------------------------------
 	" let mapleader = "\<Space>" # この書き方だとターミナルの機能でペーストする時、貼り付け文字列に空白が含まれてるとリーダーキーが発動してしまうことに注意
 
@@ -235,20 +249,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	" coc.nvim ----------------------------------------
 	" プロキシ環境だと503エラー出るので:CocConfingにてプロキシ記述すること
 	set statusline^=%{coc#status()}
-	set completeopt=menu,menuone,noinsert,noselect
 	let g:coc_global_extensions = ['coc-pairs']
-
-	inoremap <expr> <CR>  pumvisible() ? "<C-y>" : "<CR>"
-	" 三項演算子
-	" a の評価結果が1(true)ならb、0(false)ならc
-	" a ? b : c"
-	" 補完候補表示時での<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ
-	inoremap <expr> <Tab> pumvisible() ? "<C-n>" : "<Tab>"
-	inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
-	inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
-	inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
-	" 補完取り消す時に元の入力内容に戻す
-	inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
 
 	" vim-tmux-navigator ------------------------------
 	let g:tmux_navigator_no_mappings = 1
