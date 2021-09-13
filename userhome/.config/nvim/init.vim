@@ -253,7 +253,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	" coc.nvim ----------------------------------------
 	" プロキシ環境だと503エラー出るので:CocConfingにてプロキシ記述すること
 	set statusline^=%{coc#status()}
-	let g:coc_global_extensions = ['coc-pairs']
+	let g:coc_global_extensions = ['coc-pairs', 'coc-html', 'coc-json', 'coc-yaml', 'coc-phpls', 'coc-python', 'coc-tsserver']
 
 	" vim-tmux-navigator ------------------------------
 	let g:tmux_navigator_no_mappings = 1
