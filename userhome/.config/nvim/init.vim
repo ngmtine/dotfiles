@@ -132,12 +132,12 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	" 評価 ? true : false
 	" 補完表示時のenterで改行しない (<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ)
 	inoremap <expr> <CR>  pumvisible() ? "<C-y>" : "<CR>"
-	cnoremap <expr> <CR>  wildmenumode() ? "<C-n>" : "<CR>"
+	cnoremap <expr> <CR>  wildmenumode() ? "<C-y>" : "<CR>"
 	inoremap <expr> <Tab> pumvisible() ? "<C-n>" : "<Tab>"
 	inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
 	inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
 	inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
-	" 補完取り消す時に元の入力内容に戻す
+	" " 補完取り消す時に元の入力内容に戻す
 	inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
 	cnoremap <expr> <Esc> wildmenumode() ? "\<c-e>" : "<Esc>"
 
