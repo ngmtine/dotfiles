@@ -84,7 +84,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	" キーバインド ----------------------------------------
 	nnoremap j gj
 	nnoremap k gk
-	inoremap <C-v> <Esc>pa " 貼り付け
+	inoremap <C-v> <Esc>pa
 
 	" 行を移動（なんか動かん）
 	nnoremap <C-Up> "zdd<Up>"zP
