@@ -96,7 +96,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	" nnoremap <silent> w :call search('\<\w', 'W')<cr>
 	" nnoremap <silent> b :call search('\<\w', 'bW')<cr>
 
-	" eacs-likeキーバインド
+	" emacs-likeキーバインド
 	inoremap <C-a> <Esc>^i
 	inoremap <C-e> <Esc>$i<Right>
 
