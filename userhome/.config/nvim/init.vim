@@ -161,7 +161,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	" Plug 'ryanoasis/vim-devicons'
 	Plug 'puremourning/vimspector'
 	Plug 'jacquesbh/vim-showmarks'
-	Plug 'greymd/oscyank.vim'
+	Plug 'ojroques/vim-oscyank'
 	Plug 'lambdalisue/suda.vim'
 	call plug#end()
 
@@ -277,6 +277,10 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 		au BufEnter * if empty(&buftype) | call system('tmux rename-window "[vim]"'.expand('%:t:S')) | endif
 		au VimLeave * call system('tmux set-window automatic-rename on')
 	endif
+
+	" vim-oscyank -------------------------------------------------
+	let g:oscyank_term = 'tmux'
+	autocmd TextYankPost * | execute 'OSCYankReg +'
 
 endif
 
