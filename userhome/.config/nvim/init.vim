@@ -95,6 +95,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	" emacs-likeキーバインド
 	inoremap <C-a> <Esc>^i
 	inoremap <C-e> <Esc>$i<Right>
+	inoremap <C-k> <Esc><Right>d$i
 
 	" windows-likeキーバインド
 	nnoremap <C-s> :w<CR>
