@@ -272,7 +272,7 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 
 	" vim-oscyank -------------------------------------------------
 	let g:oscyank_term = 'tmux'
-	autocmd TextYankPost * | execute 'OSCYankReg +'
+	" autocmd TextYankPost * | execute 'OSCYankReg +'
 
 endif
 
