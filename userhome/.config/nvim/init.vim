@@ -25,10 +25,6 @@ nnoremap q <Nop> " マクロ封印
 nnoremap Q <Nop> " exモード封印
 nnoremap <Tab> % " 対応ペアに移動
 vnoremap <Tab> % " 対応ペアに移動
-nnoremap dh d0 " 行頭削除
-nnoremap dl d$ " 行末削除
-nnoremap ch c0 " 行頭変更
-nnoremap cl c$ " 行末変更
 
 if exists('g:vscode') " vscode -----------------------------------
 	" 置換
