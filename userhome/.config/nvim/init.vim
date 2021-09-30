@@ -105,10 +105,6 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	inoremap <C-s> <ESC>:w<CR>
 
 	" コマンドラインのキーバインド
-	cnoremap <C-h> <Left>
-	cnoremap <C-j> <Down>
-	cnoremap <C-k> <Up>
-	cnoremap <C-l> <Right>
 	cnoremap <C-a> <Home>
 	cnoremap <C-e> <End>
 	cnoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
