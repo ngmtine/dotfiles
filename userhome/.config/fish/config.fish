@@ -1,11 +1,10 @@
 set -g theme_color_scheme base16-light
-
 set -g theme_display_docker_machine yes
 set -g theme_display_virtualenv yes
 set -g theme_nerd_fonts yes
 set -g theme_title_use_abbreviated_path no
 set -g theme_newline_cursor yes
-set -g theme_newline_prompt '🐧> '
+set -g theme_newline_prompt '$ '
 
 export EDITOR="/usr/bin/nvim"
 
@@ -64,4 +63,8 @@ function gitsimplesync
 	end
 end
 abbr -a gss gitsimplesync
+
+if test -f $__fish_config_dir/config_indiv.fish
+	source $__fish_config_dir/config_indiv.fish
+end
 
