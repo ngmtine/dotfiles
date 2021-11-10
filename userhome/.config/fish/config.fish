@@ -18,6 +18,7 @@ abbr -a g git
 abbr -a gad git add
 abbr -a gcm git commit -m \"
 abbr -a gps git push
+abbr -a gpl git pull
 abbr -a gcl git clone
 abbr -a gck git checkout
 abbr -a gbr git branch -a
