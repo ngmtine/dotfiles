@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+
+# tmux起動中ならば新規ウインドウ作成、まだなら新規セッション開始
+if [ -n "$TMUX" ]; then
+	tmux new-window
+else
+	tmux new-session -d
+fi
+
+# レイアウト構築
+tmux split-window -v
+tmux select-pane -U
+tmux split-window -h
+tmux select-pane -L
+tmux resize-pane -D 10
+tmux resize-pane -R 30
+tmux display-panes
+
+# コマンド実行
+tmux send-keys -t 0 'nvim main.py' C-m
+tmux send-keys -t 1 'nvim test.txt' C-m
+tmux send-keys -t 2 'python main.py < test.txt'
+
+if [ -z "$TMUX" ]; then
+	tmux a
+fi
