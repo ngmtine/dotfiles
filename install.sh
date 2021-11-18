@@ -14,3 +14,9 @@ for file in $(ls -dp1 $(find -mindepth 1 -printf "%P\n") | grep -v /$)
 do
 	ln -snfv $USERHOME/$file $HOME/$file
 done
+
+# binディレクトリのコピー
+for file in $(ls $(git rev-parse --show-toplevel)/bin)
+do
+	ln -snfv $(git rev-parse --show-toplevel)/bin/$file /usr/local/bin/$file
+done
