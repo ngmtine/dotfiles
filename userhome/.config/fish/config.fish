@@ -68,3 +68,10 @@ if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
 
+# ghq
+abbr -a gg ghq get -p
+abbr -a gl ghq list --full-path
+
+# peco
+abbr -a p peco
+
