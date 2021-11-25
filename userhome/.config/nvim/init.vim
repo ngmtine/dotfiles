@@ -59,7 +59,8 @@ if !exists('g:vscode') && has('nvim') " neovim --------------------------
 	set smarttab
 	set list listchars=tab:\▸\-,eol:↲,trail:_
 	set timeoutlen=1000 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字によってはmap <C-w>/ みたいな複数入力の受付に影響するっぽい
-	set nowrap " 折り返さない
+	" set nowrap " 折り返さない
+	set wrap
 	set showtabline=2 " タブ常に表示
 	set hidden " バッファ切替時に保存してないぞっていちいち言ってこなくなる
 	" autocmd BufRead * tab ball " 開いているバッファをすべてタブ化する、但し何故かカラースキームが無効化する
