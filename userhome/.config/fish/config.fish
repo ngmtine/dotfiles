@@ -75,3 +75,8 @@ abbr -a gl ghq list --full-path
 # peco
 abbr -a p peco
 
+# plugin-peco
+# https://github.com/oh-my-fish/plugin-peco
+function fish_user_key_bindings
+  bind \cr 'peco_select_history (commandline -b)'
+end
