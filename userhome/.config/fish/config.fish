@@ -5,6 +5,14 @@ set -g theme_nerd_fonts yes
 set -g theme_title_use_abbreviated_path no
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt '$ '
+# masterでもブランチ名を表示
+set -g theme_display_git_master_branch yes
+# コマンドの実行時間を表示
+set -g theme_display_cmd_duration yes
+# exitステータスを表示
+set -g theme_show_exit_status yes
+# ディレクトリ名を省略しない
+set -g fish_prompt_pwd_dir_length 0
 
 export EDITOR="/usr/bin/nvim"
 
@@ -78,5 +86,5 @@ abbr -a p peco
 # plugin-peco
 # https://github.com/oh-my-fish/plugin-peco
 function fish_user_key_bindings
-  bind \cr 'peco_select_history (commandline -b)'
+	bind \cr 'peco_select_history (commandline -b)'
 end
