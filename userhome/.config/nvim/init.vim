@@ -67,6 +67,7 @@ nnoremap q <Nop> " マクロ封印
 nnoremap Q <Nop> " exモード封印
 nnoremap <Tab> % " 対応ペアに移動
 vnoremap <Tab> % " 対応ペアに移動
+nnoremap <silent> <Esc><Esc> :noh<CR> " esc2連でハイライト削除
 
 nnoremap j gj
 nnoremap k gk
