@@ -1,5 +1,4 @@
 " 基本設定 -------------------------------------------------
-set clipboard+=unnamedplus " クリップボード共有
 set mouse=a " マウス有効化
 set timeoutlen=1000 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字によってはmap <C-w>/ みたいな複数入力の受付に影響するっぽい
 
@@ -275,10 +274,6 @@ if exists('$TMUX') && !exists('$NORENAME')
 	au VimLeave * call system('tmux set-window automatic-rename on')
 endif
 
-" vim-oscyank -------------------------------------------------
-" let g:oscyank_term = 'tmux'
-" autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
-
 " インデント関係の設定がpython用のプラグインで上書きされるので、さらに上書き ---------------------
 augroup python_indent
 	autocmd!
@@ -298,13 +293,20 @@ if exists('g:vscode') " vscode -----------------------------------
 	nnoremap k :call VSCodeCall('cursorUp')<CR>
 endif
 
-" set clipboard=unnamedplus " default
-" if has('clipboard') || exists('g:vscode')
-	" let s:clip = '/mnt/c/Windows/System32/clip.exe'
-	" if executable(s:clip)
-		" augroup WSLYank
-			" autocmd!
-			" autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-		" augroup END
-	" endif
-" endif
+" クリップボード ----------------------------------------------
+set clipboard+=unnamedplus
+if exists('g:vscode')
+	" wslにwin32yank.exeが必要
+	autocmd TextYankPost * call system('win32yank.exe -i --crlf', @")
+	function! Paste(mode)
+		let @" = system('win32yank.exe -o --lf')
+		return a:mode
+	endfunction
+	map <expr> p Paste('p')
+	map <expr> P Paste('P')
+endif
+if has('nvim')
+	" oscyank
+	let g:oscyank_term = 'tmux'
+	autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+endif
