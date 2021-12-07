@@ -1,36 +1,22 @@
 " 基本設定 -------------------------------------------------
 set clipboard+=unnamedplus " クリップボード共有
-set noexpandtab " tabの入力をスペースに置き換えない
+set mouse=a " マウス有効化
+set timeoutlen=1000 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字によってはmap <C-w>/ みたいな複数入力の受付に影響するっぽい
+
+" UI
+set number " 行番号表示
+set showtabline=2 " タブ常に表示
+syntax on " シンタックスハイライト
+set list listchars=tab:\▸\-,eol:↲,trail:_
+
+" ファイル/バッファの扱い
 set encoding=utf-8
 scriptencoding utf-8
 set fileencodings=utf-8,cp932
-set mouse=a
-set number
-set hlsearch
-set incsearch
-set smartcase
-syntax on
-set whichwrap=b,s,h,l,<,>,[,],~
-set noswapfile
-set virtualedit=onemore
-set hidden
-set autoread
-set foldmethod=indent " 折りたたみをインデント単位で行う
-set foldlevel=100 " ファイルオープン時に折りたたまない
-set tabstop=4 " tabの入力による見た目のスペース数
-set shiftwidth=4 " インデントの見た目のスペース数
-set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
-set smarttab
-set list listchars=tab:\▸\-,eol:↲,trail:_
-set timeoutlen=1000 ttimeoutlen=0 " escで抜けたときにワンテンポ遅れる問題の対応、数字によってはmap <C-w>/ みたいな複数入力の受付に影響するっぽい
-set showtabline=2 " タブ常に表示
+set autoread " 外部でファイルに変更がされた場合は読みなおす
+set noswapfile " スワップファイル作成しない
 set hidden " バッファ切替時に保存してないぞっていちいち言ってこなくなる
 " autocmd BufRead * tab ball " 開いているバッファをすべてタブ化する、但し何故かカラースキームが無効化する
-
-" カーソル位置の保持
-augroup KeepLastPosition
-	au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-augroup END
 
 " アンドゥ履歴の永続化
 augroup SaveUndoFile
@@ -38,11 +24,34 @@ augroup SaveUndoFile
 	set undofile
 augroup END
 
-" .fishを.shと同様に扱う
-autocmd BufEnter *.fish set filetype=sh
+" カーソルの挙動
+au InsertLeave * call cursor([getpos('.')[1], getpos('.')[2]+1]) " escで抜けたときにカーソルを右に移動
+set whichwrap=b,s,h,l,<,>,[,],~ " 行またいで移動
+set virtualedit=onemore " 行またいで移動
 
-" escで抜けたときにカーソルを右に移動
-au InsertLeave * call cursor([getpos('.')[1], getpos('.')[2]+1])
+" カーソル位置の保持
+augroup KeepLastPosition
+	au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+augroup END
+
+" インデント関係
+set noexpandtab " tabの入力をスペースに置き換えない
+set tabstop=4 " tabの入力による見た目のスペース数
+set shiftwidth=4 " インデントの見た目のスペース数
+set softtabstop=0 " tabの入力による見た目のスペース数、0でtabstopの値と同じ
+set smarttab " 行頭tab入力でインデントを挿入
+
+" 検索
+set hlsearch " 検索結果ハイライト
+set incsearch " インクリメンタルサーチ
+set smartcase " 小文字で検索開始した際に大文字小文字無視
+
+" 折りたたみ
+set foldmethod=indent " 折りたたみをインデント単位で行う
+set foldlevel=100 " ファイルオープン時に折りたたまない
+
+" ファイルタイプ
+autocmd BufEnter *.fish set filetype=sh
 
 " キーバインド ----------------------------------------
 nnoremap H ^
@@ -58,7 +67,7 @@ nnoremap < <<
 vnoremap < <gv
 nnoremap > >>
 vnoremap > >gv
-nnoremap <C-a> ggVG
+nnoremap <C-a> ggVG " 全選択、c-oを2連で元位置に戻る
 nnoremap x "_x
 nnoremap U <C-r>
 nnoremap <silent> p p`]
@@ -86,8 +95,8 @@ vnoremap <C-Down> "zx"zp`[V`]
 " emacs-likeキーバインド
 inoremap <C-a> <Esc>^i
 inoremap <C-e> <Esc>$i<Right>
-inoremap <C-k> <Esc><Right>d$i
-
+inoremap <C-k> <Esc><Right>d$i " ちなみにc-uはvimもデフォで前方削除
+ 
 " windows-likeキーバインド
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>
@@ -133,21 +142,25 @@ set pastetoggle=<leader>p " ペーストモードトグル
 
 " プラグイン ------------------------------------------
 call plug#begin('~/.config/nvim/autoload')
-Plug 'cocopon/iceberg.vim'
-Plug 'tpope/vim-surround'
-Plug 'preservim/nerdcommenter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'airblade/vim-gitgutter'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'vim-airline/vim-airline'
-Plug 'edkolev/tmuxline.vim'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-" Plug 'ryanoasis/vim-devicons'
-Plug 'puremourning/vimspector'
-Plug 'jacquesbh/vim-showmarks'
-Plug 'ojroques/vim-oscyank'
-Plug 'lambdalisue/suda.vim'
-Plug 'mindriot101/vim-yapf'
+	" UI
+	Plug 'cocopon/iceberg.vim'
+	Plug 'vim-airline/vim-airline'
+	Plug 'edkolev/tmuxline.vim'
+	Plug 'airblade/vim-gitgutter' " 差分表示
+	" Plug 'ryanoasis/vim-devicons'
+	" Plug 'jacquesbh/vim-showmarks'
+	" エディタ
+	Plug 'tpope/vim-surround'
+	Plug 'preservim/nerdcommenter' " コメントアウト
+	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+	" ファイル操作、OS連携等
+	Plug 'ojroques/vim-oscyank'
+	Plug 'lambdalisue/suda.vim' " sudo
+	Plug 'christoomey/vim-tmux-navigator'
+	" コーディング
+	Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP node必須
+	Plug 'mindriot101/vim-yapf' " pythonフォーマッター
+	" Plug 'puremourning/vimspector' " デバッガ
 call plug#end()
 
 " カラースキーム --------------------------------------
@@ -201,7 +214,7 @@ let g:airline_powerline_fonts = 1
 " そのファイルを.tmux.confでsource-file {file} すればおｋ
 " https://github.com/edkolev/tmuxline.vim
 
-" netrw -----------------------------------------------
+" netrw (標準ファイラ) -----------------------------------------------
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
@@ -251,10 +264,10 @@ let g:tmux_navigator_save_on_switch = 2
 
 " vim-showmarks -------------------------------------
 " 但しマークを自動更新してくれない、特定のエディタコマンド実行後を示すイベントも見つからないし微妙かも
-aug show-marks-sync
-	au!
-	au BufReadPost * sil! DoShowMarks
-aug END
+" aug show-marks-sync
+" 	au!
+" 	au BufReadPost * sil! DoShowMarks
+" aug END
 
 " vimでファイルを開いたときに、tmuxのwindow名にファイル名を表示
 if exists('$TMUX') && !exists('$NORENAME')
@@ -263,10 +276,10 @@ if exists('$TMUX') && !exists('$NORENAME')
 endif
 
 " vim-oscyank -------------------------------------------------
-let g:oscyank_term = 'tmux'
-autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
+" let g:oscyank_term = 'tmux'
+" autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
 
-" インデント関係の設定がpython用のプラグインで上書きされるので、さらに上書き
+" インデント関係の設定がpython用のプラグインで上書きされるので、さらに上書き ---------------------
 augroup python_indent
 	autocmd!
 	autocmd FileType python setlocal noexpandtab
@@ -285,13 +298,13 @@ if exists('g:vscode') " vscode -----------------------------------
 	nnoremap k :call VSCodeCall('cursorUp')<CR>
 endif
 
-set clipboard=unnamedplus " default
-if has('clipboard') || exists('g:vscode')
-	let s:clip = '/mnt/c/Windows/System32/clip.exe'
-	if executable(s:clip)
-		augroup WSLYank
-			autocmd!
-			autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-		augroup END
-	endif
-endif
+" set clipboard=unnamedplus " default
+" if has('clipboard') || exists('g:vscode')
+	" let s:clip = '/mnt/c/Windows/System32/clip.exe'
+	" if executable(s:clip)
+		" augroup WSLYank
+			" autocmd!
+			" autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+		" augroup END
+	" endif
+" endif
