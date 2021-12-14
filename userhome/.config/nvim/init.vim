@@ -108,8 +108,8 @@ cnoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
 
 " 参考：https://stackoverflow.com/questions/18948491/running-python-code-in-vim
 " 編集中のファイルを実行
-autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+" autocmd FileType python map <buffer> <F5> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+" autocmd FileType python imap <buffer> <F5> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
 " タブとウィンドウのキーバインド
 nnoremap <C-w>/ :rightbelow vnew<CR>
