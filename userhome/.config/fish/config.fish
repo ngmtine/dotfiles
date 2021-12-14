@@ -18,6 +18,8 @@ export EDITOR="/usr/bin/nvim"
 
 abbr -a e explorer.exe
 abbr -a vi nvim
+abbr -a yank win32yank.exe
+abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
 
 # gitのエイリアス
 # ~/.gitconfig を編集する手もあるけど、fishと違い実行時に展開されない（エイリアスなので当たり前だけど）
@@ -89,5 +91,3 @@ function fish_user_key_bindings
 	bind \cr 'peco_select_history (commandline -b)'
 end
 
-# win側のソフトウェアとか
-abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
