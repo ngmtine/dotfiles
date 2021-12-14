@@ -151,7 +151,7 @@ call plug#begin('~/.config/nvim/autoload')
 	" エディタ
 	Plug 'tpope/vim-surround'
 	Plug 'preservim/nerdcommenter' " コメントアウト
-	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+	" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 	" ファイル操作、OS連携等
 	Plug 'ojroques/vim-oscyank'
 	Plug 'lambdalisue/suda.vim' " sudo
