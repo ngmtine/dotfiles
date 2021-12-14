@@ -134,10 +134,9 @@ inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
 cnoremap <expr> <Esc> wildmenumode() ? "\<c-e>" : "<Esc>"
 
 " リーダーキー ----------------------------------------
-" let mapleader = "\<Space>" # この書き方だとターミナルの機能でペーストする時、貼り付け文字列に空白が含まれてるとリーダーキーが発動してしまうことに注意
-
+let mapleader = "\<Space>"
 set pastetoggle=<leader>p " ペーストモードトグル
-" nnoremap <leader>r :source $MYVIMRC<CR> " init.vimのリロード、ただしairlineが再描画されない？tmuxでウインドウ切り替えれば再描画されるっぽい
+nnoremap <leader>r :source $MYVIMRC<CR> " init.vimのリロード、ただしairlineが再描画されない？tmuxでウインドウ切り替えれば再描画されるっぽい
 
 " プラグイン ------------------------------------------
 call plug#begin('~/.config/nvim/autoload')
@@ -160,6 +159,8 @@ call plug#begin('~/.config/nvim/autoload')
 	Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP node必須
 	Plug 'mindriot101/vim-yapf' " pythonフォーマッター
 	" Plug 'puremourning/vimspector' " デバッガ
+	Plug 'mfussenegger/nvim-dap'
+	Plug 'mfussenegger/nvim-dap-python'
 call plug#end()
 
 " カラースキーム --------------------------------------
@@ -310,3 +311,16 @@ if has('nvim')
 	let g:oscyank_term = 'tmux'
 	autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
 endif
+
+" nvim-dap ----------------------------------------------------
+lua require('dap-python').setup('~/.pyenv/shims/python')
+
+nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
+nnoremap <silent> <F9> :lua require'dap'.toggle_breakpoint()<CR>
+" nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+" nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+" nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+" nnoremap <silent> <leader>dl :lua require'dap'.run_last()<CR>
