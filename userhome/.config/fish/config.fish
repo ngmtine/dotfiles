@@ -88,3 +88,6 @@ abbr -a p peco
 function fish_user_key_bindings
 	bind \cr 'peco_select_history (commandline -b)'
 end
+
+# win側のソフトウェアとか
+abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
