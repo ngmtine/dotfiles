@@ -126,7 +126,7 @@ inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
 inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
 inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 " " 補完取り消す時に元の入力内容に戻す
-inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
+" inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
 cnoremap <expr> <Esc> wildmenumode() ? "\<c-e>" : "<Esc>"
 
 " リーダーキー ----------------------------------------
