@@ -57,10 +57,6 @@ nnoremap H ^
 vnoremap H ^
 nnoremap L $
 vnoremap L $
-nnoremap J }
-vnoremap J }
-nnoremap K {
-vnoremap K {
 nnoremap Y y$
 nnoremap < <<
 vnoremap < <gv
