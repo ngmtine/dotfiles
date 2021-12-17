@@ -147,6 +147,7 @@ call plug#begin('~/.config/nvim/autoload')
 	Plug 'tpope/vim-surround'
 	Plug 'preservim/nerdcommenter' " コメントアウト
 	" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+	Plug 'rhysd/clever-f.vim' " f検索
 	" ファイル操作、OS連携等
 	Plug 'ojroques/vim-oscyank'
 	Plug 'lambdalisue/suda.vim' " sudo
@@ -270,6 +271,15 @@ if exists('$TMUX') && !exists('$NORENAME')
 	au BufEnter * if empty(&buftype) | call system('tmux rename-window "[vim]"'.expand('%:t:S')) | endif
 	au VimLeave * call system('tmux set-window automatic-rename on')
 endif
+
+" clever-f -----------------------------------------
+" f{char}による検索を置き換えるプラグイン
+" [clever-f.vim でカーソルの横移動を便利にする - はやくプログラムになりたい](https://rhysd.hatenablog.com/entry/2013/09/17/220837)
+let g:clever_f_smart_case = 1
+let g:clever_f_use_migemo = 1
+let g:clever_f_fix_key_direction = 1
+" map n <Plug>(clever-f-repeat-forward) " /検索同様にnで移動させる
+" map N <Plug>(clever-f-repeat-back) " ただしneovimだと挙動おかしい
 
 " インデント関係の設定がpython用のプラグインで上書きされるので、さらに上書き ---------------------
 augroup python_indent
