@@ -24,7 +24,8 @@ augroup SaveUndoFile
 augroup END
 
 " カーソルの挙動
-autocmd InsertLeave * :normal! `^ " カーソル位置そのままでインサート抜ける
+" カーソル位置そのままでインサート抜ける
+autocmd InsertLeave * :normal! `^
 set whichwrap=b,s,h,l,<,>,[,],~ " 行またいで移動
 set virtualedit=onemore " 行またいで移動
 
