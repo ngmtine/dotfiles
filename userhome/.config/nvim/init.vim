@@ -24,14 +24,7 @@ augroup SaveUndoFile
 augroup END
 
 " カーソルの挙動
-function ChkCursorPos() abort
-	if getpos('.')[2] > 2
-		call cursor([getpos('.')[1], getpos('.')[2]+1]) 
-	endif
-endfunction
-
-" au InsertLeave * call cursor([getpos('.')[1], getpos('.')[2]+1]) " escで抜けたときにカーソルを右に移動
-au InsertLeave * call ChkCursorPos()
+autocmd InsertLeave * :normal! `^ " カーソル位置そのままでインサート抜ける
 set whichwrap=b,s,h,l,<,>,[,],~ " 行またいで移動
 set virtualedit=onemore " 行またいで移動
 
