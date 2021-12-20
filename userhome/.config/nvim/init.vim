@@ -130,6 +130,9 @@ inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
 " inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
 cnoremap <expr> <Esc> wildmenumode() ? "\<c-e>" : "<Esc>"
 
+" アンドゥの粒度小さく（spaceで区切る）
+inoremap <Space> <Space><C-g>u
+
 " リーダーキー ----------------------------------------
 let mapleader = "\<Space>"
 set pastetoggle=<leader>p " ペーストモードトグル
