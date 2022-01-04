@@ -73,6 +73,7 @@ nnoremap Q <Nop> " exモード封印
 nnoremap <Tab> % " 対応ペアに移動
 vnoremap <Tab> % " 対応ペアに移動
 nnoremap <silent> <Esc><Esc> :noh<CR> " esc2連でハイライト削除
+nnoremap \ ? " 後方検索
 
 nnoremap j gj
 nnoremap k gk
