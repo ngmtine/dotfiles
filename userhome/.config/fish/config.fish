@@ -20,6 +20,7 @@ abbr -a e explorer.exe
 abbr -a vi nvim
 abbr -a yank win32yank.exe
 abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
+abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
 
 # gitのエイリアス
 # ~/.gitconfig を編集する手もあるけど、fishと違い実行時に展開されない（エイリアスなので当たり前だけど）
