@@ -1,4 +1,12 @@
-# set -g theme_color_scheme base16-light
+# 基本
+export EDITOR="/usr/bin/nvim"
+
+if test -f $__fish_config_dir/config_indiv.fish
+	source $__fish_config_dir/config_indiv.fish
+end
+
+# fish settings -------------------------------------
+set -g theme_color_scheme base16-light
 set -g theme_display_docker_machine yes
 set -g theme_display_virtualenv yes
 set -g theme_nerd_fonts yes
@@ -14,16 +22,13 @@ set -g theme_show_exit_status yes
 # ディレクトリ名を省略しない
 set -g fish_prompt_pwd_dir_length 0
 
-export EDITOR="/usr/bin/nvim"
-
+# alias ----------------------------------------
 abbr -a e explorer.exe
 abbr -a vi nvim
 abbr -a yank win32yank.exe
 abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
 abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
 
-# gitのエイリアス
-# ~/.gitconfig を編集する手もあるけど、fishと違い実行時に展開されない（エイリアスなので当たり前だけど）
 abbr -a g git
 abbr -a gad git add
 abbr -a gcm git commit -m \" # "
@@ -35,7 +40,6 @@ abbr -a gbr git branch -a
 abbr -a gst git status
 abbr -a gfe git fetch
 
-# dockerのエイリアス
 abbr -a d docker
 abbr -a dps docker container ls
 abbr -a dls docker container ls
@@ -44,9 +48,10 @@ abbr -a dex docker container exec
 # abbr -a dc docker container
 # abbr -a di docker image
 
-abbr -a cdd cd /mnt/d/win/denon
+# abbr -a cdd cd /mnt/d/win/denon
 # abbr -a yp youtube-dl --download-archive ./downloaded.txt
 
+# function -----------------------------------------
 function mkmainpy
 if test "$TERM_PROGRAM" = "vscode"
 		for dir in (find ./ -maxdepth 1 -mindepth 1 -type d)
@@ -73,26 +78,30 @@ function gitsimplesync
 		echo 所定のフォルダでのみ実行してね！
 	end
 end
-abbr -a gss gitsimplesync
+abbr -a gsy gitsimplesync
 
-if test -f $__fish_config_dir/config_indiv.fish
-	source $__fish_config_dir/config_indiv.fish
-end
-
-# ghq
+# ghq -------------------------------------------
 abbr -a gg ghq get -p
 abbr -a gl ghq list --full-path
 
-# peco
+# peco -----------------------------------------
+# pecoはtmux+truecolor環境だと表示がおかしいのでしばらく使わないかも
 abbr -a p peco
 
 # plugin-peco
 # https://github.com/oh-my-fish/plugin-peco
-function fish_user_key_bindings
-	bind \cr 'peco_select_history (commandline -b)'
-end
+# function fish_user_key_bindings
+# 	bind \cr 'peco_select_history (commandline -b)'
+# end
 
-# color setting
+# fzf -----------------------------------------
+# ghq管理下のリポジトリを探してcd、但し実行直後enterしないと動かない
+function ghqfzf
+	cd $(ghq list -p | fzf --reverse)
+end
+bind \cg ghqfzf
+
+# color setting -------------------------------------
 set -l crow       121421 #121421
 set -l bluegrey   282c44 #282c44
 set -l bluegrey_  3d415d #3d415d
@@ -110,7 +119,6 @@ set -l coralred   e27a79 #e27a79
 
 set -l fish_color_normal $icegrey
 
-# color settings -------------------------------------
 # https://fishshell.com/docs/current/interactive.html?highlight=fish_color_operator
 
 set -g fish_color_normal $icegrey	# default color
@@ -133,6 +141,5 @@ set -g fish_color_escape $lightblue	# character escapes like \n and \x70
 # set -g fish_color_host_remote	# the hostname in the default prompt for remote sessions (like ssh)
 # set -g fish_color_cancel	# the ‘^C’ indicator on a canceled command
 # set -g fish_color_search_match	# history search matches and selected pager items (background only)
-
 
 bobthefish_colors
