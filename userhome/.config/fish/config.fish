@@ -85,13 +85,21 @@ abbr -a gg ghq get -p
 abbr -a gl ghq list --full-path
 
 # peco -----------------------------------------
+# pecoはtmux+truecolor環境だと表示がおかしいのでしばらく使わないかも
 abbr -a p peco
 
 # plugin-peco
 # https://github.com/oh-my-fish/plugin-peco
-function fish_user_key_bindings
-	bind \cr 'peco_select_history (commandline -b)'
+# function fish_user_key_bindings
+# 	bind \cr 'peco_select_history (commandline -b)'
+# end
+
+# fzf -----------------------------------------
+# ghq管理下のリポジトリを探してcd、但し実行直後enterしないと動かない
+function ghqfzf
+	cd $(ghq list -p | fzf --reverse)
 end
+bind \cg ghqfzf
 
 # color setting -------------------------------------
 set -l crow       121421 #121421
