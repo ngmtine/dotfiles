@@ -40,6 +40,7 @@ abbr -a gcl git clone
 abbr -a gck git checkout
 abbr -a gbr git branch -a
 abbr -a gst git status
+abbr -a gss git status -s
 abbr -a gfe git fetch
 
 abbr -a d docker
