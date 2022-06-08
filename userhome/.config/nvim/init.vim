@@ -199,3 +199,12 @@ endif
 
 " norcalli/nvim-colorizer.lua 色見本 ---------------------------------
 lua require'colorizer'.setup()
+
+" vim-tmux-navigator ------------------------------
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
+let g:tmux_navigator_save_on_switch = 2
