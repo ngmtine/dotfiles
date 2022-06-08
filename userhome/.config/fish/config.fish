@@ -23,6 +23,7 @@ set -g theme_show_exit_status yes
 set -g fish_prompt_pwd_dir_length 0
 
 # alias ----------------------------------------
+abbr -a ll ls -la
 abbr -a e explorer.exe
 abbr -a vi nvim
 abbr -a :q exit
