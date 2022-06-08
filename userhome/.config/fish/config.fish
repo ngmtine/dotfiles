@@ -25,6 +25,7 @@ set -g fish_prompt_pwd_dir_length 0
 # alias ----------------------------------------
 abbr -a e explorer.exe
 abbr -a vi nvim
+abbr -a :q exit
 abbr -a yank win32yank.exe
 abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
 abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
