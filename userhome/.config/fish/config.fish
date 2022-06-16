@@ -146,3 +146,5 @@ set -g fish_color_escape $lightblue	# character escapes like \n and \x70
 # set -g fish_color_search_match	# history search matches and selected pager items (background only)
 
 bobthefish_colors
+
+status --is-interactive; and source (anyenv init -|psub)
