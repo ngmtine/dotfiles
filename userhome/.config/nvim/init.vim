@@ -154,6 +154,8 @@ call jetpack#begin()
 	Jetpack 'norcalli/nvim-colorizer.lua'
 	Jetpack 'lambdalisue/suda.vim' " sudo
 	Jetpack 'christoomey/vim-tmux-navigator'
+	" LSP
+	Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
 call jetpack#end()
 
 " カラースキーム --------------------------------------
@@ -208,3 +210,7 @@ nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
 let g:tmux_navigator_save_on_switch = 2
+
+" coc
+set statusline^=%{coc#status()}
+let g:coc_global_extensions = ["coc-pyright", "coc-json", "coc-html", "coc-css", "coc-tsserver"]
