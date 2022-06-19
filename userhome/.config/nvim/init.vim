@@ -140,21 +140,21 @@ inoremap <Space> <Space><C-g>u
 " nnoremap <leader>r :source $MYVIMRC<CR> " init.vimのリロード、ただしairlineが再描画されない？tmuxでウインドウ切り替えれば再描画されるっぽい
 
 " プラグイン ------------------------------------------
-call plug#begin()
+call jetpack#begin()
 	" UI
-	Plug 'cocopon/iceberg.vim'
-	Plug 'vim-airline/vim-airline'
-	Plug 'edkolev/tmuxline.vim'
-	Plug 'airblade/vim-gitgutter'
+	Jetpack 'cocopon/iceberg.vim'
+	Jetpack 'vim-airline/vim-airline'
+	Jetpack 'edkolev/tmuxline.vim'
+	Jetpack 'airblade/vim-gitgutter'
 	" エディタ
-	Plug 'tpope/vim-surround'
-	Plug 'preservim/nerdcommenter'
-	Plug 'ojroques/vim-oscyank'
-	Plug 'rhysd/clever-f.vim'
-	Plug 'norcalli/nvim-colorizer.lua'
-	Plug 'lambdalisue/suda.vim' " sudo
-	Plug 'christoomey/vim-tmux-navigator'
-call plug#end()
+	Jetpack 'tpope/vim-surround'
+	Jetpack 'preservim/nerdcommenter'
+	Jetpack 'ojroques/vim-oscyank'
+	Jetpack 'rhysd/clever-f.vim'
+	Jetpack 'norcalli/nvim-colorizer.lua'
+	Jetpack 'lambdalisue/suda.vim' " sudo
+	Jetpack 'christoomey/vim-tmux-navigator'
+call jetpack#end()
 
 " カラースキーム --------------------------------------
 set termguicolors " truecolor
