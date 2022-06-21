@@ -148,3 +148,10 @@ set -g fish_color_escape $lightblue	# character escapes like \n and \x70
 bobthefish_colors
 
 status --is-interactive; and source (anyenv init -|psub)
+
+# viモードなーんか微妙だったのでコメントアウト
+# fish_vi_key_bindings 
+# set fish_cursor_default     block      blink
+# set fish_cursor_insert      line       blink
+# set fish_cursor_replace_one underscore blink
+# set fish_cursor_visual      block
