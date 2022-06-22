@@ -5,6 +5,8 @@ if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
 
+set TERM xterm-256color
+
 # fish settings -------------------------------------
 set -g theme_color_scheme base16-light
 set -g theme_display_docker_machine yes
@@ -148,6 +150,13 @@ set -g fish_color_escape $lightblue	# character escapes like \n and \x70
 bobthefish_colors
 
 status --is-interactive; and source (anyenv init -|psub)
+
+# viモードなーんか微妙だったのでコメントアウト
+# fish_vi_key_bindings 
+# set fish_cursor_default     block      blink
+# set fish_cursor_insert      line       blink
+# set fish_cursor_replace_one underscore blink
+# set fish_cursor_visual      block
 
 # nnn colortheme
 # https://github.com/jarun/nnn/wiki/Themes
