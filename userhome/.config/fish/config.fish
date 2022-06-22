@@ -5,6 +5,8 @@ if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
 
+set TERM xterm-256color
+
 # fish settings -------------------------------------
 set -g theme_color_scheme base16-light
 set -g theme_display_docker_machine yes
