@@ -154,6 +154,7 @@ call jetpack#begin()
 	Jetpack 'norcalli/nvim-colorizer.lua'
 	Jetpack 'lambdalisue/suda.vim' " sudo
 	Jetpack 'christoomey/vim-tmux-navigator'
+	Jetpack 'luukvbaal/nnn.nvim'
 	" LSP
 	Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
 call jetpack#end()
@@ -214,3 +215,8 @@ let g:tmux_navigator_save_on_switch = 2
 " coc
 set statusline^=%{coc#status()}
 let g:coc_global_extensions = ["coc-pyright", "coc-json", "coc-html", "coc-css", "coc-tsserver"]
+
+" nnn.nvim
+lua << EOF
+require("nnn").setup()
+EOF
