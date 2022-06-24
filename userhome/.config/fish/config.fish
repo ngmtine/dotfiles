@@ -161,6 +161,13 @@ status --is-interactive; and source (anyenv init -|psub)
 # set fish_cursor_replace_one underscore blink
 # set fish_cursor_visual      block
 
+# nnn config
+# -H: 隠しファイルも表示
+# -G: git status -s 相当 ビルド時に O_GITSTATUS=1 指定必要
+abbr n nnn -HG
+
+# nnn colortheme
+# https://github.com/jarun/nnn/wiki/Themes
 set -l BLK "0B"
 set -l CHR "0B"
 set -l DIR "04"
