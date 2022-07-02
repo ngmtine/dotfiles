@@ -1,5 +1,5 @@
 # 基本
-export EDITOR="/usr/bin/nvim"
+export EDITOR="/usr/local/bin/nvim"
 
 if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
