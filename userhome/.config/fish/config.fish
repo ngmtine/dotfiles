@@ -7,6 +7,10 @@ end
 
 set TERM xterm-256color
 
+# truecolor有効化
+# https://fishshell.com/docs/current/cmds/set_color.html
+set -g fish_term24bit 1
+
 # fish settings -------------------------------------
 set -g theme_color_scheme base16-light
 set -g theme_display_docker_machine yes
