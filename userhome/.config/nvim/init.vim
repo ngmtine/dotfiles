@@ -68,7 +68,7 @@ nnoremap x "_x
 nnoremap U <C-r>
 nnoremap <silent> p p`]
 vnoremap <silent> p p`]
-nnoremap q <Nop> " マクロ封印
+" nnoremap q <Nop> " マクロ封印
 nnoremap Q <Nop> " exモード封印
 " nnoremap <Tab> % " 対応ペアに移動
 " vnoremap <Tab> % " 対応ペアに移動
