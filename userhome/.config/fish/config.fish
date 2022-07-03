@@ -1,11 +1,15 @@
 # 基本
-export EDITOR="/usr/bin/nvim"
+export EDITOR="/usr/local/bin/nvim"
 
 if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
 
 set TERM xterm-256color
+
+# truecolor有効化
+# https://fishshell.com/docs/current/cmds/set_color.html
+set -g fish_term24bit 1
 
 # fish settings -------------------------------------
 set -g theme_color_scheme base16-light

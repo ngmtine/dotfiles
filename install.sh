@@ -17,7 +17,7 @@ do
 done
 
 # binディレクトリのコピー
-for file in $(ls $(git rev-parse --show-toplevel)/bin)
-do
-	ln -snfv $(git rev-parse --show-toplevel)/bin/$file /usr/local/bin/$file
-done
+# for file in $(ls $(git rev-parse --show-toplevel)/bin)
+# do
+# 	ln -snfv $(git rev-parse --show-toplevel)/bin/$file /usr/local/bin/$file
+# done
