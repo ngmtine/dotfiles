@@ -52,6 +52,7 @@ abbr -a gbr git branch -a
 abbr -a gst git status
 abbr -a gss git status -s
 abbr -a gfe git fetch
+abbr -a gmr git merge
 
 abbr -a d docker
 abbr -a dps docker container ls
