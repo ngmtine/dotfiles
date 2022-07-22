@@ -39,6 +39,7 @@ abbr -a :q exit
 abbr -a yank win32yank.exe -i
 abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
 abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
+abbr -a cdrr cd (git rev-parse --show-toplevel)
 
 abbr -a g git
 abbr -a gad git add
@@ -185,3 +186,14 @@ set -l FIFO "06"
 set -l SOCK "0B"
 set -l OTHER "06"
 export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+
+
+function greprep
+	if test (count $argv) -ne 2 ;
+		echo 引数が2つじゃないよ
+		return
+	end
+	grep -rl $argv[1] 
+	echo 上記の$argv[1]を$argv[2]へ置換します
+	grep -rl $argv[1] | xargs sed -i "s/$argv[1]/$argv[2]/g"
+end
