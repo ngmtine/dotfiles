@@ -208,8 +208,11 @@ function grepmv
 		echo 引数が2つじゃないよ
 		return
 	end
-	# find . -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | awk "{print $1}"| xargs -n2 echo
-	find . -name "*$argv[1]*" | sed -E "s/$argv[1]/$argv[2]/" | xargs -n2 echo | awk -F " " "{print $1}"
+	find . -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 echo
+	echo 上記を置換します
+	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
+		find . -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 mv
+	end
 end
 
 function yntest
