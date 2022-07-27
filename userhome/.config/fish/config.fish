@@ -40,6 +40,8 @@ abbr -a yank win32yank.exe -i
 abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
 abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
 abbr -a cdrr cd (git rev-parse --show-toplevel)
+abbr -a x xargs
+abbr -a vs code
 
 abbr -a g git
 abbr -a gad git add
@@ -194,7 +196,22 @@ function greprep
 		echo 引数が2つじゃないよ
 		return
 	end
-	grep -rl $argv[1] 
+	grep -rl $argv[1] --exclude-dir=.git
 	echo 上記の$argv[1]を$argv[2]へ置換します
-	grep -rl $argv[1] | xargs sed -i "s/$argv[1]/$argv[2]/g"
+	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
+		grep -rl $argv[1] --exclude-dir=.git | xargs sed -i "s/$argv[1]/$argv[2]/g"
+	end
+end
+
+function grepmv
+	if test (count $argv) -ne 2 ;
+		echo 引数が2つじゃないよ
+		return
+	end
+end
+
+function yntest
+	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
+	# ここに処理を書く
+	end
 end
