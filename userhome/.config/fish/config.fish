@@ -208,6 +208,8 @@ function grepmv
 		echo 引数が2つじゃないよ
 		return
 	end
+	# find . -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | awk "{print $1}"| xargs -n2 echo
+	find . -name "*$argv[1]*" | sed -E "s/$argv[1]/$argv[2]/" | xargs -n2 echo | awk -F " " "{print $1}"
 end
 
 function yntest
