@@ -140,7 +140,10 @@ inoremap <Space> <Space><C-g>u
 " nnoremap <leader>r :source $MYVIMRC<CR> " init.vimのリロード、ただしairlineが再描画されない？tmuxでウインドウ切り替えれば再描画されるっぽい
 
 " プラグイン ------------------------------------------
+packadd vim-jetpack
 call jetpack#begin()
+	" bootstrap
+	Jetpack 'tani/vim-jetpack', {'opt': 1}
 	" UI
 	Jetpack 'cocopon/iceberg.vim'
 	Jetpack 'vim-airline/vim-airline'
