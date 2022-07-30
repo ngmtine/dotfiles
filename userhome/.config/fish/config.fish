@@ -39,7 +39,7 @@ abbr -a :q exit
 abbr -a yank win32yank.exe -i
 abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
 abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
-abbr -a cdrr cd (git rev-parse --show-toplevel)
+abbr -a cdrr 'cd (git rev-parse --show-toplevel)'
 abbr -a x xargs
 abbr -a vs code
 
