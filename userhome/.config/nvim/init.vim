@@ -29,11 +29,6 @@ augroup END
 " set whichwrap=b,s,h,l,<,>,[,],~ " 行またいで移動
 " set virtualedit=onemore " 行またいで移動
 
-" カーソル位置の保持
-augroup KeepLastPosition
-	au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-augroup END
-
 " インデント関係
 set noexpandtab " tabの入力をスペースに置き換えない
 set tabstop=4 " tabの入力による見た目のスペース数
@@ -54,6 +49,8 @@ set foldlevel=100 " ファイルオープン時に折りたたまない
 autocmd BufEnter *.fish set filetype=sh
 
 " キーバインド ----------------------------------------
+inoremap <C-j> <Esc><Right>
+inoremap <Esc> <Esc><Right>
 nnoremap H ^
 vnoremap H ^
 nnoremap L $
@@ -70,20 +67,12 @@ nnoremap <silent> p p`]
 vnoremap <silent> p p`]
 " nnoremap q <Nop> " マクロ封印
 nnoremap Q <Nop> " exモード封印
-" nnoremap <Tab> % " 対応ペアに移動
-" vnoremap <Tab> % " 対応ペアに移動
-nnoremap <silent> <Esc><Esc> :noh<CR> " esc2連でハイライト削除
-nnoremap \ ? " 後方検索
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l> " ハイライト消去
+" 後方検索
+nnoremap \ ?
 
 nnoremap j gj
 nnoremap k gk
-" inoremap <C-v> <Esc>pa
-
-" 行を移動（なんか動かん）
-" nnoremap <C-Up> "zdd<Up>"zP
-" nnoremap <C-Down> "zdd"zp
-" vnoremap <C-Up> "zx<Up>"zP`[V`]
-" vnoremap <C-Down> "zx"zp`[V`]
 
 " w/bの単語移動の際記号は無視、vscodeでは無理そう
 " nnoremap <silent> w :call search('\<\w', 'W')<cr>
@@ -94,10 +83,6 @@ inoremap <C-a> <Esc>^i
 inoremap <C-e> <Esc>$i<Right>
 inoremap <C-k> <Esc><Right>d$i " ちなみにc-uはvimもデフォで前方削除
  
-" windows-likeキーバインド
-" nnoremap <C-s> :w<CR>
-" inoremap <C-s> <ESC>:w<CR>
-
 " コマンドラインのキーバインド
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -115,21 +100,6 @@ nnoremap <C-w>- :rightbelow new<CR>
 nnoremap <C-w>\ :rightbelow new<CR>
 nnoremap <tab> gt
 nnoremap <S-tab> gT
-
-" 補完の挙動
-set completeopt=menu,menuone,noinsert,noselect
-" 三項演算子
-" 評価 ? true : false
-" 補完表示時のenterで改行しない (<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ)
-inoremap <expr> <CR>  pumvisible() ? "<C-y>" : "<CR>"
-cnoremap <expr> <CR>  wildmenumode() ? "<C-y>" : "<CR>"
-inoremap <expr> <Tab> pumvisible() ? "<C-n>" : "<Tab>"
-inoremap <expr> <Down> pumvisible() ? "<C-n>" : "<Down>"
-inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
-inoremap <expr> <Up> pumvisible() ? "<C-p>" : "<Up>"
-" " 補完取り消す時に元の入力内容に戻す
-" inoremap <expr> <Esc> pumvisible() ? "\<c-e>" : "<Esc>"
-cnoremap <expr> <Esc> wildmenumode() ? "\<c-e>" : "<Esc>"
 
 " アンドゥの粒度小さく（spaceで区切る）
 inoremap <Space> <Space><C-g>u
@@ -155,7 +125,7 @@ call jetpack#begin()
 	Jetpack 'ojroques/vim-oscyank'
 	Jetpack 'rhysd/clever-f.vim'
 	Jetpack 'norcalli/nvim-colorizer.lua'
-	Jetpack 'lambdalisue/suda.vim' " sudo
+	Jetpack 'lambdalisue/suda.vim'
 	Jetpack 'christoomey/vim-tmux-navigator'
 	Jetpack 'luukvbaal/nnn.nvim'
 	" LSP
@@ -169,12 +139,6 @@ colorscheme iceberg
 " vim-airline -----------------------------------------
 let g:airline_theme = 'iceberg'
 let g:airline_powerline_fonts = 1
-
-" tmuxline.vim ----------------------------------------
-" tmux内でnvimを起動した時点でtmuxline.vimが適用される
-" その状態で:TmuxlineSnapshot {file} を実行するとファイルが生成される
-" そのファイルを.tmux.confでsource-file {file} すればおｋ
-" https://github.com/edkolev/tmuxline.vim
 
 " nerd commenter ----------------------------------
 let g:NERDCreateDefaultMappings=0
@@ -216,6 +180,7 @@ nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
 let g:tmux_navigator_save_on_switch = 2
 
 " coc
+let g:coc_node_path = '/home/nag/.anyenv/envs/nodenv/shims/node'
 set statusline^=%{coc#status()}
 let g:coc_global_extensions = ["coc-pyright", "coc-json", "coc-html", "coc-css", "coc-tsserver"]
 
@@ -223,3 +188,26 @@ let g:coc_global_extensions = ["coc-pyright", "coc-json", "coc-html", "coc-css",
 lua << EOF
 require("nnn").setup()
 EOF
+
+if !exists('g:vscode')
+
+	" 以下はcocの機能だがvscodeで読み込むと正常に動作しなくなる
+	" 補完の挙動
+	set completeopt=menu,menuone,noinsert,noselect
+	" 補完表示時のenterで改行しない (<Down>と<C-n>には挙動に違いがあり、前者は候補選択即挿入だが後者は選択のみ)
+	inoremap <expr> <CR> coc#pum#visible() ? "<C-y>" : "<CR>"
+	cnoremap <expr> <CR> wildmenumode() ? "<C-y>" : "<CR>"
+	inoremap <expr> <Tab> coc#pum#visible() ? "<C-n>" : "<Tab>"
+	inoremap <expr> <Down> coc#pum#visible() ? "<C-n>" : "<Down>"
+	inoremap <expr> <S-Tab> coc#pum#visible() ? "<C-p>" : "<S-Tab>"
+	inoremap <expr> <Up> coc#pum#visible() ? "<C-p>" : "<Up>"
+	" " 補完取り消す時に元の入力内容に戻す
+	" inoremap <expr> <Esc> coc#pum#visible() ? "\<c-e>" : "<Esc>"
+	cnoremap <expr> <Esc> wildmenumode() ? "\<c-e>" : "<Esc>"
+
+	" カーソル位置の保持
+	augroup KeepLastPosition
+		au BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+	augroup END
+
+endif
