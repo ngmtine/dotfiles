@@ -151,7 +151,6 @@ nmap <C-_> <Plug>NERDCommenterToggle
 vmap <C-_> <Plug>NERDCommenterToggle
 
 " クリップボード（oscyank） ---------------------------------
-set clipboard+=unnamedplus
 if exists('g:vscode')
 	" wslにwin32yank.exeが必要
 	autocmd TextYankPost * call system('win32yank.exe -i --crlf', @")
@@ -162,7 +161,8 @@ if exists('g:vscode')
 	map <expr> p Paste('p')
 	map <expr> P Paste('P')
 endif
-if has('nvim')
+if !exists('g:vscode')
+	set clipboard+=unnamedplus
 	let g:oscyank_term = 'tmux'
 	autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
 endif
