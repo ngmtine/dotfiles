@@ -67,6 +67,9 @@ abbr -a dex docker container exec
 # abbr -a cdd cd /mnt/d/win/denon
 # abbr -a yp youtube-dl --download-archive ./downloaded.txt
 
+abbr -a vs code
+abbr -a vsre set VSCODE_IPC_HOOK_CLI (lsof | grep "$UID/vscode-ipc" | awk '{print $(NF-1)}' | head -n 1)
+
 # function -----------------------------------------
 function mkmainpy
 if test "$TERM_PROGRAM" = "vscode"

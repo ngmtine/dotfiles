@@ -162,7 +162,7 @@ if exists('g:vscode')
 	map <expr> P Paste('P')
 endif
 if !exists('g:vscode')
-	set clipboard+=unnamedplus
+    " set clipboard+=unnamedplus
 	let g:oscyank_term = 'tmux'
 	autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
 endif
