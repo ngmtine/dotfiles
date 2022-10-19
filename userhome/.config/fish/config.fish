@@ -105,7 +105,7 @@ abbr -a gl ghq list --full-path
 
 # peco -----------------------------------------
 # pecoはtmux+truecolor環境だと表示がおかしいのでしばらく使わないかも
-abbr -a p peco
+# abbr -a p peco
 
 # plugin-peco
 # https://github.com/oh-my-fish/plugin-peco
@@ -116,7 +116,7 @@ abbr -a p peco
 # fzf -----------------------------------------
 # ghq管理下のリポジトリを探してcd、但し実行直後enterしないと動かない
 function ghqfzf
-	cd $(ghq list -p | fzf --reverse)
+	cd (ghq list -p | fzf --reverse)
 end
 bind \cg ghqfzf
 
@@ -163,7 +163,7 @@ set -g fish_color_escape $lightblue	# character escapes like \n and \x70
 
 bobthefish_colors
 
-status --is-interactive; and source (anyenv init -|psub)
+# status --is-interactive; and source (anyenv init -|psub)
 
 # viモードなーんか微妙だったのでコメントアウト
 # fish_vi_key_bindings 
@@ -179,19 +179,19 @@ abbr n nnn -HG
 
 # nnn colortheme
 # https://github.com/jarun/nnn/wiki/Themes
-set -l BLK "0B"
-set -l CHR "0B"
-set -l DIR "04"
-set -l EXE "06"
-set -l REG "00"
-set -l HARDLINK "06"
-set -l SYMLINK "06"
-set -l MISSING "00"
-set -l ORPHAN "09"
-set -l FIFO "06"
-set -l SOCK "0B"
-set -l OTHER "06"
-export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
+# set -l BLK "0B"
+# set -l CHR "0B"
+# set -l DIR "04"
+# set -l EXE "06"
+# set -l REG "00"
+# set -l HARDLINK "06"
+# set -l SYMLINK "06"
+# set -l MISSING "00"
+# set -l ORPHAN "09"
+# set -l FIFO "06"
+# set -l SOCK "0B"
+# set -l OTHER "06"
+# export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
 
 
 function greprep
@@ -236,3 +236,8 @@ function yntest
 	# ここに処理を書く
 	end
 end
+
+set finish (date +%N)
+set diff (math "$finish - $start")
+set diff (math $diff / 1000000)
+echo 起動に $diff ミリ秒かかりました
