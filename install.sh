@@ -13,7 +13,7 @@ done
 for file in $(ls -dp1 $(find -mindepth 1 -printf "%P\n") | grep -v /$)
 do
 	# ln -snfv $USERHOME/$file $HOME/$file
-	ln -sv $USERHOME/$file $HOME/$file
+	ln -sfv $USERHOME/$file $HOME/$file
 done
 
 # binディレクトリのコピー
