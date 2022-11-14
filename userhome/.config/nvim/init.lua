@@ -5,7 +5,7 @@ require('packer').startup(function(use)
 	use "wbthomason/packer.nvim"
 	-- UI
 	use "cocopon/iceberg.vim"
-	use "vim-airline/vim-airline"
+	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
 	use "edkolev/tmuxline.vim"
 
 	use "preservim/nerdcommenter"
@@ -14,6 +14,9 @@ require('packer').startup(function(use)
 
 	use "christoomey/vim-tmux-navigator"
 	use "lambdalisue/suda.vim"
+
+	-- editor
+	use "cohama/lexima.vim"
 
 	-- LSP
 	use 'neovim/nvim-lspconfig'
@@ -26,6 +29,9 @@ require('packer').startup(function(use)
 	use "hrsh7th/cmp-path"
 	use "hrsh7th/cmp-buffer"
 	use "hrsh7th/cmp-cmdline"
+
+	-- DAP
+	use 'mfussenegger/nvim-dap'
 end)
 
 -- map leader
@@ -43,6 +49,11 @@ vim.opt.fileencodings = { "utf-8", "cp932" }
 vim.opt.autoread = true
 vim.opt.swapfile = false
 
+-- filetype
+vim.cmd [[
+autocmd BufEnter *.fish set filetype=sh
+]]
+
 -- When a line break occurs on a comment line, the next line is not commented out either.
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	callback = function()
@@ -52,15 +63,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- mkdir before writing to a nonexistent dir
 vim.cmd [[
-augroup vimrc-auto-mkdir
+	augroup vimrc-auto-mkdir
 	autocmd!
 	function! s:auto_mkdir(dir, force)
-		if !isdirectory(a:dir) && (a:force || input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
-			call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-		endif
+	if !isdirectory(a:dir) && (a:force || input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+	call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+	endif
 	endfunction
 	autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
-augroup END
+	augroup END
 ]]
 
 -- undo persistance
@@ -87,16 +98,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
 -- theme & airline
 pcall(vim.api.nvim_command, "colorscheme iceberg")
-pcall(vim.g.airline_theme, "iceberg")
-vim.g.airline_powerline_fonts = 1
+require('lualine').setup()
 
 -- clipboard
 vim.cmd([[ set clipboard^=unnamedplus ]])
 vim.keymap.set("n", "<leader>p", [[ o<esc>"+gp ]])
 vim.keymap.set("n", "<leader>P", [[ <s-o><esc>"+gP ]])
 -- vim.keymap.set("n", "p", [[ :let @"=@+ <cr> p ]])
-
-
 
 -- nerd commenter
 vim.g.NERDCreateDefaultMappings = 0
@@ -129,6 +137,13 @@ vim.keymap.set("n", "<c-l>", ":<c-u>nohlsearch<cr><c-l>")
 vim.keymap.set("c", "<c-a>", "<home>")
 vim.keymap.set("c", "<c-e>", "<end>")
 vim.keymap.set("i", "<space>", "<space><c-g>u")
+vim.keymap.set("n", "<c-r>", ":source $MYVIMRC<cr>")
+
+-- map leader
+-- switch word with plus register
+vim.keymap.set("n", "<Leader>rep", '"_dw"+P')
+vim.keymap.set("v", "<Leader>rep", '"_d"+P')
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap=true, silent=true})
 
 -- nnoremap <c-/> "comment toggle"
 -- in windows, underscore means slash
@@ -139,13 +154,12 @@ vim.keymap.set("v", "<c-_>", "<plug>NERDCommenterToggle")
 vim.g.tmux_navigator_no_mappings = 1
 vim.g.tmux_navigator_save_on_switch = 2
 
-vim.keymap.set("n", "<A-h>", ":TmuxNavigateLeft<cr>", {silent=true})
-vim.keymap.set("n", "<A-j>", ":TmuxNavigateDown<cr>", {silent=true})
-vim.keymap.set("n", "<A-k>", ":TmuxNavigateUp<cr>", {silent=true})
-vim.keymap.set("n", "<A-l>", ":TmuxNavigateRight<cr>", {silent=true})
+vim.keymap.set("n", "<A-h>", ":TmuxNavigateLeft<cr>", { silent = true })
+vim.keymap.set("n", "<A-j>", ":TmuxNavigateDown<cr>", { silent = true })
+vim.keymap.set("n", "<A-k>", ":TmuxNavigateUp<cr>", { silent = true })
+vim.keymap.set("n", "<A-l>", ":TmuxNavigateRight<cr>", { silent = true })
 
--- LSP settings
--- 1. LSP Sever management
+-- LSP Sever management
 require('mason').setup()
 require('mason-lspconfig').setup_handlers({ function(server)
 	local opt = {
@@ -155,14 +169,14 @@ require('mason-lspconfig').setup_handlers({ function(server)
 			vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 			vim.cmd 'autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)'
 		end,
-		capabilities = require('cmp_nvim_lsp').update_capabilities(
-			vim.lsp.protocol.make_client_capabilities()
+		capabilities = require('cmp_nvim_lsp').default_capabilities(
+		vim.lsp.protocol.make_client_capabilities()
 		)
 	}
 	require('lspconfig')[server].setup(opt)
 end })
 
--- 2. build-in LSP function
+-- build-in LSP function
 -- keyboard shortcut
 vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
@@ -178,10 +192,10 @@ vim.keymap.set('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 vim.keymap.set('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 -- LSP handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-	vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
 )
 
--- 3. completion (hrsh7th/nvim-cmp)
+-- completion (hrsh7th/nvim-cmp)
 local cmp = require("cmp")
 cmp.setup({
 	snippet = {
@@ -201,10 +215,16 @@ cmp.setup({
 		["<S-tab>"] = cmp.mapping.select_prev_item(),
 		['<C-l>'] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
+		-- ['<esc>'] = cmp.mapping.abort(), -- この設定を行うとescで抜けるときラグが発生する
+		['<C-j>'] = cmp.mapping.abort(), -- そのため普段自分がahkでescに宛ててるキーを直接指定する
 		['<CR>'] = cmp.mapping.confirm({ select = false }),
 	}),
 	experimental = {
 		ghost_text = true,
+	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	},
 })
 cmp.setup.cmdline('/', {
@@ -221,3 +241,36 @@ cmp.setup.cmdline(":", {
 	},
 })
 
+-- dap (mfussenegger/nvim-dap)
+-- 動かし方わからん
+local dap = require('dap')
+
+dap.set_log_level("DEBUG")
+
+vim.api.nvim_set_keymap("n", "<F9>", "<CMD>lua require('dap').toggle_breakpoint()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<F5>", ":lua require('dap').continue()<CR>", { noremap = true, silent = false })
+
+dap.adapters.chrome = {
+	type = "executable",
+	command = "node",
+	args = {os.getenv("HOME") .. "/ghq/github.com/Microsoft/vscode-chrome-debug/out/src/chromeDebug.js"}
+}
+
+dap.adapters.firefox = {
+	  type = 'executable',
+	  command = 'node',
+	args = {os.getenv("HOME") .. "/ghq/github.com/Microsoft/vscode-chrome-debug/out/src/chromeDebug.js"}
+}
+
+dap.configurations.javascript = {
+	{
+		type = "firefox",
+		request = "attach",
+		program = "${file}",
+		cwd = vim.fn.getcwd(),
+		sourceMaps = true,
+		protocol = "inspector",
+		port = 9222,
+		webRoot = "${workspaceFolder}"
+	}
+}
