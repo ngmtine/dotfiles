@@ -1,3 +1,7 @@
+# if status is-interactive
+#     # Commands to run in interactive sessions can go here
+# end
+
 # 基本
 export EDITOR="/usr/local/bin/nvim"
 
@@ -68,7 +72,8 @@ abbr -a dex docker container exec
 # abbr -a yp youtube-dl --download-archive ./downloaded.txt
 
 abbr -a vs code
-abbr -a vsre set VSCODE_IPC_HOOK_CLI (lsof | grep "$UID/vscode-ipc" | awk '{print $(NF-1)}' | head -n 1)
+# abbr -a vsre set VSCODE_IPC_HOOK_CLI (lsof | grep "$UID/vscode-ipc" | awk '{print $(NF-1)}' | head -n 1)
+# 重い
 
 # function -----------------------------------------
 function mkmainpy
@@ -236,8 +241,3 @@ function yntest
 	# ここに処理を書く
 	end
 end
-
-set finish (date +%N)
-set diff (math "$finish - $start")
-set diff (math $diff / 1000000)
-echo 起動に $diff ミリ秒かかりました
