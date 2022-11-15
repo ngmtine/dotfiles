@@ -138,6 +138,7 @@ vim.keymap.set("c", "<c-a>", "<home>")
 vim.keymap.set("c", "<c-e>", "<end>")
 vim.keymap.set("i", "<space>", "<space><c-g>u")
 vim.keymap.set("n", "<c-r>", ":source $MYVIMRC<cr>")
+vim.keymap.set("n", "*", "*N")
 
 -- map leader
 -- switch word with plus register
