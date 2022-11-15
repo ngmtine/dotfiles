@@ -17,6 +17,7 @@ require('packer').startup(function(use)
 
 	-- editor
 	use "cohama/lexima.vim"
+	use "machakann/vim-sandwich"
 
 	-- LSP
 	use 'neovim/nvim-lspconfig'
