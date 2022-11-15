@@ -7,6 +7,7 @@ require('packer').startup(function(use)
 	use "cocopon/iceberg.vim"
 	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
 	use "edkolev/tmuxline.vim"
+	use "ryanoasis/vim-devicons"
 
 	-- filer
 	use "cocopon/vaffle.vim"
@@ -168,6 +169,12 @@ vim.keymap.set("n", "<A-l>", ":TmuxNavigateRight<cr>", { silent = true })
 -- vaffle
 vim.keymap.set("c", "v<cr>", ":Vaffle<cr>")
 vim.g.vaffle_show_hidden_files = 1
+vim.cmd [[
+	function! VaffleRenderCustomIcon(item)
+		return WebDevIconsGetFileTypeSymbol(a:item.basename, a:item.is_dir)
+	endfunction
+	let g:vaffle_render_custom_icon = 'VaffleRenderCustomIcon'
+]]
 
 -- LSP Sever management
 require('mason').setup()
