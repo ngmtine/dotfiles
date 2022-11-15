@@ -12,12 +12,13 @@ done
 # シンボリックリンク作成
 for file in $(ls -dp1 $(find -mindepth 1 -printf "%P\n") | grep -v /$)
 do
-	# ln -snfv $USERHOME/$file $HOME/$file
 	ln -sfv $USERHOME/$file $HOME/$file
 done
 
-# binディレクトリのコピー
-# for file in $(ls $(git rev-parse --show-toplevel)/bin)
-# do
-# 	ln -snfv $(git rev-parse --show-toplevel)/bin/$file /usr/local/bin/$file
-# done
+# .bashrc_cmnの展開
+grep -q "source ~/.bashrc_cmn" ~/.bashrc ;
+if [ $? -ne 0 ] ; then
+	echo "if [ -f ~/.bashrc_cmn ]; then" >> ~/.bashrc
+	echo "source ~/.bashrc_cmn" >> ~/.bashrc
+	echo "fi" >> ~/.bashrc
+fi

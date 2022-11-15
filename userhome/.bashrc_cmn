@@ -1,0 +1,21 @@
+sed -n 4p /etc/os-release
+
+# alias
+alias e=explorer.exe
+alias vi=nvim
+alias f=fish
+alias t=tmux
+
+# asdf
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/complerions/asdf.bash
+
+# go
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:~/go/bin
+
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# tmux
+tmux
