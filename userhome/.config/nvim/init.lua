@@ -8,6 +8,9 @@ require('packer').startup(function(use)
 	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
 	use "edkolev/tmuxline.vim"
 
+	-- filer
+	use "cocopon/vaffle.vim"
+
 	use "preservim/nerdcommenter"
 	-- use { "ojroques/vim-oscyank", branch = "main" }
 	use "norcalli/nvim-colorizer.lua"
@@ -20,9 +23,9 @@ require('packer').startup(function(use)
 	use "machakann/vim-sandwich"
 
 	-- LSP
-	use 'neovim/nvim-lspconfig'
-	use 'williamboman/mason.nvim'
-	use 'williamboman/mason-lspconfig.nvim'
+	use "neovim/nvim-lspconfig"
+	use "williamboman/mason.nvim"
+	use "williamboman/mason-lspconfig.nvim"
 
 	use "hrsh7th/nvim-cmp"
 	use "hrsh7th/cmp-nvim-lsp"
@@ -52,7 +55,7 @@ vim.opt.swapfile = false
 
 -- filetype
 vim.cmd [[
-autocmd BufEnter *.fish set filetype=sh
+	autocmd BufEnter *.fish set filetype=sh
 ]]
 
 -- When a line break occurs on a comment line, the next line is not commented out either.
@@ -138,8 +141,9 @@ vim.keymap.set("n", "<c-l>", ":<c-u>nohlsearch<cr><c-l>")
 vim.keymap.set("c", "<c-a>", "<home>")
 vim.keymap.set("c", "<c-e>", "<end>")
 vim.keymap.set("i", "<space>", "<space><c-g>u")
-vim.keymap.set("n", "<c-r>", ":source $MYVIMRC<cr>")
+vim.keymap.set("n", "<c-r>", ":source $MYVIMRC<cr>:PackerSync<cr>")
 vim.keymap.set("n", "*", "*N")
+vim.keymap.set("n", "q:", ":echo '履歴は誤爆しがちなので潰す！'<cr>")
 
 -- map leader
 -- switch word with plus register
@@ -160,6 +164,10 @@ vim.keymap.set("n", "<A-h>", ":TmuxNavigateLeft<cr>", { silent = true })
 vim.keymap.set("n", "<A-j>", ":TmuxNavigateDown<cr>", { silent = true })
 vim.keymap.set("n", "<A-k>", ":TmuxNavigateUp<cr>", { silent = true })
 vim.keymap.set("n", "<A-l>", ":TmuxNavigateRight<cr>", { silent = true })
+
+-- vaffle
+vim.keymap.set("c", "v<cr>", ":Vaffle<cr>")
+vim.g.vaffle_show_hidden_files = 1
 
 -- LSP Sever management
 require('mason').setup()
