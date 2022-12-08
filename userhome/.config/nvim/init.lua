@@ -36,7 +36,7 @@ require('packer').startup(function(use)
 	use "hrsh7th/cmp-cmdline"
 
 	-- DAP
-	use 'mfussenegger/nvim-dap'
+	-- use 'mfussenegger/nvim-dap'
 end)
 
 -- map leader
@@ -150,6 +150,7 @@ vim.keymap.set("n", "q:", ":echo '履歴は誤爆しがちなので潰す！'<cr
 -- switch word with plus register
 vim.keymap.set("n", "<Leader>rep", '"_dw"+P')
 vim.keymap.set("v", "<Leader>rep", '"_d"+P')
+vim.keymap.set("n", "<Leader>a", 'ggVG')
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap=true, silent=true})
 
 -- nnoremap <c-/> "comment toggle"
@@ -260,34 +261,4 @@ cmp.setup.cmdline(":", {
 
 -- dap (mfussenegger/nvim-dap)
 -- 動かし方わからん
-local dap = require('dap')
-
-dap.set_log_level("DEBUG")
-
-vim.api.nvim_set_keymap("n", "<F9>", "<CMD>lua require('dap').toggle_breakpoint()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<F5>", ":lua require('dap').continue()<CR>", { noremap = true, silent = false })
-
-dap.adapters.chrome = {
-	type = "executable",
-	command = "node",
-	args = {os.getenv("HOME") .. "/ghq/github.com/Microsoft/vscode-chrome-debug/out/src/chromeDebug.js"}
-}
-
-dap.adapters.firefox = {
-	  type = 'executable',
-	  command = 'node',
-	args = {os.getenv("HOME") .. "/ghq/github.com/Microsoft/vscode-chrome-debug/out/src/chromeDebug.js"}
-}
-
-dap.configurations.javascript = {
-	{
-		type = "firefox",
-		request = "attach",
-		program = "${file}",
-		cwd = vim.fn.getcwd(),
-		sourceMaps = true,
-		protocol = "inspector",
-		port = 9222,
-		webRoot = "${workspaceFolder}"
-	}
-}
+-- local dap = require('dap')
