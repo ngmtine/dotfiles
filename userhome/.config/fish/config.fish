@@ -5,11 +5,14 @@ sed -n 4p /etc/os-release
 # end
 
 # 基本
-export EDITOR="/usr/local/bin/nvim"
+export EDITOR="/usr/bin/nvim"
 
 if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
+
+# direnv
+eval (direnv hook fish)
 
 set TERM xterm-256color
 
