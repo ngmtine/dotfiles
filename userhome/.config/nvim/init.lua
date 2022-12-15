@@ -91,6 +91,7 @@ vim.opt.softtabstop = 0
 vim.opt.smarttab = true
 
 -- search
+vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- restore cursor location
