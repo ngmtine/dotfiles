@@ -122,10 +122,10 @@ require 'colorizer'.setup()
 -- keymap
 vim.keymap.set("n", "<tab>", "gt")
 vim.keymap.set("n", "<s-tab>", "gT")
-vim.keymap.set("n", "<s-h>", "^")
-vim.keymap.set("v", "<s-h>", "^")
-vim.keymap.set("n", "<s-l>", "$")
-vim.keymap.set("v", "<s-l>", "$")
+-- vim.keymap.set("n", "<s-h>", "^")
+-- vim.keymap.set("v", "<s-h>", "^")
+-- vim.keymap.set("n", "<s-l>", "$")
+-- vim.keymap.set("v", "<s-l>", "$")
 vim.keymap.set("n", "<s-y>", "y$")
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
@@ -227,17 +227,20 @@ cmp.setup({
 		{ name = "buffer" },
 		{ name = "path" },
 	},
-	mapping = cmp.mapping.preset.insert({
-		["<C-n>"] = cmp.mapping.select_next_item(),
-		["<tab>"] = cmp.mapping.select_next_item(),
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<S-tab>"] = cmp.mapping.select_prev_item(),
-		['<C-l>'] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.abort(),
-		-- ['<esc>'] = cmp.mapping.abort(), -- この設定を行うとescで抜けるときラグが発生する
-		['<C-j>'] = cmp.mapping.abort(), -- そのため普段自分がahkでescに宛ててるキーを直接指定する
-		['<CR>'] = cmp.mapping.confirm({ select = false }),
-	}),
+
+	-- mapping = cmp.mapping.preset.insert({
+		-- ["<C-n>"] = cmp.mapping.select_next_item(),
+		-- ["<tab>"] = cmp.mapping.select_next_item(),
+		-- ["<C-p>"] = cmp.mapping.select_prev_item(),
+		-- ["<S-tab>"] = cmp.mapping.select_prev_item(),
+		-- ['<C-l>'] = cmp.mapping.complete(),
+		-- ['<C-e>'] = cmp.mapping.abort(),
+		-- -- ['<esc>'] = cmp.mapping.abort(), -- この設定を行うとescで抜けるときラグが発生する
+		-- ['<C-j>'] = cmp.mapping.abort(), -- そのため普段自分がahkでescに宛ててるキーを直接指定する
+		-- ['<CR>'] = cmp.mapping.confirm({ select = false }),
+	-- }),
+	-- キーマップを設定すると何故かインサートからノーマルに戻るときにバグる（余計な改行が入る？みたいな）
+
 	experimental = {
 		ghost_text = true,
 	},
