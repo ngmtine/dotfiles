@@ -112,6 +112,19 @@ vim.keymap.set("n", "<leader>p", [[ o<esc>"+gp ]])
 vim.keymap.set("n", "<leader>P", [[ <s-o><esc>"+gP ]])
 -- vim.keymap.set("n", "p", [[ :let @"=@+ <cr> p ]])
 
+vim.g.clipboard = {
+	name = 'win32yank',
+	copy = {
+		['+'] = 'win32yank.exe -i',
+		['*'] = 'win32yank.exe -i',
+	},
+	paste = {
+		['+'] = 'win32yank.exe -o',
+		['*'] = 'win32yank.exe -o',
+	},
+	cache_enabled = 1,
+}
+
 -- nerd commenter
 vim.g.NERDCreateDefaultMappings = 0
 vim.g.NERDSpaceDelims = 1
