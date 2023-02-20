@@ -77,8 +77,8 @@ abbr -a dex docker container exec
 # abbr -a yp youtube-dl --download-archive ./downloaded.txt
 
 abbr -a vs code
-# abbr -a vsre set VSCODE_IPC_HOOK_CLI (lsof | grep "$UID/vscode-ipc" | awk '{print $(NF-1)}' | head -n 1)
-# 重い
+abbr -a vsre set -x VSCODE_IPC_HOOK_CLI (find /tmp -regextype posix-egrep -regex '.*vscode-ipc-.*sock$' -printf "%T@ %p\n" | sort -nr | head -n 1 | awk '{print $2}')
+# vscodeのターミナルがtmux上のシェルでもcodeコマンドを使うための対応、ただし各セッション内の最初のウィンドウでしか動かない？
 
 # function -----------------------------------------
 function mkmainpy
