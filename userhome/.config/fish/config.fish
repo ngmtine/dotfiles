@@ -76,9 +76,10 @@ abbr -a dex docker container exec
 # abbr -a cdd cd /mnt/d/win/denon
 # abbr -a yp youtube-dl --download-archive ./downloaded.txt
 
-abbr -a vs code
-abbr -a vsre set -x VSCODE_IPC_HOOK_CLI (find /tmp -regextype posix-egrep -regex '.*vscode-ipc-.*sock$' -printf "%T@ %p\n" | sort -nr | head -n 1 | awk '{print $2}')
+# abbr -a vs code
+# abbr -a vsre set -x VSCODE_IPC_HOOK_CLI (find /tmp -regextype posix-egrep -regex '.*vscode-ipc-.*sock$' -printf "%T@ %p\n" | sort -nr | head -n 1 | awk '{print $2}')
 # vscodeのターミナルがtmux上のシェルでもcodeコマンドを使うための対応、ただし各セッション内の最初のウィンドウでしか動かない？
+# abbrはconfig.fishの読み込み時（つまりログイン時）にも展開する？みたいなので、対応していないシステム上（例えばvmとか）で読み込むとエラーでてやばい
 
 # function -----------------------------------------
 function mkmainpy
