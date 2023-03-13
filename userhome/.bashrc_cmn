@@ -8,7 +8,7 @@ alias t=tmux
 
 # asdf
 . $HOME/.asdf/asdf.sh
-. $HOME/.asdf/complerions/asdf.bash
+. $HOME/.asdf/completions/asdf.bash
 
 # poetry
 export PATH=$HOME/.local/bin:$PATH
