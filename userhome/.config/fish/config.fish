@@ -41,7 +41,7 @@ set -g fish_prompt_pwd_dir_length 0
 abbr -a ll ls -la
 abbr -a l1 ls -1
 abbr -a lx "ls -1 | xargs -n1 "
-abbr -a sed sed -E -e 
+abbr -a sd sed -re 
 abbr -a e explorer.exe
 abbr -a vi nvim
 abbr -a :q exit
