@@ -136,9 +136,11 @@ vim.keymap.set("n", "<c-l>", ":<c-u>nohlsearch<cr><c-l>")
 vim.keymap.set("c", "<c-a>", "<home>")
 vim.keymap.set("c", "<c-e>", "<end>")
 vim.keymap.set("i", "<space>", "<space><c-g>u")
-vim.keymap.set("n", "<c-r>", ":source $MYVIMRC<cr>:PackerSync<cr>")
+-- vim.keymap.set("n", "<c-r>", ":source $MYVIMRC<cr>:PackerSync<cr>")
 vim.keymap.set("n", "*", "*N")
 vim.keymap.set("n", "q:", ":echo '履歴は誤爆しがちなので潰す！'<cr>")
+vim.keymap.set("v", "<s-i>", "^<s-i>")
+vim.keymap.set("v", "<s-a>", "$<s-a>")
 
 -- map leader
 -- switch word with plus register
