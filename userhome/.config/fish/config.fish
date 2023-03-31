@@ -54,7 +54,8 @@ abbr -a vs code
 
 abbr -a g git
 abbr -a gad git add
-abbr -a gcm git commit -m \" # "
+abbr -a gcmm git commit -m \" # "
+abbr -a gcma git commit --amend --no-edit
 abbr -a gps git push
 abbr -a gpl git pull
 abbr -a gcl git clone
