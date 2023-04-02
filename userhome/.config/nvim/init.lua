@@ -163,3 +163,8 @@ vim.keymap.set("n", "<A-j>", ":TmuxNavigateDown<cr>", { silent = true })
 vim.keymap.set("n", "<A-k>", ":TmuxNavigateUp<cr>", { silent = true })
 vim.keymap.set("n", "<A-l>", ":TmuxNavigateRight<cr>", { silent = true })
 
+-- quickfix
+vim.cmd [[
+	autocmd QuickFixCmdPost *grep* cwindow
+]]
+
