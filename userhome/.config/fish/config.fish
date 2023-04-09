@@ -54,7 +54,8 @@ abbr -a vs code
 
 abbr -a g git
 abbr -a gad git add
-abbr -a gcm git commit -m \" # "
+abbr -a gcmm git commit -m \" # "
+abbr -a gcma git commit --amend --no-edit
 abbr -a gps git push
 abbr -a gpl git pull
 abbr -a gcl git clone
@@ -64,6 +65,8 @@ abbr -a gst git status
 abbr -a gss git status -s
 abbr -a gfe git fetch
 abbr -a gmr git merge
+abbr -a glg git log
+abbr -a gdf git diff
 
 abbr -a d docker
 abbr -a dps docker container ls
