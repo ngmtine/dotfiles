@@ -16,7 +16,6 @@ require('packer').startup(function(use)
 	use "cohama/lexima.vim"
 	use "machakann/vim-sandwich"
 	use "lambdalisue/suda.vim"
-	-- use { "ojroques/vim-oscyank", branch = "main" }
 end)
 
 -- map leader
@@ -115,10 +114,6 @@ require 'colorizer'.setup()
 -- keymap
 vim.keymap.set("n", "<tab>", "gt")
 vim.keymap.set("n", "<s-tab>", "gT")
--- vim.keymap.set("n", "<s-h>", "^")
--- vim.keymap.set("v", "<s-h>", "^")
--- vim.keymap.set("n", "<s-l>", "$")
--- vim.keymap.set("v", "<s-l>", "$")
 vim.keymap.set("n", "<s-y>", "y$")
 vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
@@ -136,11 +131,8 @@ vim.keymap.set("n", "<c-l>", ":<c-u>nohlsearch<cr><c-l>")
 vim.keymap.set("c", "<c-a>", "<home>")
 vim.keymap.set("c", "<c-e>", "<end>")
 vim.keymap.set("i", "<space>", "<space><c-g>u")
--- vim.keymap.set("n", "<c-r>", ":source $MYVIMRC<cr>:PackerSync<cr>")
 vim.keymap.set("n", "*", "*N")
 vim.keymap.set("n", "q:", ":echo '履歴は誤爆しがちなので潰す！'<cr>")
-vim.keymap.set("v", "<s-i>", "^<s-i>")
-vim.keymap.set("v", "<s-a>", "$<s-a>")
 
 -- map leader
 -- switch word with plus register
