@@ -1,11 +1,16 @@
 ---@diagnostic disable: undefined-global
-
 require('packer').startup(function(use)
 	-- packer
 	use "wbthomason/packer.nvim"
 	-- UI
 	use "cocopon/iceberg.vim"
-	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = {
+			'kyazdani42/nvim-web-devicons',
+			opt = true
+		}
+	}
 	use "edkolev/tmuxline.vim"
 	use "norcalli/nvim-colorizer.lua"
 	use "christoomey/vim-tmux-navigator"
@@ -42,7 +47,7 @@ vim.cmd [[
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	callback = function()
 		vim.opt.formatoptions = "jql"
-	end,
+	end
 })
 
 -- mkdir before writing to a nonexistent dir
@@ -78,7 +83,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 	pattern = { "*" },
 	callback = function()
 		vim.cmd('silent! normal! g`"zv')
-	end,
+	end
 })
 
 -- theme & airline
@@ -95,13 +100,13 @@ vim.g.clipboard = {
 	name = 'win32yank',
 	copy = {
 		['+'] = 'win32yank.exe -i',
-		['*'] = 'win32yank.exe -i',
+		['*'] = 'win32yank.exe -i'
 	},
 	paste = {
 		['+'] = 'win32yank.exe -o',
-		['*'] = 'win32yank.exe -o',
+		['*'] = 'win32yank.exe -o'
 	},
-	cache_enabled = 1,
+	cache_enabled = 1
 }
 
 -- nerd commenter
@@ -139,7 +144,10 @@ vim.keymap.set("n", "q:", ":echo '履歴は誤爆しがちなので潰す！'<cr
 vim.keymap.set("n", "<Leader>rep", '"_dw"+P')
 vim.keymap.set("v", "<Leader>rep", '"_d"+P')
 vim.keymap.set("n", "<Leader>a", 'ggVG')
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap=true, silent=true})
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', {
+	noremap = true,
+	silent = true
+})
 
 -- nnoremap <c-/> "comment toggle"
 -- in windows, underscore means slash
@@ -150,13 +158,20 @@ vim.keymap.set("v", "<c-_>", "<plug>NERDCommenterToggle")
 vim.g.tmux_navigator_no_mappings = 1
 vim.g.tmux_navigator_save_on_switch = 2
 
-vim.keymap.set("n", "<A-h>", ":TmuxNavigateLeft<cr>", { silent = true })
-vim.keymap.set("n", "<A-j>", ":TmuxNavigateDown<cr>", { silent = true })
-vim.keymap.set("n", "<A-k>", ":TmuxNavigateUp<cr>", { silent = true })
-vim.keymap.set("n", "<A-l>", ":TmuxNavigateRight<cr>", { silent = true })
+vim.keymap.set("n", "<A-h>", ":TmuxNavigateLeft<cr>", {
+	silent = true
+})
+vim.keymap.set("n", "<A-j>", ":TmuxNavigateDown<cr>", {
+	silent = true
+})
+vim.keymap.set("n", "<A-k>", ":TmuxNavigateUp<cr>", {
+	silent = true
+})
+vim.keymap.set("n", "<A-l>", ":TmuxNavigateRight<cr>", {
+	silent = true
+})
 
 -- quickfix
 vim.cmd [[
 	autocmd QuickFixCmdPost *grep* cwindow
 ]]
-
