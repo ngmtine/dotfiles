@@ -14,7 +14,6 @@ require('packer').startup(function(use)
 	use "edkolev/tmuxline.vim"
 	use "norcalli/nvim-colorizer.lua"
 	use "christoomey/vim-tmux-navigator"
-	-- use "ryanoasis/vim-devicons"
 
 	-- editor
 	use "preservim/nerdcommenter"
