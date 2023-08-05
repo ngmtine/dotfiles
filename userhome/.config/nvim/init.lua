@@ -203,7 +203,6 @@ require("dial.config").augends:register_group {
 	}
 }
 
-
 -- Paste from * register with removing ^M^J
 vim.api.nvim_set_keymap('n', 'p', ':lua CleanPasteStar()<CR>', {noremap = true})
 function _G.CleanPasteStar()
