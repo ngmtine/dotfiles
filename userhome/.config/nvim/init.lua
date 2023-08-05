@@ -210,17 +210,16 @@ function _G.CleanPasteStar()
     for i, line in ipairs(lines) do
         lines[i] = line:gsub('\r', '')
     end
-    vim.api.nvim_put(lines, 'l', false, true)
+    vim.api.nvim_put(lines, 'l', true, true)
 end
 
--- Paste from + register with removing ^M
-vim.api.nvim_set_keymap('n', 'P', ':lua CleanPastePlus()<CR>', {noremap = true})
-function _G.CleanPastePlus()
-    local lines = vim.fn.getreg('+', true, true)
+-- Paste from * register with removing ^M before the cursor
+vim.api.nvim_set_keymap('n', 'P', ':lua CleanPasteStarAbove()<CR>', {noremap = true})
+function _G.CleanPasteStarAbove()
+    local lines = vim.fn.getreg('*', true, true)
     for i, line in ipairs(lines) do
         lines[i] = line:gsub('\r', '')
     end
     vim.api.nvim_put(lines, 'l', false, true)
 end
-
 
