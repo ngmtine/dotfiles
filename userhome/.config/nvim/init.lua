@@ -202,3 +202,25 @@ require("dial.config").augends:register_group {
 		augend.constant.alias.bool,
 	}
 }
+
+-- Paste from * register with removing ^M
+vim.api.nvim_set_keymap('n', 'p', ':lua CleanPasteStar()<CR>', {noremap = true})
+function _G.CleanPasteStar()
+    local lines = vim.fn.getreg('*', true, true)
+    for i, line in ipairs(lines) do
+        lines[i] = line:gsub('\r', '')
+    end
+    vim.api.nvim_put(lines, 'l', false, true)
+end
+
+-- Paste from + register with removing ^M
+vim.api.nvim_set_keymap('n', 'P', ':lua CleanPastePlus()<CR>', {noremap = true})
+function _G.CleanPastePlus()
+    local lines = vim.fn.getreg('+', true, true)
+    for i, line in ipairs(lines) do
+        lines[i] = line:gsub('\r', '')
+    end
+    vim.api.nvim_put(lines, 'l', false, true)
+end
+
+
