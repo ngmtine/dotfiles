@@ -203,23 +203,26 @@ require("dial.config").augends:register_group {
 	}
 }
 
--- Paste from * register with removing ^M
+
+-- Paste from * register with removing ^M^J
 vim.api.nvim_set_keymap('n', 'p', ':lua CleanPasteStar()<CR>', {noremap = true})
 function _G.CleanPasteStar()
+    local reg_type = vim.fn.getregtype('*')
     local lines = vim.fn.getreg('*', true, true)
     for i, line in ipairs(lines) do
-        lines[i] = line:gsub('\r', '')
+        lines[i] = line:gsub('\r\n', '\n')
     end
-    vim.api.nvim_put(lines, 'l', true, true)
+    vim.api.nvim_put(lines, reg_type, true, true)
 end
 
--- Paste from * register with removing ^M before the cursor
+-- Paste from * register with removing ^M^J before the cursor
 vim.api.nvim_set_keymap('n', 'P', ':lua CleanPasteStarAbove()<CR>', {noremap = true})
 function _G.CleanPasteStarAbove()
+    local reg_type = vim.fn.getregtype('*')
     local lines = vim.fn.getreg('*', true, true)
     for i, line in ipairs(lines) do
-        lines[i] = line:gsub('\r', '')
+        lines[i] = line:gsub('\r\n', '\n')
     end
-    vim.api.nvim_put(lines, 'l', false, true)
+    vim.api.nvim_put(lines, reg_type, false, true)
 end
 
