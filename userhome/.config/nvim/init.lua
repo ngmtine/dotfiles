@@ -207,10 +207,12 @@ require("dial.config").augends:register_group {
 vim.api.nvim_set_keymap('n', 'p', ':lua CleanPasteStar()<CR>', {noremap = true})
 function _G.CleanPasteStar()
     local reg_type = vim.fn.getregtype('*')
-    local lines = vim.fn.getreg('*', true, true)
-    for i, line in ipairs(lines) do
-        lines[i] = line:gsub('\r\n', '\n')
+    local raw_content = vim.fn.getreg('*')
+    raw_content = raw_content:gsub('\r\n', '\n')
+    if reg_type:sub(1,1) == 'V' or reg_type:sub(1,1) == '\n' then
+        raw_content = raw_content:gsub('\n$', '')
     end
+    local lines = vim.split(raw_content, '\n', true)
     vim.api.nvim_put(lines, reg_type, true, true)
 end
 
@@ -218,10 +220,13 @@ end
 vim.api.nvim_set_keymap('n', 'P', ':lua CleanPasteStarAbove()<CR>', {noremap = true})
 function _G.CleanPasteStarAbove()
     local reg_type = vim.fn.getregtype('*')
-    local lines = vim.fn.getreg('*', true, true)
-    for i, line in ipairs(lines) do
-        lines[i] = line:gsub('\r\n', '\n')
+    local raw_content = vim.fn.getreg('*')
+    raw_content = raw_content:gsub('\r\n', '\n')
+    if reg_type:sub(1,1) == 'V' or reg_type:sub(1,1) == '\n' then
+        raw_content = raw_content:gsub('\n$', '')
     end
+    local lines = vim.split(raw_content, '\n', true)
     vim.api.nvim_put(lines, reg_type, false, true)
 end
+
 
