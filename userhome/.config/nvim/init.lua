@@ -1,4 +1,14 @@
 ---@diagnostic disable: undefined-global
+
+-- 別ファイル読み込み
+-- 場所は ~/.config/nvim/lua
+-- ファイル名の指定に拡張子は書かない事
+-- https://github.com/willelz/nvim-lua-guide-ja/blob/master/README.ja.md
+local ok, _ = pcall(require, 'init_local')
+if not ok then
+-- not loaded
+end
+
 require('packer').startup(function(use)
 	-- packer
 	use "wbthomason/packer.nvim"
