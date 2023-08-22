@@ -32,6 +32,7 @@ require('packer').startup(function(use)
 	use "machakann/vim-sandwich"
 	use "lambdalisue/suda.vim"
 	use "monaqa/dial.nvim"
+	use "rhysd/clever-f.vim"
 end)
 
 -- map leader
@@ -243,4 +244,6 @@ function _G.CleanPasteStarAbove()
     vim.api.nvim_put(lines, reg_type, false, true)
 end
 
-
+-- clever-f.vim
+-- vim.keymap.set("n", "n", "<Plug>(clever-f-repeat-forward)")
+-- vim.keymap.set("n", "N", "<Plug>(clever-f-repeat-back)")
