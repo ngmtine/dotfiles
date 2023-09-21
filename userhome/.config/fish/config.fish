@@ -69,15 +69,10 @@ abbr -a glg git log
 abbr -a gdf git diff
 
 abbr -a d docker
-abbr -a dps docker container ls
-abbr -a dls docker container ls
-abbr -a dcp docker container cp
-abbr -a dex docker container exec
-# abbr -a dc docker container
-# abbr -a di docker image
-
-# abbr -a cdd cd /mnt/d/win/denon
-# abbr -a yp youtube-dl --download-archive ./downloaded.txt
+abbr -a di docker image
+abbr -a dc docker container
+abbr -a dn docker network
+abbr -a --set-cursor=% deb docker exec -it % /bin/bash↲
 
 # abbr -a vs code
 # abbr -a vsre set -x VSCODE_IPC_HOOK_CLI (find /tmp -regextype posix-egrep -regex '.*vscode-ipc-.*sock$' -printf "%T@ %p\n" | sort -nr | head -n 1 | awk '{print $2}')
