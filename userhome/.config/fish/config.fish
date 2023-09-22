@@ -72,7 +72,7 @@ abbr -a d docker
 abbr -a di docker image
 abbr -a dc docker container
 abbr -a dn docker network
-abbr -a --set-cursor=% deb docker exec -it % /bin/bash↲
+abbr -a --set-cursor=% deb docker exec -it % /bin/bash
 
 # abbr -a vs code
 # abbr -a vsre set -x VSCODE_IPC_HOOK_CLI (find /tmp -regextype posix-egrep -regex '.*vscode-ipc-.*sock$' -printf "%T@ %p\n" | sort -nr | head -n 1 | awk '{print $2}')
