@@ -74,7 +74,7 @@ abbr -a dil docker image ls
 abbr -a dc docker container
 abbr -a dcl docker container ls -a
 abbr -a dn docker network
-abbr -a ds docker system df
+abbr -a ds docker system
 abbr -a --set-cursor=% deb docker exec -it % /bin/bash
 abbr -a co docker compose
 
