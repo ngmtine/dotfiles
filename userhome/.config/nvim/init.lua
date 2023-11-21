@@ -91,9 +91,6 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.incsearch = true
 
--- replace
-vim.opt.gdefault = true
-
 -- restore cursor location
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 	pattern = { "*" },
