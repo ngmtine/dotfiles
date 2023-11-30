@@ -249,3 +249,13 @@ function yntest
 	# ここに処理を書く
 	end
 end
+
+function tarz
+	echo tar czfv $argv[1].tar.gz $argv[1] \# create zip file verbose
+	tar czfv $argv[1].tar.gz $argv[1]
+end
+
+function tarx
+	echo tar xzfv $argv[1].tar.gz $argv[1] \# extract zip file verbose
+	tar xzfv $argv[1]
+end
