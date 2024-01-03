@@ -111,10 +111,6 @@ vim.o.clipboard = "unnamedplus"
 -- n行手前でスクロール開始する
 vim.api.nvim_set_option("scrolloff", 20)
 
--- theme & airline
-pcall(vim.api.nvim_command, "colorscheme iceberg")
-require("lualine").setup()
-
 -- 小文字で検索したときは大小区別せず、大文字を含む場合は区別する
 vim.api.nvim_set_option("ignorecase", true)
 vim.api.nvim_set_option("smartcase", true)
@@ -249,6 +245,10 @@ require("dial.config").augends:register_group({
 
 -- cuiでのみ適用する設定
 if not is_vscode then
+    -- theme & airline
+    pcall(vim.api.nvim_command, "colorscheme iceberg")
+    require("lualine").setup()
+
     -- vim-tmux-navigator
     vim.g.tmux_navigator_no_mappings = 1
     vim.g.tmux_navigator_save_on_switch = 2
