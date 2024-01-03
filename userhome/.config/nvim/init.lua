@@ -30,12 +30,12 @@ local vscode_plugins = {
 
 -- cuiでのみ使うプラグイン
 local neovim_plugins = {
-    { "cocopon/iceberg.vim" },                                                                            -- カラースキーム
-    { "nvim-lualine/lualine.nvim",     dependencies = { "kyazdani42/nvim-web-devicons", opt = true, }, }, -- ステータスライン
-    { "edkolev/tmuxline.vim" },                                                                           -- ステータスライン(tmux)
-    { 'neoclide/coc.nvim',             branch = 'release' },                                              -- LSP
-    { "lambdalisue/suda.vim" },                                                                           -- sudo保存
-    { "christoomey/vim-tmux-navigator" },                                                                 -- nvimとtmuxのペイン移動
+    { "cocopon/iceberg.vim" },                                                             -- カラースキーム
+    { "nvim-lualine/lualine.nvim",     dependencies = { "kyazdani42/nvim-web-devicons" } }, -- ステータスライン
+    { "edkolev/tmuxline.vim" },                                                            -- ステータスライン(tmux)
+    { 'neoclide/coc.nvim',             branch = 'release' },                               -- LSP
+    { "lambdalisue/suda.vim" },                                                            -- sudo保存
+    { "christoomey/vim-tmux-navigator" },                                                  -- nvimとtmuxのペイン移動
 }
 
 function merge_tables(t1, t2)
