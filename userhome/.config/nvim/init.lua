@@ -1,3 +1,12 @@
+-- 別ファイル読み込み
+-- 場所は ~/.config/nvim/lua
+-- ファイル名の指定に拡張子は書かない事
+-- https://github.com/willelz/nvim-lua-guide-ja/blob/master/README.ja.md
+local ok, _ = pcall(require, 'init_local')
+if not ok then
+    -- not loaded
+end
+
 -- vscode-neovimとして起動されているかの真偽値
 local is_vscode = vim.g.vscode == 1
 
@@ -30,12 +39,12 @@ local vscode_plugins = {
 
 -- cuiでのみ使うプラグイン
 local neovim_plugins = {
-    { "cocopon/iceberg.vim" },                                                             -- カラースキーム
+    { "cocopon/iceberg.vim" },                                                              -- カラースキーム
     { "nvim-lualine/lualine.nvim",     dependencies = { "kyazdani42/nvim-web-devicons" } }, -- ステータスライン
-    { "edkolev/tmuxline.vim" },                                                            -- ステータスライン(tmux)
-    { 'neoclide/coc.nvim',             branch = 'release' },                               -- LSP
-    { "lambdalisue/suda.vim" },                                                            -- sudo保存
-    { "christoomey/vim-tmux-navigator" },                                                  -- nvimとtmuxのペイン移動
+    { "edkolev/tmuxline.vim" },                                                             -- ステータスライン(tmux)
+    { 'neoclide/coc.nvim',             branch = 'release' },                                -- LSP
+    { "lambdalisue/suda.vim" },                                                             -- sudo保存
+    { "christoomey/vim-tmux-navigator" },                                                   -- nvimとtmuxのペイン移動
 }
 
 function merge_tables(t1, t2)
