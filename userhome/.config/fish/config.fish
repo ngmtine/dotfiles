@@ -11,10 +11,13 @@ if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
 
+# asdf
+source ~/.asdf/asdf.fish
+
 # direnv
 eval (direnv hook fish)
 
-set TERM xterm-256color
+# set TERM xterm-256color
 
 # truecolor有効化
 # https://fishshell.com/docs/current/cmds/set_color.html
