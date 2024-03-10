@@ -15,7 +15,7 @@ end
 source ~/.asdf/asdf.fish
 
 # direnv
-eval (direnv hook fish)
+# eval (direnv hook fish)
 
 # set TERM xterm-256color
 
@@ -39,6 +39,8 @@ set -g theme_display_cmd_duration yes
 set -g theme_show_exit_status yes
 # ディレクトリ名を省略しない
 set -g fish_prompt_pwd_dir_length 0
+# リポジトリの場合はブランチ表示
+set -g theme_git_worktree_support yes
 
 # alias ----------------------------------------
 abbr -a ll ls -la
@@ -262,3 +264,4 @@ function tarx
 	echo tar xzfv $argv[1].tar.gz $argv[1] \# extract zip file verbose
 	tar xzfv $argv[1]
 end
+
