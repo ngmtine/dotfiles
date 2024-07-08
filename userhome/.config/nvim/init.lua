@@ -17,4 +17,12 @@ else
     require("plugins.iceberg")
     require("plugins.vim-tmux-navigator")
     require("plugins.lualine")
+    require("plugins.mason-lspconfig")
 end
+
+-- edkolev/tmuxlineについて
+-- tmuxlineはvim/vim-airline/lightline.vimのカラースキームを流用する（？）
+-- ところで現在のdotfiles以下の.tmuxline.confは、vim-airlineから生成（:TmuxlineSnapshot）したもの
+-- その後vim-airlineは重くてlualineに変更したが、これはtmuxlineが対応していない
+-- 過去に生成した.tmuxline.confを引き続き使用するとして、プラグインとしてのtmuxlineは一旦削除の方向で
+

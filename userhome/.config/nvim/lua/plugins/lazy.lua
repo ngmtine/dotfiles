@@ -30,9 +30,13 @@ local common_plugins = {
 local cui_plugins = {
     { "cocopon/iceberg.vim" },                                                              -- カラースキーム
     { "nvim-lualine/lualine.nvim",     dependencies = { "kyazdani42/nvim-web-devicons" } }, -- ステータスライン
-    { "edkolev/tmuxline.vim" },                                                             -- ステータスライン(tmux)
     { "lambdalisue/suda.vim" },                                                             -- sudo保存
     { "christoomey/vim-tmux-navigator" },                                                   -- nvimとtmuxのペイン移動
+    {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    }
 }
 
 function merge_tables(t1, t2)
