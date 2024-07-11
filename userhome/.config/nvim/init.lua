@@ -17,7 +17,8 @@ else
     require("plugins.iceberg")
     require("plugins.vim-tmux-navigator")
     require("plugins.lualine")
-    require("plugins.mason-lspconfig")
+    require("plugins.mason")
+    require("plugins.lspconfig")
 end
 
 -- edkolev/tmuxlineについて
