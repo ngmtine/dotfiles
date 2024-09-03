@@ -2,7 +2,9 @@ local is_vscode = vim.g.vscode == 1
 
 require("common")
 require("keymap")
-require("plugins.lazy")
+require("plugins/lazy")
+require("plugins/theme")
+require("plugins/lspconfig")
 
 -- 共通
 require("plugins.nerdcommenter")
@@ -10,16 +12,16 @@ require("plugins.dial")
 require("plugins.colorizer")
 
 -- vscode
-if is_vscode then
+-- if is_vscode then
 
 -- cui
-else
-    require("plugins.iceberg")
-    require("plugins.vim-tmux-navigator")
-    require("plugins.lualine")
-    require("plugins.mason")
-    require("plugins.lspconfig")
-end
+-- else
+    -- require("plugins.iceberg")
+require("plugins.vim-tmux-navigator")
+    -- require("plugins.lualine")
+    -- require("plugins.mason")
+    -- require("plugins.lspconfig")
+-- end
 
 -- edkolev/tmuxlineについて
 -- tmuxlineはvim/vim-airline/lightline.vimのカラースキームを流用する（？）

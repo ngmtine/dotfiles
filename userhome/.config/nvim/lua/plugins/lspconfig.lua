@@ -1,45 +1,61 @@
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
--- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
--- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+local lspconfig = require('lspconfig')
+local mason = require('mason')
+local mason_lspconfig = require('mason-lspconfig')
 
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+mason.setup()
 
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    -- local opts = { buffer = ev.buf }
+mason_lspconfig.setup({
+    ensure_installed = { "tsserver", "biome" }
+})
 
-    -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    -- vim.keymap.set('n', '<space>wl', function()
-      -- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- end, opts)
-    -- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    -- vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
-    -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
+mason_lspconfig.setup_handlers {
+    function(server_name)
+        require('lspconfig')[server_name].setup {
+            on_attach = function(client, bufnr)
+                if server_name == "tsserver" then
+                    client.server_capabilities.documentFormattingProvider = false
+                end
 
-    vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
-      group = vim.api.nvim_create_augroup("code_action_sign", { clear = true }),
-      callback = function()
-        require('util.code-action').code_action_listener()
-      end,
-    })
-  end,
+                if server_name == "biome" then
+                    client.server_capabilities.documentFormattingProvider = true
+                end
+
+                if server_name == "lua-language-server" then
+                    client.server_capabilities.documentFormattingProvider = true
+                end
+            end,
+        }
+    end,
+}
+
+-- js, tsファイルの保存時アクション
+local jsgroup = vim.api.nvim_create_augroup("JsFormatOnSave", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = jsgroup,
+    pattern = { "*.js", "*.jsx", "*.ts", "*.tsx", "*.mjs", "*.cjs" },
+    callback = function()
+        -- フォーマット実行
+        vim.lsp.buf.format({ async = true })
+
+        -- インポート順整理実行
+        vim.lsp.buf.code_action({
+            context = { only = { "source.organizeImports" } },
+            apply = true,
+            -- code_actionが複数あるので、実行するcode_actionを名前で特定 NOTE: 複数のcode_actionがある場合、どのcode_actionを実行するのか毎回プロンプトで訊かれるのが手間
+            filter = function(action)
+                return action.title == "Organize Imports (Biome)"
+            end,
+        })
+    end,
+})
+
+-- Luaファイルの保存時アクション
+local luagroup = vim.api.nvim_create_augroup("LuaFormatOnSave", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = luagroup,
+    pattern = "*.lua",
+    callback = function()
+        -- フォーマット実行
+        vim.lsp.buf.format({ async = false })
+    end,
 })
