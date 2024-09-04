@@ -1,8 +1,3 @@
--- local cui_plugins = {
---     { "nvim-lualine/lualine.nvim",     dependencies = { "kyazdani42/nvim-web-devicons" } }, -- ステータスライン
---     { "lambdalisue/suda.vim" },                                                             -- sudo保存
--- }
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -21,18 +16,20 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    { "cocopon/iceberg.vim" },
-    {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "neovim/nvim-lspconfig"
-    },
+    -- { "williamboman/mason.nvim" },
+    -- { "williamboman/mason-lspconfig.nvim" },
+    { "neovim/nvim-lspconfig" },
+    { "cocopon/iceberg.vim" },            -- カラースキーム
     { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
     { "monaqa/dial.nvim" },               -- c-a, c-x の強化
     { "norcalli/nvim-colorizer.lua" },    -- カラーコードに背景色つける
     { "preservim/nerdcommenter" },        -- コメントアウト
     { "machakann/vim-sandwich" },         -- vim-surrond的なやつ
-
+    -- { "lambdalisue/suda.vim" },           -- sudo保存
+    {
+        "nvim-lualine/lualine.nvim", -- ステータスライン
+        dependencies = { "kyazdani42/nvim-web-devicons" }
+    },
 }
 
 require("lazy").setup(plugins)

@@ -1,9 +1,10 @@
 local is_vscode = vim.g.vscode == 1
+vim.lsp.set_log_level("warn")
 
 require("common")
 require("keymap")
 require("plugins/lazy")
-require("plugins/theme")
+require("plugins/theme") -- iceberg
 require("plugins/lspconfig")
 
 -- 共通
@@ -16,11 +17,8 @@ require("plugins.colorizer")
 
 -- cui
 -- else
-    -- require("plugins.iceberg")
 require("plugins.vim-tmux-navigator")
-    -- require("plugins.lualine")
-    -- require("plugins.mason")
-    -- require("plugins.lspconfig")
+require("plugins.lualine")
 -- end
 
 -- edkolev/tmuxlineについて
@@ -28,4 +26,3 @@ require("plugins.vim-tmux-navigator")
 -- ところで現在のdotfiles以下の.tmuxline.confは、vim-airlineから生成（:TmuxlineSnapshot）したもの
 -- その後vim-airlineは重くてlualineに変更したが、これはtmuxlineが対応していない
 -- 過去に生成した.tmuxline.confを引き続き使用するとして、プラグインとしてのtmuxlineは一旦削除の方向で
-
