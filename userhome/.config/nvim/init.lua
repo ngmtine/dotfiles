@@ -8,6 +8,7 @@ require("plugins/theme") -- iceberg
 require("plugins/lspconfig")
 require("plugins/suda")
 require("plugins/hlchunk")
+require("plugins/treesitter")
 
 -- 共通
 require("plugins.nerdcommenter")

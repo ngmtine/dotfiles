@@ -1,6 +1,7 @@
 require("hlchunk").setup({
     chunk = {
         enable = true,
+        use_treesitter = true,
         chars = {
             horizontal_line = "═",
             vertical_line = "║",
@@ -10,14 +11,16 @@ require("hlchunk").setup({
         },
         duration = 100,
         delay = 100,
-        textobject = "ac"
+        textobject = "ac",
     },
     indent = {
         enable = true,
-        duration = 100,
-        delay = 100,
+        use_treesitter = true,
+        duration = 80,
+        delay = 80,
     },
     line_num = {
         enable = true,
+        use_treesitter = true,
     },
 })

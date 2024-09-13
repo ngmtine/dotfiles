@@ -19,25 +19,23 @@ local plugins = {
     -- { "williamboman/mason.nvim" },
     -- { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },
-    { 'hrsh7th/nvim-cmp' },               -- 補完
+    { 'hrsh7th/nvim-cmp' },                -- 補完
     { "hrsh7th/cmp-nvim-lsp" },
-    { "cocopon/iceberg.vim" },            -- カラースキーム
-    { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
-    { "monaqa/dial.nvim" },               -- c-a, c-x の強化
-    { "norcalli/nvim-colorizer.lua" },    -- カラーコードに背景色つける
-    { "preservim/nerdcommenter" },        -- コメントアウト
-    { "machakann/vim-sandwich" },         -- vim-surrond的なやつ
-    { "lambdalisue/suda.vim" },           -- sudo
+    { 'nvim-treesitter/nvim-treesitter' }, -- treesitter（hlchunkに必要）
+    { "cocopon/iceberg.vim" },             -- カラースキーム
+    { "christoomey/vim-tmux-navigator" },  -- nvimとtmuxのペイン移動
+    { "monaqa/dial.nvim" },                -- c-a, c-x の強化
+    { "norcalli/nvim-colorizer.lua" },     -- カラーコードに背景色つける
+    { "preservim/nerdcommenter" },         -- コメントアウト
+    { "machakann/vim-sandwich" },          -- vim-surrond的なやつ
+    { "lambdalisue/suda.vim" },            -- sudo
     {
-        "nvim-lualine/lualine.nvim",      -- ステータスライン
+        "nvim-lualine/lualine.nvim",       -- ステータスライン
         dependencies = { "kyazdani42/nvim-web-devicons" }
     },
     {
         "shellRaining/hlchunk.nvim",
         event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            require("hlchunk").setup({})
-        end
     },
 }
 
