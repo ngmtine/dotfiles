@@ -2,10 +2,9 @@ local lspconfig = require('lspconfig')
 local capabilities = require("plugins/nvim-cmp")
 
 -- npm install -g typescript typescript-language-server
-lspconfig["tsserver"].setup {
+lspconfig["ts_ls"].setup {
     on_attach = function(client, bufnr)
-        -- tsserverのフォーマッタ無効化（biomeを使用するため）
-        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentFormattingProvider = true
 
         -- format on save
         vim.api.nvim_create_autocmd("BufWritePre", {
@@ -30,7 +29,7 @@ lspconfig["biome"].setup {
             buffer = bufnr,
             callback = function()
                 vim.lsp.buf.code_action({
-                    context = { only = { "source.organizeImports" } },
+                    context = { only = { "source.organizeImports" }, diagnostics = {} },
                     apply = true,
                     filter = function(action)
                         return action.title == "Organize Imports (Biome)"
