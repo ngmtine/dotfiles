@@ -19,6 +19,8 @@ local plugins = {
     -- { "williamboman/mason.nvim" },
     -- { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },
+    { 'hrsh7th/nvim-cmp' },               -- 補完
+    { "hrsh7th/cmp-nvim-lsp" },
     { "cocopon/iceberg.vim" },            -- カラースキーム
     { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
     { "monaqa/dial.nvim" },               -- c-a, c-x の強化

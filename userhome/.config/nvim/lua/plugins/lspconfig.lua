@@ -1,4 +1,5 @@
 local lspconfig = require('lspconfig')
+local capabilities = require("plugins/nvim-cmp")
 
 -- npm install -g typescript typescript-language-server
 lspconfig["tsserver"].setup {
@@ -15,6 +16,9 @@ lspconfig["tsserver"].setup {
             end,
         })
     end,
+
+    -- 補完
+    capabilities = capabilities,
 }
 
 -- npm install -g --save-dev --save-exact @biomejs/biome
@@ -64,4 +68,7 @@ lspconfig["lua_ls"].setup {
             },
         },
     },
+
+    -- 補完
+    capabilities = capabilities,
 }
