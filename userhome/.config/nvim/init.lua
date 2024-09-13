@@ -6,6 +6,7 @@ require("keymap")
 require("plugins/lazy")
 require("plugins/theme") -- iceberg
 require("plugins/lspconfig")
+require("plugins/suda")
 
 -- 共通
 require("plugins.nerdcommenter")

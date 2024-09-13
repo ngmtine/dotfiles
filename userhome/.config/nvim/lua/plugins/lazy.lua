@@ -27,9 +27,9 @@ local plugins = {
     { "norcalli/nvim-colorizer.lua" },    -- カラーコードに背景色つける
     { "preservim/nerdcommenter" },        -- コメントアウト
     { "machakann/vim-sandwich" },         -- vim-surrond的なやつ
-    -- { "lambdalisue/suda.vim" },           -- sudo保存
+    { "lambdalisue/suda.vim" },           -- sudo
     {
-        "nvim-lualine/lualine.nvim", -- ステータスライン
+        "nvim-lualine/lualine.nvim",      -- ステータスライン
         dependencies = { "kyazdani42/nvim-web-devicons" }
     },
 }
