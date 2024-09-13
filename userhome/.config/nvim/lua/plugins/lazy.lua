@@ -32,6 +32,13 @@ local plugins = {
         "nvim-lualine/lualine.nvim",      -- ステータスライン
         dependencies = { "kyazdani42/nvim-web-devicons" }
     },
+    {
+        "shellRaining/hlchunk.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            require("hlchunk").setup({})
+        end
+    },
 }
 
 require("lazy").setup(plugins)
