@@ -20,8 +20,8 @@ local plugins = {
     -- { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },
     { 'hrsh7th/nvim-cmp' },                -- 補完
-    { "hrsh7th/cmp-nvim-lsp" },
-    { 'nvim-treesitter/nvim-treesitter' }, -- treesitter（hlchunkに必要）
+    { "hrsh7th/cmp-nvim-lsp" },            -- 補完のlspソース
+    { 'nvim-treesitter/nvim-treesitter' }, -- treesitter（hlchunk, lspsagaの依存）
     { "cocopon/iceberg.vim" },             -- カラースキーム
     { "christoomey/vim-tmux-navigator" },  -- nvimとtmuxのペイン移動
     { "monaqa/dial.nvim" },                -- c-a, c-x の強化
@@ -29,12 +29,14 @@ local plugins = {
     { "preservim/nerdcommenter" },         -- コメントアウト
     { "machakann/vim-sandwich" },          -- vim-surrond的なやつ
     { "lambdalisue/suda.vim" },            -- sudo
+    { "kyazdani42/nvim-web-devicons" },    -- アイコン（lualine, lspsagaの依存）
+    { "nvim-lualine/lualine.nvim", },      -- ステータスライン
     {
-        "nvim-lualine/lualine.nvim",       -- ステータスライン
-        dependencies = { "kyazdani42/nvim-web-devicons" }
+        'nvimdev/lspsaga.nvim',
+        event = { "LspAttach" }
     },
     {
-        "shellRaining/hlchunk.nvim",
+        "shellRaining/hlchunk.nvim", -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
 }
