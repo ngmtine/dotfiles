@@ -1,22 +1,21 @@
--- style --------------------------------------------------↲
+-- style --------------------------------------------------
 vim.opt.number = true
-vim.opt.showtabline = 2 -- タブ常に表示↲
+vim.opt.showtabline = 2 -- タブ常に表示
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
-vim.api.nvim_set_option("scrolloff", 20) -- 画面下部、n行手前でスクロール開始する↲
 
- -- 特殊文字↲
+-- 特殊文字
 vim.opt.list = true
 vim.opt.listchars = { tab = "▸-", trail = "_", eol = "↲" }
 
--- edit --------------------------------------------------↲
+-- edit --------------------------------------------------
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus" -- クリップボード共有 .bashrcとかでwin32yank.exeへのパス通しておく必要あり
 vim.opt.encoding = 'utf-8'
 vim.scriptencoding = 'utf-8'
 vim.opt.swapfile = false
 
--- インデント↲
+-- インデント
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -63,6 +62,3 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 vim.cmd [[
     autocmd BufEnter *.fish set filetype=sh
 ]]
-
-
-
