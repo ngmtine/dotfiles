@@ -18,7 +18,16 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     -- { "williamboman/mason.nvim" },
     -- { "williamboman/mason-lspconfig.nvim" },
-    { "github/copilot.vim" },              -- copilot
+    { "github/copilot.vim" },             -- copilot
+    {
+        "CopilotC-Nvim/CopilotChat.nvim", -- copilotchat
+        branch = "canary",
+        build = "make tiktoken",          -- Only on MacOS or Linux
+        opts = {
+            debug = true,                 -- Enable debugging
+        },
+    },
+    { "nvim-lua/plenary.nvim" },           -- copilotchatの依存
     { "neovim/nvim-lspconfig" },           -- lsp
     { 'hrsh7th/nvim-cmp' },                -- 補完
     { "hrsh7th/cmp-nvim-lsp" },            -- 補完のlspソース
