@@ -34,6 +34,8 @@ local plugins = {
         'nvimdev/lspsaga.nvim',            -- lspのUI
         event = { "LspAttach" }
     },
+    { "mfussenegger/nvim-dap" },          -- dap
+    { "jay-babu/mason-nvim-dap.nvim" },
     { "cocopon/iceberg.vim" },            -- カラースキーム
     { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
     { "monaqa/dial.nvim" },               -- c-a, c-x の強化
@@ -42,7 +44,7 @@ local plugins = {
     { "machakann/vim-sandwich" },         -- vim-surrond的なやつ
     { "lambdalisue/suda.vim" },           -- sudo
     { "kyazdani42/nvim-web-devicons" },   -- アイコン（lualine, lspsagaの依存）
-    { "nvim-lualine/lualine.nvim", },     -- ステータスライン
+    { "nvim-lualine/lualine.nvim" },      -- ステータスライン
     {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },

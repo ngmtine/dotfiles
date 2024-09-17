@@ -7,23 +7,20 @@ require("plugins/lazy")
 require("plugins/theme") -- iceberg
 require("plugins/mason")
 require("plugins/lspconfig")
+require("plugins/lspsaga")
+require("plugins/dap")
+require("plugins/dap-jsts")
 require("plugins/suda")
 require("plugins/hlchunk")
 require("plugins/treesitter")
-require("plugins/lspsaga")
-
--- 共通
 require("plugins.nerdcommenter")
 require("plugins.dial")
 require("plugins.colorizer")
-
--- vscode
--- if is_vscode then
-
--- cui
--- else
 require("plugins.vim-tmux-navigator")
 require("plugins.lualine")
+
+-- if is_vscode then
+--     else
 -- end
 
 -- edkolev/tmuxlineについて
