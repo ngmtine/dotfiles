@@ -18,7 +18,8 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     -- { "williamboman/mason.nvim" },
     -- { "williamboman/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" },
+    { "github/copilot.vim" },              -- copilot
+    { "neovim/nvim-lspconfig" },           -- lsp
     { 'hrsh7th/nvim-cmp' },                -- 補完
     { "hrsh7th/cmp-nvim-lsp" },            -- 補完のlspソース
     { 'nvim-treesitter/nvim-treesitter' }, -- treesitter（hlchunk, lspsagaの依存）
