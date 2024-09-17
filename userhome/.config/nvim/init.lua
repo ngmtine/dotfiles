@@ -5,6 +5,7 @@ require("common")
 require("keymap")
 require("plugins/lazy")
 require("plugins/theme") -- iceberg
+require("plugins/mason")
 require("plugins/lspconfig")
 require("plugins/suda")
 require("plugins/hlchunk")

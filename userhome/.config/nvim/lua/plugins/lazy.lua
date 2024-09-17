@@ -16,37 +16,35 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    -- { "williamboman/mason.nvim" },
-    -- { "williamboman/mason-lspconfig.nvim" },
     { "github/copilot.vim" },             -- copilot
     {
         "CopilotC-Nvim/CopilotChat.nvim", -- copilotchat
         branch = "canary",
-        build = "make tiktoken",          -- Only on MacOS or Linux
-        opts = {
-            debug = true,                 -- Enable debugging
-        },
+        build = "make tiktoken",
+        opts = { debug = true, },
     },
     { "nvim-lua/plenary.nvim" },           -- copilotchatの依存
+    { "williamboman/mason.nvim" },         -- mason
+    { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },           -- lsp
     { 'hrsh7th/nvim-cmp' },                -- 補完
     { "hrsh7th/cmp-nvim-lsp" },            -- 補完のlspソース
     { 'nvim-treesitter/nvim-treesitter' }, -- treesitter（hlchunk, lspsagaの依存）
-    { "cocopon/iceberg.vim" },             -- カラースキーム
-    { "christoomey/vim-tmux-navigator" },  -- nvimとtmuxのペイン移動
-    { "monaqa/dial.nvim" },                -- c-a, c-x の強化
-    { "norcalli/nvim-colorizer.lua" },     -- カラーコードに背景色つける
-    { "preservim/nerdcommenter" },         -- コメントアウト
-    { "machakann/vim-sandwich" },          -- vim-surrond的なやつ
-    { "lambdalisue/suda.vim" },            -- sudo
-    { "kyazdani42/nvim-web-devicons" },    -- アイコン（lualine, lspsagaの依存）
-    { "nvim-lualine/lualine.nvim", },      -- ステータスライン
     {
-        'nvimdev/lspsaga.nvim',
+        'nvimdev/lspsaga.nvim',            -- lspのUI
         event = { "LspAttach" }
     },
+    { "cocopon/iceberg.vim" },            -- カラースキーム
+    { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
+    { "monaqa/dial.nvim" },               -- c-a, c-x の強化
+    { "norcalli/nvim-colorizer.lua" },    -- カラーコードに背景色つける
+    { "preservim/nerdcommenter" },        -- コメントアウト
+    { "machakann/vim-sandwich" },         -- vim-surrond的なやつ
+    { "lambdalisue/suda.vim" },           -- sudo
+    { "kyazdani42/nvim-web-devicons" },   -- アイコン（lualine, lspsagaの依存）
+    { "nvim-lualine/lualine.nvim", },     -- ステータスライン
     {
-        "shellRaining/hlchunk.nvim", -- インデントとかの可視化
+        "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
 }

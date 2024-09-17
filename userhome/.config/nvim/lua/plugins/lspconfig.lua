@@ -7,7 +7,6 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = false, underlin
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = false, underline = false })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = false, underline = false })
 
--- npm install -g typescript typescript-language-server
 lspconfig["ts_ls"].setup {
     on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = true
@@ -26,7 +25,6 @@ lspconfig["ts_ls"].setup {
     capabilities = capabilities,
 }
 
--- npm install -g --save-dev --save-exact @biomejs/biome
 lspconfig["biome"].setup {
     on_attach = function(client, bufnr)
         -- import順整理
@@ -46,11 +44,6 @@ lspconfig["biome"].setup {
     end,
 }
 
-
--- cd ~/.local/bin && mkdir ./lua_ls && cd lua_ls/
--- wget https://github.com/LuaLS/lua-language-server/releases/download/3.10.5/lua-language-server-3.10.5-linux-x64.tar.gz
--- tar xzfv lua-language-server-3.10.5-linux-x64.tar.gz
--- cd ~/.local/bin/ && ln -s ./lua_ls/bin/lua-language-server ./
 lspconfig["lua_ls"].setup {
     cmd = { "lua-language-server" },
     on_attach = function(client, bufnr)
