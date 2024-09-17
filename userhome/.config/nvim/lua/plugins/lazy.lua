@@ -1,3 +1,14 @@
+function merge_tables(t1, t2)
+    local merged = {}
+    for _, v in ipairs(t1) do
+        table.insert(merged, v)
+    end
+    for _, v in ipairs(t2) do
+        table.insert(merged, v)
+    end
+    return merged
+end
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -15,7 +26,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = {
+local common_plugins = {
+    { "cocopon/iceberg.vim" },         -- カラースキーム
+    { "monaqa/dial.nvim" },            -- c-a, c-x の強化
+    { "norcalli/nvim-colorizer.lua" }, -- カラーコードに背景色つける
+    { "preservim/nerdcommenter" },     -- コメントアウト
+    { "machakann/vim-sandwich" },      -- vim-surrond的なやつ
+}
+
+local cui_plugins = {
     { "github/copilot.vim" },             -- copilot
     {
         "CopilotC-Nvim/CopilotChat.nvim", -- copilotchat
@@ -36,19 +55,22 @@ local plugins = {
     },
     { "mfussenegger/nvim-dap" },          -- dap
     { "jay-babu/mason-nvim-dap.nvim" },
-    { "cocopon/iceberg.vim" },            -- カラースキーム
-    { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
-    { "monaqa/dial.nvim" },               -- c-a, c-x の強化
-    { "norcalli/nvim-colorizer.lua" },    -- カラーコードに背景色つける
-    { "preservim/nerdcommenter" },        -- コメントアウト
-    { "machakann/vim-sandwich" },         -- vim-surrond的なやつ
-    { "lambdalisue/suda.vim" },           -- sudo
     { "kyazdani42/nvim-web-devicons" },   -- アイコン（lualine, lspsagaの依存）
     { "nvim-lualine/lualine.nvim" },      -- ステータスライン
+    { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
+    { "lambdalisue/suda.vim" },           -- sudo
     {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
 }
 
-require("lazy").setup(plugins)
+-- プラグイン読み込み
+local is_vscode = vim.g.vscode == 1
+if is_vscode then
+    require("lazy").setup(common_plugins)
+else
+    require("lazy").setup(
+        merge_tables(common_plugins, cui_plugins)
+    )
+end

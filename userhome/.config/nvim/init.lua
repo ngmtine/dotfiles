@@ -5,24 +5,24 @@ require("common")
 require("keymap")
 require("plugins/lazy")
 require("plugins/theme") -- iceberg
-require("plugins/mason")
-require("plugins/lspconfig")
-require("plugins/lspsaga")
-require("plugins/dap")
-require("plugins/dap-jsts")
-require("plugins/copilot")
-require("plugins/suda")
-require("plugins/hlchunk")
 require("plugins/treesitter")
 require("plugins.nerdcommenter")
 require("plugins.dial")
 require("plugins.colorizer")
-require("plugins.vim-tmux-navigator")
-require("plugins.lualine")
 
--- if is_vscode then
---     else
--- end
+if not is_vscode then
+    require("plugins/mason")
+    require("plugins/lspconfig")
+    require("plugins/lspsaga")
+    require("plugins/dap")
+    require("plugins/dap-jsts")
+    require("plugins/copilot")
+    require("plugins/hlchunk")
+    require("plugins.vim-tmux-navigator")
+    require("plugins.lualine")
+    require("plugins/suda")
+else
+end
 
 -- edkolev/tmuxlineについて
 -- tmuxlineはvim/vim-airline/lightline.vimのカラースキームを流用する（？）
