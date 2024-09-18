@@ -64,6 +64,8 @@ local cui_plugins = {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
+    { 'junegunn/fzf', },
+    { 'junegunn/fzf.vim' } -- ファジーファインダー
 }
 
 -- プラグイン読み込み
