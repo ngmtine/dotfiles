@@ -54,6 +54,7 @@ local cui_plugins = {
         'nvimdev/lspsaga.nvim',            -- lspのUI
         event = { "LspAttach" }
     },
+    { "j-hui/fidget.nvim" },              -- lspの状態通知
     { "mfussenegger/nvim-dap" },          -- dap
     { "jay-babu/mason-nvim-dap.nvim" },
     { "kyazdani42/nvim-web-devicons" },   -- アイコン（lualine, lspsagaの依存）

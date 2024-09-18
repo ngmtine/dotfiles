@@ -16,6 +16,7 @@ if not is_vscode then
     require("plugins/lspconfig-lua")
     require("plugins/lspconfig-jsts")
     require("plugins/lspsaga")
+    require("plugins/fidget")
     require("plugins/dapconfig")
     require("plugins/dapconfig-jsts")
     require("plugins/copilot")
