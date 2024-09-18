@@ -1,8 +1,3 @@
-require("mason-nvim-dap").setup({
-    ensure_installed = { "node-debug2-adapter", "chrome-debug-adapter" },
-    automatic_installation = true,
-})
-
 vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = '', linehl = '', numhl = '' })
 vim.fn.sign_define('DapStopped', { text = '👉️', texthl = '', linehl = '', numhl = '' })
 
