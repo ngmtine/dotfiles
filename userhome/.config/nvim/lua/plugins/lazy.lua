@@ -27,7 +27,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local common_plugins = {
-    { "cocopon/iceberg.vim" },         -- カラースキーム
     { "monaqa/dial.nvim" },            -- c-a, c-x の強化
     { "norcalli/nvim-colorizer.lua" }, -- カラーコードに背景色つける
     { "preservim/nerdcommenter" },     -- コメントアウト
@@ -36,6 +35,7 @@ local common_plugins = {
 }
 
 local cui_plugins = {
+    { "cocopon/iceberg.vim" },            -- カラースキーム
     { "github/copilot.vim" },             -- copilot
     {
         "CopilotC-Nvim/CopilotChat.nvim", -- copilotchat
