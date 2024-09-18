@@ -32,6 +32,7 @@ local common_plugins = {
     { "norcalli/nvim-colorizer.lua" }, -- カラーコードに背景色つける
     { "preservim/nerdcommenter" },     -- コメントアウト
     { "machakann/vim-sandwich" },      -- vim-surrond的なやつ
+    { "cohama/lexima.vim" },           -- 括弧補完
 }
 
 local cui_plugins = {
