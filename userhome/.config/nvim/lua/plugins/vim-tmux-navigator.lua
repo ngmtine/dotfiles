@@ -13,3 +13,6 @@ vim.keymap.set("n", "<A-k>", ":TmuxNavigateUp<cr>", {
 vim.keymap.set("n", "<A-l>", ":TmuxNavigateRight<cr>", {
     silent = true
 })
+vim.keymap.set("n", "<C-l>", ":<c-u>nohlsearch<cr><c-l>", {
+    silent = true
+})
