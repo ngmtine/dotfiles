@@ -4,9 +4,9 @@ vim.lsp.set_log_level("warn")
 require("common")
 require("keymap")
 require("plugins/lazy")
-require("plugins.nerdcommenter")
-require("plugins.dial")
-require("plugins.colorizer")
+require("plugins/nerdcommenter")
+require("plugins/dial")
+require("plugins/colorizer")
 
 if not is_vscode then
     require("plugins/theme")
@@ -21,11 +21,10 @@ if not is_vscode then
     require("plugins/dapconfig-jsts")
     require("plugins/copilot")
     require("plugins/hlchunk")
-    require("plugins.vim-tmux-navigator")
-    require("plugins.lualine")
+    require("plugins/vim-tmux-navigator")
+    require("plugins/lualine")
     require("plugins/suda")
     require("plugins/fzf")
-else
 end
 
 -- edkolev/tmuxlineについて
