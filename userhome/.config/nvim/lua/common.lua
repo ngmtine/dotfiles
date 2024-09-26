@@ -3,7 +3,6 @@ vim.opt.termguicolors = true -- truecolor有効化
 vim.opt.number = true
 vim.opt.showtabline = 2      -- タブ常に表示
 vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
 
 -- 特殊文字
 vim.opt.list = true
