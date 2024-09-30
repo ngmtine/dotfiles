@@ -15,6 +15,7 @@ if not is_vscode then
     require("plugins/lspconfig")
     require("plugins/lspconfig-lua")
     require("plugins/lspconfig-jsts")
+    require("plugins/lspconfig-sql")
     require("plugins/lspsaga")
     require("plugins/fidget")
     require("plugins/dapconfig")
