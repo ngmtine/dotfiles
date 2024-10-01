@@ -48,10 +48,3 @@ lspconfig["biome"].setup {
         })
     end,
 }
-
--- フォーマットせずに保存するコマンド
-vim.api.nvim_create_user_command("SaveWithoutFormatting", function()
-    vim.b.isFormatting = false
-    vim.cmd('write')
-    vim.b.isFormatting = true
-end, {})

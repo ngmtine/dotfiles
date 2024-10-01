@@ -43,12 +43,17 @@ local cui_plugins = {
         build = "make tiktoken",
         opts = { debug = true, },
     },
-    { "nvim-lua/plenary.nvim" },           -- copilotchatの依存
-    { "williamboman/mason.nvim" },         -- mason
+    { "nvim-lua/plenary.nvim" },       -- copilotchatの依存
+    { "williamboman/mason.nvim" },     -- mason
     { "williamboman/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" },           -- lsp
-    { 'hrsh7th/nvim-cmp' },                -- 補完
-    { "hrsh7th/cmp-nvim-lsp" },            -- 補完のlspソース
+    { "neovim/nvim-lspconfig" },       -- lsp
+    { 'hrsh7th/nvim-cmp' },            -- 補完
+    { "hrsh7th/cmp-nvim-lsp" },        -- 補完のlspソース
+    { "nvimtools/none-ls.nvim" },      -- null-lsフォーク
+    {
+        "jay-babu/mason-null-ls.nvim", -- masonでnull-lsを使うやつ（sql-formatterの依存）
+        event = { "BufReadPre", "BufNewFile" },
+    },
     { 'nvim-treesitter/nvim-treesitter' }, -- treesitter（hlchunk, lspsagaの依存）
     {
         'nvimdev/lspsaga.nvim',            -- lspのUI
