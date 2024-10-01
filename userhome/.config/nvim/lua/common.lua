@@ -57,47 +57,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end,
 })
 
-
 -- .fishを.shとして扱う
 vim.cmd [[
     autocmd BufEnter *.fish set filetype=sh
 ]]
-
--- exコマンドの実行結果をバッファに表示
--- 例: :PipeBuffer :map
-local function PipeBuffer(cmd)
-    local result = vim.api.nvim_command_output(cmd)
-    vim.cmd('tabe')
-    vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(result, "\n"))
-    vim.bo.modifiable = true
-    vim.bo.modified = true
-end
-
--- ユーザーコマンドの作成
-vim.api.nvim_create_user_command('PipeBuffer', function(opts)
-    PipeBuffer(opts.args)
-end, { nargs = 1, complete = 'command' })
-
--- htmlの任意の属性を削除する関数
--- TODO: 範囲選択に対応する
-local function RemoveHtmlAttributes(args)
-    local patterns = {}
-
-    if args.args == "" then
-        -- 引数がない場合はすべての属性を削除
-        table.insert(patterns, '\\s\\+[a-zA-Z0-9_-]\\+\\s*=\\s*"[^"]*"')
-    else
-        -- 引数がある場合、複数の属性名を処理
-        for attribute in string.gmatch(args.args, "%S+") do
-            table.insert(patterns, '\\s\\+' .. attribute .. '\\s*=\\s*"[^"]*"')
-        end
-    end
-
-    -- 各パターンで置換を実行
-    for _, pattern in ipairs(patterns) do
-        vim.cmd('%s/' .. pattern .. '//g')
-    end
-end
-
--- ユーザーコマンドの作成
-vim.api.nvim_create_user_command('RmAttr', RemoveHtmlAttributes, { nargs = '*' })

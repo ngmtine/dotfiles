@@ -28,6 +28,20 @@ if not is_vscode then
     require("plugins/fzf")
 end
 
+-- ディレクトリ以下のluaを自動でrequireする
+local function require_all(dir)
+    local command_dir = vim.fn.stdpath('config') .. '/lua/' .. dir
+    for _, file in ipairs(vim.fn.readdir(command_dir)) do
+        if file:match("%.lua$") then
+            local module_name = dir:gsub("/", ".") .. "." .. file:gsub("%.lua$", "")
+            require(module_name)
+        end
+    end
+end
+
+-- commandsディレクトリ以下全てrequire
+require_all("commands")
+
 -- edkolev/tmuxlineについて
 -- tmuxlineはvim/vim-airline/lightline.vimのカラースキームを流用する（？）
 -- ところで現在のdotfiles以下の.tmuxline.confは、vim-airlineから生成（:TmuxlineSnapshot）したもの
