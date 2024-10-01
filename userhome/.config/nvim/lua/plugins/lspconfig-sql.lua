@@ -12,13 +12,7 @@ mason_null_ls.setup({
     ensure_installed = { "sql-formatter" },
 })
 
--- sqlfmtのフォーマッタ設定
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.sql_formatter,
-    },
-})
-
+-- lsp設定
 lspconfig["sqls"].setup({
     on_attach = function(client, bufnr)
         -- sqlsのフォーマット機能は無効
@@ -38,4 +32,17 @@ lspconfig["sqls"].setup({
 
     -- 補完
     capabilities = nvim_cmp,
+})
+
+-- sql-formatter設定
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.sql_formatter.with({
+            command = "sql-formatter",
+            args = {
+                "--config",
+                '{"keywordCase": "upper", "tabWidth": 4}',
+            },
+        }),
+    },
 })
