@@ -5,6 +5,9 @@ require("mason-lspconfig").setup {
 local lspconfig = require('lspconfig')
 local capabilities = require("plugins/nvim-cmp")
 
+-- 保存時フォーマット実行フラグ
+vim.b.isFormatting = true
+
 lspconfig["ts_ls"].setup {
     on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = true
@@ -14,7 +17,9 @@ lspconfig["ts_ls"].setup {
             group = vim.api.nvim_create_augroup("tsserverFormatting", { clear = true }),
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.format({ bufnr = bufnr })
+                if vim.b.isFormatting then
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                end
             end,
         })
     end,
@@ -30,15 +35,23 @@ lspconfig["biome"].setup {
             group = vim.api.nvim_create_augroup("biomeFormatting", { clear = true }),
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.code_action({
-                    context = { only = { "source.organizeImports" }, diagnostics = {} },
-                    apply = true,
-                    filter = function(action)
-                        return action.title == "Organize Imports (Biome)"
-                    end,
-                })
+                if vim.b.isFormatting then
+                    vim.lsp.buf.code_action({
+                        context = { only = { "source.organizeImports" }, diagnostics = {} },
+                        apply = true,
+                        filter = function(action)
+                            return action.title == "Organize Imports (Biome)"
+                        end,
+                    })
+                end
             end,
         })
     end,
 }
 
+-- フォーマットせずに保存するコマンド
+vim.api.nvim_create_user_command("SaveWithoutFormatting", function()
+    vim.b.isFormatting = false
+    vim.cmd('write')
+    vim.b.isFormatting = true
+end, {})
