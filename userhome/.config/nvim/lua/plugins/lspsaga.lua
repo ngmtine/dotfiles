@@ -45,5 +45,5 @@ require('lspsaga').setup({
 
 vim.keymap.set('n', '<F12>', '<cmd>Lspsaga peek_definition<CR>', { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>s', '<cmd>Lspsaga term_toggle<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>j', '<cmd>Lspsaga term_toggle<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>o', '<cmd>Lspsaga outline<CR>', { noremap = true, silent = true })
