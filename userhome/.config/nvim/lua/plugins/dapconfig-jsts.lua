@@ -1,9 +1,10 @@
-require("mason-nvim-dap").setup({
+local dap = require('dap')
+local mason_nvim_dap = require('mason-nvim-dap')
+
+mason_nvim_dap.setup({
     ensure_installed = { "node-debug2-adapter", "chrome-debug-adapter" },
     automatic_installation = true,
 })
-
-local dap = require('dap')
 
 -- 開いているファイルを実行中であるnodeプロセスを探す
 local function pick_node_process()

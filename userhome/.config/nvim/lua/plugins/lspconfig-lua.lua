@@ -1,11 +1,12 @@
-require("mason-lspconfig").setup {
+local lspconfig = require('lspconfig')
+local mason_lspconfig = require('mason-lspconfig')
+local nvim_cmp = require("plugins/nvim-cmp")
+
+mason_lspconfig.setup {
     ensure_installed = { "lua_ls", },
 }
 
-local lspconfig = require('lspconfig')
-local capabilities = require("plugins/nvim-cmp")
-
-lspconfig["lua_ls"].setup {
+lspconfig["lua_ls"].setup({
     cmd = { "lua-language-server" },
     on_attach = function(client, bufnr)
         vim.api.nvim_create_autocmd("BufWritePre", {
@@ -29,5 +30,5 @@ lspconfig["lua_ls"].setup {
     },
 
     -- 補完
-    capabilities = capabilities,
-}
+    capabilities = nvim_cmp,
+})

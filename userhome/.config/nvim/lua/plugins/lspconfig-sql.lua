@@ -2,7 +2,7 @@ local lspconfig = require('lspconfig')
 local mason_lspconfig = require('mason-lspconfig')
 local null_ls = require("null-ls")
 local mason_null_ls = require("mason-null-ls")
-local capabilities = require("plugins/nvim-cmp")
+local nvim_cmp = require("plugins/nvim-cmp")
 
 mason_lspconfig.setup({
     ensure_installed = { "sqls" },
@@ -11,8 +11,6 @@ mason_lspconfig.setup({
 mason_null_ls.setup({
     ensure_installed = { "sql-formatter" },
 })
-
-vim.b.isFormatting = true
 
 -- sqlfmtのフォーマッタ設定
 null_ls.setup({
@@ -39,5 +37,5 @@ lspconfig["sqls"].setup({
     end,
 
     -- 補完
-    capabilities = capabilities,
+    capabilities = nvim_cmp,
 })

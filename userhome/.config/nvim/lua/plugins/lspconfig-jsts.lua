@@ -1,14 +1,12 @@
-require("mason-lspconfig").setup {
-    ensure_installed = { "ts_ls", "biome" },
-}
-
 local lspconfig = require('lspconfig')
-local capabilities = require("plugins/nvim-cmp")
+local mason_lspconfig = require('mason-lspconfig')
+local nvim_cmp = require("plugins/nvim-cmp")
 
--- 保存時フォーマット実行フラグ
-vim.b.isFormatting = true
+mason_lspconfig.setup({
+    ensure_installed = { "ts_ls", "biome" },
+})
 
-lspconfig["ts_ls"].setup {
+lspconfig["ts_ls"].setup({
     on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = true
 
@@ -25,10 +23,10 @@ lspconfig["ts_ls"].setup {
     end,
 
     -- 補完
-    capabilities = capabilities,
-}
+    capabilities = nvim_cmp,
+})
 
-lspconfig["biome"].setup {
+lspconfig["biome"].setup({
     on_attach = function(client, bufnr)
         -- import順整理
         vim.api.nvim_create_autocmd("BufWritePre", {
@@ -47,4 +45,4 @@ lspconfig["biome"].setup {
             end,
         })
     end,
-}
+})

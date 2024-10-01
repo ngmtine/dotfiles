@@ -4,6 +4,10 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = false, underlin
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { undercurl = false, underline = false })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { undercurl = false, underline = false })
 
+
+-- 保存時フォーマット実行フラグ vim.bはバッファローカル変数
+vim.b.isFormatting = true
+
 -- フォーマットせずに保存するコマンド
 vim.api.nvim_create_user_command("SaveWithoutFormatting", function()
     vim.b.isFormatting = false
