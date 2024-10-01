@@ -49,6 +49,7 @@ local cui_plugins = {
     { "neovim/nvim-lspconfig" },       -- lsp
     { 'hrsh7th/nvim-cmp' },            -- 補完
     { "hrsh7th/cmp-nvim-lsp" },        -- 補完のlspソース
+    { "hrsh7th/cmp-cmdline" },         -- 補完のlspソース
     { "nvimtools/none-ls.nvim" },      -- null-lsフォーク
     {
         "jay-babu/mason-null-ls.nvim", -- masonでnull-lsを使うやつ（sql-formatterの依存）
