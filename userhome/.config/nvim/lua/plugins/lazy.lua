@@ -47,7 +47,7 @@ local cui_plugins = {
     { "williamboman/mason.nvim" },     -- mason
     { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },       -- lsp
-    { 'hrsh7th/nvim-cmp' },            -- 補完
+    { "hrsh7th/nvim-cmp" },            -- 補完
     { "hrsh7th/cmp-nvim-lsp" },        -- 補完のlspソース
     { "hrsh7th/cmp-cmdline" },         -- 補完のlspソース
     { "nvimtools/none-ls.nvim" },      -- null-lsフォーク
@@ -55,24 +55,25 @@ local cui_plugins = {
         "jay-babu/mason-null-ls.nvim", -- masonでnull-lsを使うやつ（sql-formatterの依存）
         event = { "BufReadPre", "BufNewFile" },
     },
-    { 'nvim-treesitter/nvim-treesitter' }, -- treesitter（hlchunk, lspsagaの依存）
+    { "nvim-treesitter/nvim-treesitter" }, -- treesitter（hlchunk, lspsagaの依存）
     {
-        'nvimdev/lspsaga.nvim',            -- lspのUI
+        "nvimdev/lspsaga.nvim",            -- lspのUI
         event = { "LspAttach" }
     },
     { "j-hui/fidget.nvim" },              -- lspの状態通知
     { "mfussenegger/nvim-dap" },          -- dap
     { "jay-babu/mason-nvim-dap.nvim" },
-    { "kyazdani42/nvim-web-devicons" },   -- アイコン（lualine, lspsagaの依存）
+    { "kyazdani42/nvim-web-devicons" },   -- アイコン（lualine, lspsaga, bufferlineの依存）
     { "nvim-lualine/lualine.nvim" },      -- ステータスライン
+    { "akinsho/bufferline.nvim" },        -- タブ強化
     { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
     { "lambdalisue/suda.vim" },           -- sudo
     {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
-    { 'junegunn/fzf', },
-    { 'junegunn/fzf.vim' } -- ファジーファインダー
+    { "junegunn/fzf", },
+    { "junegunn/fzf.vim" } -- ファジーファインダー
 }
 
 -- プラグイン読み込み
