@@ -41,7 +41,7 @@ null_ls.setup({
             command = "sql-formatter",
             args = {
                 "--config",
-                '{"keywordCase": "upper", "tabWidth": 4}',
+                '{ "keywordCase": "upper", "tabWidth": 4, "expressionWidth": 120 }',
             },
         }),
     },
