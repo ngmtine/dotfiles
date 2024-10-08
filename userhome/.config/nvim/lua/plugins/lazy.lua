@@ -62,7 +62,9 @@ local cui_plugins = {
     },
     { "j-hui/fidget.nvim" },              -- lspの状態通知
     { "mfussenegger/nvim-dap" },          -- dap
-    { "jay-babu/mason-nvim-dap.nvim" },
+    { "jay-babu/mason-nvim-dap.nvim" },   -- masonでdapを使うやつ
+    { "rcarriga/nvim-dap-ui" },           -- dapのui
+    { "nvim-neotest/nvim-nio" },          -- 非同期APIユーティリティ（nvim-dap-uiの依存）
     { "kyazdani42/nvim-web-devicons" },   -- アイコン（lualine, lspsaga, bufferlineの依存）
     { "nvim-lualine/lualine.nvim" },      -- ステータスライン
     { "akinsho/bufferline.nvim" },        -- タブ強化
