@@ -11,10 +11,12 @@ require('telescope').setup {
             i = {
                 ["<C-h>"] = actions.which_key,
                 ["<esc>"] = actions.close,
+                ["<cr>"] = actions.select_tab,
             },
             n = {
                 ["<C-h>"] = actions.which_key,
                 ["<esc>"] = actions.close,
+                ["<cr>"] = actions.select_tab,
             }
         },
     },
