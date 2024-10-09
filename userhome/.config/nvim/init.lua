@@ -26,7 +26,7 @@ if not is_vscode then
     require("plugins/lualine")
     require("plugins/bufferline")
     require("plugins/suda")
-    require("plugins/fzf")
+    require("plugins/telescope")
 end
 
 -- ディレクトリ以下のluaを自動でrequireする

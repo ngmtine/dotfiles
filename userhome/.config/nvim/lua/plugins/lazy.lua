@@ -43,7 +43,7 @@ local cui_plugins = {
         build = "make tiktoken",
         opts = { debug = true, },
     },
-    { "nvim-lua/plenary.nvim" },       -- copilotchatの依存
+    { "nvim-lua/plenary.nvim" },       -- ユーティリティライブラリ（copilotchat, telescopeの依存）
     { "williamboman/mason.nvim" },     -- mason
     { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },       -- lsp
@@ -74,8 +74,7 @@ local cui_plugins = {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
-    { "junegunn/fzf", },
-    { "junegunn/fzf.vim" } -- ファジーファインダー
+    { "nvim-telescope/telescope.nvim" }, -- ファジーファインダー
 }
 
 -- プラグイン読み込み
