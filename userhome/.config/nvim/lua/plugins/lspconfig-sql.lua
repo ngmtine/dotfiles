@@ -34,7 +34,7 @@ lspconfig["sqls"].setup({
     capabilities = nvim_cmp,
 
     -- vim起動ディレクトリ直下にlspconfig.ymlがある場合はそれを使う
-    -- NOTE: デフォはconfig.ymlみたいだけど紛らわしいのでsqlconfig.ymlを指定
+    -- NOTE: デフォはconfig.ymlみたいだけど紛らわしいのでlspconfig.ymlを指定
     cmd = { "sqls", "-config", "./lspconfig.yml" },
 })
 

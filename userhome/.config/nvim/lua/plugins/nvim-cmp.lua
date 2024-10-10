@@ -65,9 +65,9 @@ cmp.setup({
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.insert(keybindings),
     sources = cmp.config.sources({
-        { name = "path" }
-    }, {
-        { name = "cmdline" }
+        { name = "path" },
+        { name = "cmdline" },         -- 補完の履歴ソースのはずだけど期待した挙動にならない たぶんおれの理解が間違ってる
+        { name = 'cmdline_history' }, -- dmitmel/cmp-cmdline-history による履歴ソース
     }),
     matching = { disallow_symbol_nonprefix_matching = false }
 })
