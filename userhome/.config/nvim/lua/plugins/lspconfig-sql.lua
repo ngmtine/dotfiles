@@ -32,6 +32,10 @@ lspconfig["sqls"].setup({
 
     -- 補完
     capabilities = nvim_cmp,
+
+    -- vim起動ディレクトリ直下にlspconfig.ymlがある場合はそれを使う
+    -- NOTE: デフォはconfig.ymlみたいだけど紛らわしいのでsqlconfig.ymlを指定
+    cmd = { "sqls", "-config", "./lspconfig.yml" },
 })
 
 -- sql-formatter設定
@@ -46,3 +50,56 @@ null_ls.setup({
         }),
     },
 })
+
+--[[
+
+https://github.com/sqls-server/sqls
+
+# config.ymlについて
+上から優先順位順に適用される
+
+1. -config フラグで指定された構成ファイル
+2. LSPクライアントに設定された workspace/configuration
+3. 以下の場所にある構成ファイル
+    $XDG_CONFIG_HOME/sqls/config.yml （$XDG_CONFIG_HOME が設定されていない場合は $HOME/.config が使用されます）
+
+# config.ymlの例
+
+```yaml
+# Set to true to use lowercase keywords instead of uppercase.
+lowercaseKeywords: false
+connections:
+  - alias: dsn_mysql
+    driver: mysql
+    dataSourceName: root:root@tcp(127.0.0.1:13306)/world
+  - alias: individual_mysql
+    driver: mysql
+    proto: tcp
+    user: root
+    passwd: root
+    host: 127.0.0.1
+    port: 13306
+    dbName: world
+    params:
+      autocommit: "true"
+      tls: skip-verify
+  - alias: mysql_via_ssh
+    driver: mysql
+    proto: tcp
+    user: admin
+    passwd: Q+ACgv12ABx/
+    host: 192.168.121.163
+    port: 3306
+    dbName: world
+    sshConfig:
+      host: 192.168.121.168
+      port: 22
+      user: sshuser
+      passPhrase: ssspass
+      privateKey: /home/sqls-server/.ssh/id_rsa
+  - alias: dsn_vertica
+    driver: vertica
+    dataSourceName: vertica://user:pass@host:5433/dbname
+```
+
+]]
