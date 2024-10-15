@@ -35,14 +35,14 @@ local common_plugins = {
 }
 
 local cui_plugins = {
-    { "cocopon/iceberg.vim" },            -- カラースキーム
-    { "github/copilot.vim" },             -- copilot
-    {
-        "CopilotC-Nvim/CopilotChat.nvim", -- copilotchat
-        branch = "canary",
-        build = "make tiktoken",
-        opts = { debug = true, },
-    },
+    { "cocopon/iceberg.vim" }, -- カラースキーム
+    -- { "github/copilot.vim" },             -- copilot
+    -- {
+    -- "CopilotC-Nvim/CopilotChat.nvim", -- copilotchat
+    -- branch = "canary",
+    -- build = "make tiktoken",
+    -- opts = { debug = true, },
+    -- },
     { "nvim-lua/plenary.nvim" },       -- ユーティリティライブラリ（copilotchat, telescopeの依存）
     { "williamboman/mason.nvim" },     -- mason
     { "williamboman/mason-lspconfig.nvim" },
