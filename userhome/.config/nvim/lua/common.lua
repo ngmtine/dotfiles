@@ -23,6 +23,7 @@ vim.opt.softtabstop = 0
 vim.opt.smarttab = true
 
 -- 検索
+vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- コメント行で行追加した場合、新規行はコメントアウト状態にしない
