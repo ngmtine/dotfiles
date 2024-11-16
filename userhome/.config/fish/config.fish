@@ -1,5 +1,8 @@
 sed -n 4p /etc/os-release
 
+# 右側の時刻表示削除
+functions --erase fish_right_prompt
+
 # if status is-interactive
 #     # Commands to run in interactive sessions can go here
 # end
@@ -265,3 +268,100 @@ function tarx
 	tar xzfv $argv[1]
 end
 
+# chatgptに食わす用にディレクトリ以下の全ファイルをcatするやつ
+# TODO: -e path -e path という指定しかできない つーか普通にjsとかで書き直したほうがいい
+function catall
+    # ヘルプ表示の関数
+    function show_help
+        echo "catall - chatgptに食わす用にディレクトリ以下の全ファイルをcatするやつ"
+        echo
+        echo "使い方:"
+        echo "  catall [option] [path]"
+        echo
+        echo "option:"
+        echo "  --exclude, -e path      指定したファイルまたはディレクトリを表示対象から除外します"
+        echo "  --help, -h              このヘルプメッセージを表示します"
+        echo "  --test, -t              ファイルの内容を表示せず、処理対象ファイルのリストのみを表示します"
+        echo
+        echo "例:"
+        echo "  catall                  現在のディレクトリ内のすべてのファイルを再帰的に表示します"
+        echo "  catall dir              'dir' ディレクトリ内のすべてのファイルを表示します"
+        echo "  catall dir/             同上"
+        echo "  catall dir/*            同上"
+        echo "  catall --exclude dir    'dir/' ディレクトリを除外して表示します"
+        echo "  catall file1 file2      'file1' と 'file2' の内容を表示します"
+        echo "  catall --test           処理対象ファイルのリストのみを表示します"
+        echo
+    end
+
+    # 引数パース
+    argparse 't/test' 'e/exclude=+' 'h/help' -- $argv
+    or return 1
+
+    # ヘルプ表示して終了
+    if set -q _flag_h
+        show_help
+        return
+    end
+
+    # オプションの取得
+    set -l test_mode (set -q _flag_t && echo "true" || echo "false")
+    set -l exclude_files $_flag_e
+
+    # 残りの引数を入力パスとして処理
+    set -l input_paths $argv
+
+    # 入力パスが空の場合、現在のディレクトリをデフォルトに設定
+    if test (count $input_paths) -eq 0
+        set input_paths "."
+    end
+
+    # find の除外条件を作成
+    set -l find_exclude_args
+    for exclude in $exclude_files node_modules .git dist package-lock.json
+        if test -d $exclude
+            # 除外対象がディレクトリの場合
+            set find_exclude_args $find_exclude_args -not -wholename "*$exclude*"
+        else
+            # 除外対象がファイルの場合
+            set find_exclude_args $find_exclude_args -not -name "$exclude"
+        end
+
+    end
+    
+    echo $find_exclude_args
+
+    # 入力パスの処理
+    set -l include_files
+    for path in $input_paths
+        if test -d $path
+            # ディレクトリの場合、除外条件を適用して取得
+            for subfile in (find $path -type f $find_exclude_args)
+                set include_files $include_files $subfile
+            end
+        else if test -f $path
+            # ファイルの場合はそのまま追加
+            set include_files $include_files $path
+        else
+            echo "エラー！ $path は存在しません"
+            return
+        end
+    end
+
+
+    # 実行
+    for file in $include_files
+        if test $test_mode = "true"
+            echo $file
+        else
+            echo '#' $file
+            echo
+            cat $file
+            echo
+            echo "---"
+            echo
+        end
+    end
+
+    return
+end
