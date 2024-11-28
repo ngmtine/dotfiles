@@ -91,6 +91,8 @@ abbr -a co docker compose
 # vscodeのターミナルがtmux上のシェルでもcodeコマンドを使うための対応、ただし各セッション内の最初のウィンドウでしか動かない？
 # abbrはconfig.fishの読み込み時（つまりログイン時）にも展開する？みたいなので、対応していないシステム上（例えばvmとか）で読み込むとエラーでてやばい
 
+abbr -a recode export VSCODE_IPC_HOOK_CLI=
+
 # function -----------------------------------------
 function mkmainpy
 if test "$TERM_PROGRAM" = "vscode"
