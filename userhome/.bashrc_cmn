@@ -14,8 +14,9 @@ alias t=tmux
 export PATH=$HOME/.local/bin:$PATH
 
 # go
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:~/go/bin
+# export PATH=$PATH:/usr/local/go/bin
+# export PATH=$PATH:~/go/bin
+export PATH=$PATH:$(go env GOPATH)/bin
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -24,6 +25,3 @@ export PATH=$PATH:~/go/bin
 # 実行するとクリップボードに文字列が入るので、vscodeのターミナルのtmux上で以下を実行する
 # export VSCODE_IPC_HOOK_CLI=[クリップボードの文字列]
 alias recode='cd ~ && echo $VSCODE_IPC_HOOK_CLI | win32yank.exe -i'
-
-# tmux
-tmux
