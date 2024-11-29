@@ -1,11 +1,10 @@
+# fishをログインシェルにすることは想定していません
+# PATH等は ~/.bashrc 側で設定すること
+
 sed -n 4p /etc/os-release
 
 # 右側の時刻表示削除
 functions --erase fish_right_prompt
-
-# if status is-interactive
-#     # Commands to run in interactive sessions can go here
-# end
 
 # 基本
 export EDITOR="/usr/bin/nvim"
@@ -13,14 +12,6 @@ export EDITOR="/usr/bin/nvim"
 if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
-
-# asdf
-source ~/.asdf/asdf.fish
-
-# direnv
-# eval (direnv hook fish)
-
-# set TERM xterm-256color
 
 # truecolor有効化
 # https://fishshell.com/docs/current/cmds/set_color.html
@@ -34,19 +25,14 @@ set -g theme_nerd_fonts yes
 set -g theme_title_use_abbreviated_path no
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt '$ '
-# masterでもブランチ名を表示
-set -g theme_display_git_master_branch yes
-# コマンドの実行時間を表示
-set -g theme_display_cmd_duration yes
-# exitステータスを表示
-set -g theme_show_exit_status yes
-# ディレクトリ名を省略しない
-set -g fish_prompt_pwd_dir_length 0
-# リポジトリの場合はブランチ表示
-set -g theme_git_worktree_support yes
+set -g theme_display_git_master_branch yes # masterでもブランチ名を表示
+set -g theme_display_cmd_duration yes # コマンドの実行時間を表示
+set -g theme_show_exit_status yes # exitステータスを表示
+set -g fish_prompt_pwd_dir_length 0 # ディレクトリ名を省略しない
+set -g theme_git_worktree_support yes # リポジトリの場合はブランチ表示
 
 # alias ----------------------------------------
-abbr -a ll ls -la
+abbr -a ll ls -lah
 abbr -a l1 ls -1
 abbr -a lx "ls -1 | xargs -n1 "
 abbr -a sd sed -re 
@@ -62,6 +48,7 @@ abbr -a vs code
 
 abbr -a g git
 abbr -a gad git add
+abbr -a gcm git commit
 abbr -a gcmm git commit -m \" # "
 abbr -a gcma git commit --amend --no-edit
 abbr -a gps git push
@@ -85,11 +72,6 @@ abbr -a dn docker network
 abbr -a ds docker system
 abbr -a --set-cursor=% deb docker exec -it % /bin/bash
 abbr -a co docker compose
-
-# abbr -a vs code
-# abbr -a vsre set -x VSCODE_IPC_HOOK_CLI (find /tmp -regextype posix-egrep -regex '.*vscode-ipc-.*sock$' -printf "%T@ %p\n" | sort -nr | head -n 1 | awk '{print $2}')
-# vscodeのターミナルがtmux上のシェルでもcodeコマンドを使うための対応、ただし各セッション内の最初のウィンドウでしか動かない？
-# abbrはconfig.fishの読み込み時（つまりログイン時）にも展開する？みたいなので、対応していないシステム上（例えばvmとか）で読み込むとエラーでてやばい
 
 abbr -a recode export VSCODE_IPC_HOOK_CLI=
 
@@ -195,30 +177,7 @@ bobthefish_colors
 # set fish_cursor_replace_one underscore blink
 # set fish_cursor_visual      block
 
-# nnn config
-# -H: 隠しファイルも表示
-# -G: git status -s 相当 ビルド時に O_GITSTATUS=1 指定必要
-abbr n nnn -HG
-
-# nnn colortheme
-# https://github.com/jarun/nnn/wiki/Themes
-# set -l BLK "0B"
-# set -l CHR "0B"
-# set -l DIR "04"
-# set -l EXE "06"
-# set -l REG "00"
-# set -l HARDLINK "06"
-# set -l SYMLINK "06"
-# set -l MISSING "00"
-# set -l ORPHAN "09"
-# set -l FIFO "06"
-# set -l SOCK "0B"
-# set -l OTHER "06"
-# export NNN_FCOLORS="$BLK$CHR$DIR$EXE$REG$HARDLINK$SYMLINK$MISSING$ORPHAN$FIFO$SOCK$OTHER"
-
-
 function greprep
-
 	if test (count $argv) -ne 2 ;
 		echo 引数が2つじゃないよ
 		return
@@ -241,18 +200,6 @@ function greprep
 	echo 
 
 end
-
-# function grepmv
-	# if test (count $argv) -ne 2 ;
-		# echo 引数が2つじゃないよ
-		# return
-	# end
-	# find . -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 echo
-	# echo 上記を置換します
-	# echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
-		# find . -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 mv
-	# end
-# end
 
 function yntest
 	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
