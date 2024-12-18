@@ -42,17 +42,17 @@ keymap:
       fn_1-d: right
 
       # alt-tabでのウィンドウ選択時にvim-like
-      alt-h: left
-      alt-j: down
-      alt-k: up
-      alt-l: right
+      # alt-h: left
+      # alt-j: down
+      # alt-k: up
+      # alt-l: right
 
       # 記号類
       fn_2-a: leftbrace          # @
       fn_2-b: shift-leftbrace    # `
       fn_2-c: equal              # ^
       fn_2-d: shift-4            # $
-      fn_2-e: shift-5            # &
+      fn_2-e: shift-6            # &
       # fn_2-f
       # fn_2-g
       fn_2-h: shift-3            # #
