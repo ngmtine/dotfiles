@@ -1,5 +1,9 @@
 sed -n 4p /etc/os-release
 
+export LANG=en_US # システムは日本語でもシェルは英語にする
+export LC_CTYPE=UTF-8 # tmuxのエンコード指定
+export LESSCHARSET=utf-8 # less（git logも含む）で日本語表示
+
 # alias
 alias e=explorer.exe
 alias vi=nvim
