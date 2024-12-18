@@ -1,0 +1,53 @@
+virtual_modifiers:
+  - muhenkan
+  - henkan
+
+keymap:
+  - name: custom key bindings
+    remap:
+      ctrl-j: esc
+      apostrophe: enter          # : => enter
+      semicolon: apostrophe      # ; => :
+      shift-semicolon: semicolon # s-: => ;
+      leftbrace: backspace       # @ => backspace
+      shift-leftbrace: delete    # s-@ => delete
+      ctrl-leftbrace: delete     # c-@ => delete
+      shift-slash: ro            # s-/ => \
+
+      muhenkan-h: left
+      muhenkan-j: down
+      muhenkan-k: up
+      muhenkan-l: right
+
+      muhenkan-a: left
+      muhenkan-s: down
+      muhenkan-w: up
+      muhenkan-d: right
+
+      henkan-a: leftbrace        # @
+      henkan-b: shift-leftbrace  # `
+      henkan-c: equal            # ^
+      henkan-d: shift-4          # $
+      henkan-e: shift-5          # &
+      # henkan-f
+      # henkan-g
+      henkan-h: shift-3          # #
+      henkan-i: shift-1          # !
+      # henkan-j
+      # henkan-k
+      henkan-l: shift-yen        # |
+      henkan-m: shift-semicolon  # +
+      # henkan-n
+      # henkan-o
+      henkan-p: shift-5          # %
+      henkan-q: shift-slash      # ?
+      # henkan-r
+      henkan-s: shift-7          # '
+      henkan-t: shift-equal      # ~
+      henkan-u: shift-ro         # _
+      # henkan-v
+      henkan-w: shift-2          # "
+      henkan-x: shift-apostrophe # *
+      # henkan-y
+      # henkan-z
+
