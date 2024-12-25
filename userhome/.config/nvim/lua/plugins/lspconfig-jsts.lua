@@ -1,16 +1,6 @@
 local lspconfig = require('lspconfig')
-local mason_lspconfig = require('mason-lspconfig')
 local null_ls = require("null-ls")
-local mason_null_ls = require("mason-null-ls")
 local nvim_cmp = require("plugins/nvim-cmp")
-
-mason_lspconfig.setup({
-    ensure_installed = { "ts_ls", "biome" },
-})
-
-mason_null_ls.setup({
-    ensure_installed = { "prettier" },
-})
 
 lspconfig["ts_ls"].setup({
     on_attach = function(client)

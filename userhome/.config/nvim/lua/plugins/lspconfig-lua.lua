@@ -1,10 +1,5 @@
 local lspconfig = require('lspconfig')
-local mason_lspconfig = require('mason-lspconfig')
 local nvim_cmp = require("plugins/nvim-cmp")
-
-mason_lspconfig.setup {
-    ensure_installed = { "lua_ls", },
-}
 
 lspconfig["lua_ls"].setup({
     cmd = { "lua-language-server" },
@@ -32,3 +27,8 @@ lspconfig["lua_ls"].setup({
     -- 補完
     capabilities = nvim_cmp,
 })
+
+-- mason_lspconfig.setup_handlers({ function(server_name)
+-- require('lspconfig')[server_name].setup {}
+-- end,
+-- })
