@@ -1,3 +1,5 @@
+vim.opt.exrc = true -- ローカルの設定ファイル有効化
+
 -- style --------------------------------------------------
 vim.opt.termguicolors = true -- truecolor有効化
 vim.opt.number = true
