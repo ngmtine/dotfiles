@@ -1,8 +1,8 @@
 local builtin = require 'telescope.builtin'
 
-vim.keymap.set("n", "<Leader>ff",
+vim.keymap.set("n", "<c-p>",
     function() builtin.find_files({ hidden = true, file_ignore_patterns = { "node_modules", "git" } }) end)
-vim.keymap.set("n", "<Leader>fc", builtin.commands)
+-- vim.keymap.set("n", "<c-s-p>", builtin.commands) -- なぜか動かない
 
 local actions = require("telescope.actions")
 require('telescope').setup {
