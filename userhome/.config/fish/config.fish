@@ -1,8 +1,6 @@
 # fishをログインシェルにすることは想定していません
 # PATH等は ~/.bashrc 側で設定すること
 
-sed -n 4p /etc/os-release
-
 # 右側の時刻表示削除
 functions --erase fish_right_prompt
 
