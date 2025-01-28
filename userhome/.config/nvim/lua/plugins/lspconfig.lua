@@ -1,4 +1,4 @@
-local mason_lspconfig = require('mason-lspconfig')
+local mason_lspconfig = require("mason-lspconfig")
 local mason_null_ls = require("mason-null-ls")
 
 -- 警告の下線は鬱陶しいので消す
@@ -12,7 +12,7 @@ mason_lspconfig.setup({
 })
 
 mason_null_ls.setup({
-    ensure_installed = { "prettier", "sql-formatter" },
+    ensure_installed = { "prettier", "sql-formatter", "beautysh" },
 })
 
 -- 保存時フォーマット実行フラグ vim.bはバッファローカル変数
