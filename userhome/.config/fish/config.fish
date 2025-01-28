@@ -11,6 +11,11 @@ if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
 
+# wsl判定
+function is_wsl
+  [ -e /proc/sys/fs/binfmt_misc/WSLInterop ]
+end
+
 # truecolor有効化
 # https://fishshell.com/docs/current/cmds/set_color.html
 set -g fish_term24bit 1
@@ -34,15 +39,21 @@ abbr -a ll ls -lah
 abbr -a l1 ls -1
 abbr -a lx "ls -1 | xargs -n1 "
 abbr -a sd sed -re 
-abbr -a e explorer.exe
 abbr -a vi nvim
 abbr -a :q exit
-abbr -a yank win32yank.exe -i
-abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
 abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
 abbr -a cdrr 'cd (git rev-parse --show-toplevel)'
 abbr -a x xargs
 abbr -a vs code
+
+if is_wsl
+    abbr -a e explorer.exe
+    abbr -a yank win32yank.exe -i
+    abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
+else
+    abbr -a e nautilus
+    abbr -a yank xsel --input --clipboard
+end
 
 abbr -a g git
 abbr -a gad git add
@@ -75,7 +86,7 @@ abbr -a recode export VSCODE_IPC_HOOK_CLI=
 
 # function -----------------------------------------
 function mkmainpy
-if test "$TERM_PROGRAM" = "vscode"
+    if test "$TERM_PROGRAM" = "vscode"
 		for dir in (find ./ -maxdepth 1 -mindepth 1 -type d)
 			if not test -e $dir/main.py
 				touch $dir/main.py
@@ -84,9 +95,9 @@ if test "$TERM_PROGRAM" = "vscode"
 				touch $dir/input.txt
 			end
 		end
-	for mainpy in (find ./ -name main.py | sort)
-		code $mainpy
-	end	
+        for mainpy in (find ./ -name main.py | sort)
+            code $mainpy
+        end	
 	else
 		echo "vscode上で実行してね～"
 	end
