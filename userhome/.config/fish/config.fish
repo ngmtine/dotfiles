@@ -35,6 +35,8 @@ set -g fish_prompt_pwd_dir_length 0 # ディレクトリ名を省略しない
 set -g theme_git_worktree_support yes # リポジトリの場合はブランチ表示
 
 # alias ----------------------------------------
+abbr -a cd pushd
+abbr -a po popd
 abbr -a ll ls -lah
 abbr -a l1 ls -1
 abbr -a lx "ls -1 | xargs -n1 "
