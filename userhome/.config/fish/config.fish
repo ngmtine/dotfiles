@@ -7,10 +7,6 @@ functions --erase fish_right_prompt
 # 基本
 export EDITOR="/usr/bin/nvim"
 
-if test -f $__fish_config_dir/config_indiv.fish
-	source $__fish_config_dir/config_indiv.fish
-end
-
 # wsl判定
 function is_wsl
   [ -e /proc/sys/fs/binfmt_misc/WSLInterop ]
@@ -35,17 +31,18 @@ set -g fish_prompt_pwd_dir_length 0 # ディレクトリ名を省略しない
 set -g theme_git_worktree_support yes # リポジトリの場合はブランチ表示
 
 # alias ----------------------------------------
+# 基本
 abbr -a cd pushd
 abbr -a po popd
 abbr -a ll ls -lah
 abbr -a l1 ls -1
 abbr -a lx "ls -1 | xargs -n1 "
-abbr -a sd sed -re 
 abbr -a vi nvim
 abbr -a :q exit
 abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
 abbr -a cdrr 'cd (git rev-parse --show-toplevel)'
 abbr -a x xargs
+abbr -a f fzf --exit-0 | xargs -r
 abbr -a vs code
 
 if is_wsl
@@ -57,23 +54,36 @@ else
     abbr -a yank xsel --input --clipboard
 end
 
+# git
 abbr -a g git
+abbr -a gin "git init && echo node_modules >> .gitignore"
 abbr -a gad git add
-abbr -a gcm git commit
-abbr -a gcmm git commit -m \" # "
-abbr -a gcma git commit --amend --no-edit
+abbr -a gada git add --all
+abbr -a gcm git commit -v
+abbr -a gcma git commit --amend
+abbr -a gcman git commit --amend --no-edit
+abbr -a grb git rebase -i
+abbr -a grbc git rebase --continue
+abbr -a grba git rebase --abort
 abbr -a gps git push
+abbr -a gpsf git push --force
 abbr -a gpl git pull
 abbr -a gcl git clone
-abbr -a gck git checkout
-abbr -a gbr git branch
-abbr -a gst git status
-abbr -a gss git status -s
+abbr -a gco git checkout
+abbr -a gcob git checkout -b
+abbr -a gbr git branch -a
+abbr -a gs git status -s
 abbr -a gfe git fetch
 abbr -a gmr git merge
 abbr -a glg git log
+abbr -a ggr git log --oneline --graph --all
 abbr -a gdf git diff
+abbr -a gdfn git diff --name-only
+# 要 git config --global diff.tool nvimdiff
+abbr -a gdft git difftool
+# abbr -a --command git co checkout # 何故か効かない
 
+# docker
 abbr -a d docker
 abbr -a di docker image
 abbr -a dil docker image ls
@@ -83,58 +93,19 @@ abbr -a dn docker network
 abbr -a ds docker system
 abbr -a --set-cursor=% deb docker exec -it % /bin/bash
 abbr -a co docker compose
+abbr -a cou docker compose up
+abbr -a cod docker compose down
 
+# tmux使うとvscodeのターミナルからvscodeに送るやつが壊れるやつの対応
 abbr -a recode export VSCODE_IPC_HOOK_CLI=
 
-# function -----------------------------------------
-function mkmainpy
-    if test "$TERM_PROGRAM" = "vscode"
-		for dir in (find ./ -maxdepth 1 -mindepth 1 -type d)
-			if not test -e $dir/main.py
-				touch $dir/main.py
-			end
-			if not test -e $dir/input.txt
-				touch $dir/input.txt
-			end
-		end
-        for mainpy in (find ./ -name main.py | sort)
-            code $mainpy
-        end	
-	else
-		echo "vscode上で実行してね～"
-	end
-end
-
-function gitsimplesync
-	set _pwd (basename @(pwd))
-	if test $_pwd = "memo"
-		git pull && git add . && git commit -m "push with gitsimplesync" && git push
-	else
-		echo 所定のフォルダでのみ実行してね！
-	end
-end
-abbr -a gsy gitsimplesync
-
-# ghq -------------------------------------------
+# ghq
 abbr -a gg ghq get -p
 abbr -a gl ghq list --full-path
 
-# peco -----------------------------------------
-# pecoはtmux+truecolor環境だと表示がおかしいのでしばらく使わないかも
-# abbr -a p peco
-
-# plugin-peco
-# https://github.com/oh-my-fish/plugin-peco
-# function fish_user_key_bindings
-# 	bind \cr 'peco_select_history (commandline -b)'
-# end
-
-# fzf -----------------------------------------
-# ghq管理下のリポジトリを探してcd、但し実行直後enterしないと動かない
-function ghqfzf
-	cd (ghq list -p | fzf --reverse)
-end
-bind \cg ghqfzf
+# fzf
+abbr -a fn 'find . -type f -not -path "**/node_modules/*" -not -path "**/.git/*" -not -path "**/.docker/*" | fzf --reverse --exit-0 | xargs -r nvim'
+abbr -a fr 'pushd (ghq list -p | fzf --reverse --exit-0)'
 
 # color setting -------------------------------------
 set -l crow       121421 #121421
@@ -177,6 +148,7 @@ set -g fish_color_escape $lightblue	# character escapes like \n and \x70
 # set -g fish_color_cancel	# the ‘^C’ indicator on a canceled command
 # set -g fish_color_search_match	# history search matches and selected pager items (background only)
 
+# カラーテーマ読み込み
 bobthefish_colors
 
 # status --is-interactive; and source (anyenv init -|psub)
@@ -325,3 +297,9 @@ function catall
 
     return
 end
+
+# 個別設定読み込み
+if test -f $__fish_config_dir/config_indiv.fish
+	source $__fish_config_dir/config_indiv.fish
+end
+
