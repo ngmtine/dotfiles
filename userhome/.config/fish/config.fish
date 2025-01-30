@@ -32,15 +32,17 @@ set -g theme_git_worktree_support yes # リポジトリの場合はブランチ�
 
 # alias ----------------------------------------
 # 基本
+abbr -a vi nvim
+abbr -a :q exit
 abbr -a cd pushd
 abbr -a po popd
+abbr -a cdrr 'pushd (git rev-parse --show-toplevel)'
 abbr -a ll ls -lah
 abbr -a l1 ls -1
 abbr -a lx "ls -1 | xargs -n1 "
-abbr -a vi nvim
-abbr -a :q exit
+abbr -a cp cp -rp
+abbr -a scp scp -rp
 abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
-abbr -a cdrr 'cd (git rev-parse --show-toplevel)'
 abbr -a x xargs
 abbr -a f fzf --exit-0 | xargs -r
 abbr -a vs code

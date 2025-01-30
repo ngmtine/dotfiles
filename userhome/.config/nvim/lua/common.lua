@@ -5,6 +5,7 @@ vim.opt.termguicolors = true -- truecolor有効化
 vim.opt.number = true
 vim.opt.showtabline = 2      -- タブ常に表示
 vim.opt.cursorline = true
+vim.opt.splitright = true
 
 -- 特殊文字
 vim.opt.list = true
@@ -13,8 +14,8 @@ vim.opt.listchars = { tab = "▸-", trail = "_", eol = "↲" }
 -- edit --------------------------------------------------
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamedplus" -- クリップボード共有 .bashrcとかでwin32yank.exeへのパス通しておく必要あり
-vim.opt.encoding = 'utf-8'
-vim.scriptencoding = 'utf-8'
+vim.opt.encoding = "utf-8"
+vim.scriptencoding = "utf-8"
 vim.opt.swapfile = false
 
 -- インデント

@@ -20,9 +20,9 @@ vim.keymap.set("n", "<c-l>", ":<c-u>nohlsearch<cr><c-l>")
 vim.keymap.set("c", "<c-a>", "<home>")
 vim.keymap.set("c", "<c-e>", "<end>")
 vim.keymap.set("n", "*", "*N")
+vim.keymap.set("n", "<c-w>n", ":vnew<cr>")
 
 -- leader keymap
 vim.keymap.set("n", "<Leader>rep", '"_dw"+P')
 vim.keymap.set("v", "<Leader>rep", '"_d"+P')
 vim.keymap.set("n", "<Leader>a", "ggVG")
-
