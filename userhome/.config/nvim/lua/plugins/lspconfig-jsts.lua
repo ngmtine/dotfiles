@@ -28,18 +28,20 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = { "*.js", "*.mjs", "*.cjs", "*.jsx", "*.ts", "*.tsx", "*.json" },
     group = vim.api.nvim_create_augroup("BiomeFormatOnSave", { clear = true }),
     callback = function()
-        -- インポート整理
-        vim.lsp.buf.code_action({
-            context = { only = { "source.organizeImports" }, diagnostics = {} },
-            apply = true,
-            filter = function(action)
-                return action.title == "Organize Imports (Biome)"
-            end,
-        })
+        if vim.b.isFormatting then
+            -- インポート整理
+            vim.lsp.buf.code_action({
+                context = { only = { "source.organizeImports" }, diagnostics = {} },
+                apply = true,
+                filter = function(action)
+                    return action.title == "Organize Imports (Biome)"
+                end,
+            })
 
-        -- フォーマット
-        local bufnr = vim.api.nvim_get_current_buf()
-        vim.lsp.buf.format({ bufnr = bufnr, async = true })
+            -- フォーマット
+            local bufnr = vim.api.nvim_get_current_buf()
+            vim.lsp.buf.format({ bufnr = bufnr, async = true })
+        end
     end,
 })
 
@@ -48,7 +50,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = { "*.html", "*.css", "*.md" },
     group = vim.api.nvim_create_augroup("PrettierFormatOnSave", { clear = true }),
     callback = function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        vim.lsp.buf.format({ bufnr = bufnr, async = true })
+        if vim.b.isFormatting then
+            local bufnr = vim.api.nvim_get_current_buf()
+            vim.lsp.buf.format({ bufnr = bufnr, async = true })
+        end
     end,
 })
