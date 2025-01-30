@@ -75,8 +75,7 @@ abbr -a gbr git branch -a
 abbr -a gs git status -s
 abbr -a gfe git fetch
 abbr -a gmr git merge
-abbr -a glg git log
-abbr -a ggr git log --oneline --graph --all
+abbr -a glg git log --pretty="'format:%C(yellow)%h %C(green)%cd %C(cyan)[%an] %C(reset)%s %C(red)%d'" --date="'format:%Y-%m-%d %H:%M:%S'" --graph --branches --remotes --tags
 abbr -a gdf git diff
 abbr -a gdfn git diff --name-only
 # 要 git config --global diff.tool nvimdiff
