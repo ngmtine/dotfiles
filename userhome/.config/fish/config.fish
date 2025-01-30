@@ -97,6 +97,9 @@ abbr -a co docker compose
 abbr -a cou docker compose up
 abbr -a cod docker compose down
 
+# tmux
+abbr -a tlh tmux select-layout even-horizontal
+abbr -a tlv tmux select-layout even-vertical
 # tmux使うとvscodeのターミナルからvscodeに送るやつが壊れるやつの対応
 abbr -a recode export VSCODE_IPC_HOOK_CLI=
 
