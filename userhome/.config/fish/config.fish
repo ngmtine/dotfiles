@@ -33,6 +33,7 @@ set -g theme_git_worktree_support yes # リポジトリの場合はブランチ�
 # alias ----------------------------------------
 # 基本
 abbr -a vi nvim
+abbr -a view nvim -R
 abbr -a :q exit
 abbr -a cd pushd
 abbr -a po popd
@@ -73,7 +74,7 @@ abbr -a gpl git pull
 abbr -a gcl git clone
 abbr -a gco git checkout
 abbr -a gcob git checkout -b
-abbr -a gbr git branch -a
+abbr -a gbr git branch
 abbr -a gs git status -s
 abbr -a gfe git fetch
 abbr -a gmr git merge
