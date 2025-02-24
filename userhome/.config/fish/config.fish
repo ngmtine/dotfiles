@@ -255,7 +255,7 @@ function catall
 
     # find の除外条件を作成
     set -l find_exclude_args
-    for exclude in $exclude_files node_modules .git dist package-lock.json
+    for exclude in $exclude_files node_modules .git dist package-lock.json docs
         if test -d $exclude
             # 除外対象がディレクトリの場合
             set find_exclude_args $find_exclude_args -not -wholename "*$exclude*"
