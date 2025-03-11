@@ -2,6 +2,15 @@ local lspconfig = require('lspconfig')
 local null_ls = require("null-ls")
 local nvim_cmp = require("plugins/nvim-cmp")
 
+-- config.yml の存在をチェック
+-- vim起動ディレクトリ直下にlspconfig.ymlがある場合はそれを使う
+-- NOTE: デフォはconfig.ymlみたいだけど紛らわしいのでlspconfig.ymlを指定
+local sqls_cmd = { "sqls" }
+local config_path = vim.fn.expand("$HOME/.config/sqls/lspconfig.yml")
+if vim.fn.filereadable(config_path) == 1 then
+    sqls_cmd = { "sqls", "-config", config_path }
+end
+
 -- lsp設定
 lspconfig["sqls"].setup({
     on_attach = function(client, bufnr)
@@ -23,9 +32,8 @@ lspconfig["sqls"].setup({
     -- 補完
     capabilities = nvim_cmp,
 
-    -- vim起動ディレクトリ直下にlspconfig.ymlがある場合はそれを使う
-    -- NOTE: デフォはconfig.ymlみたいだけど紛らわしいのでlspconfig.ymlを指定
-    cmd = { "sqls", "-config", "./lspconfig.yml" },
+    -- sql起動 lspconfig.ymlのある場合は引数で指定して起動
+    cmd = sqls_cmd,
 })
 
 -- sql-formatter設定

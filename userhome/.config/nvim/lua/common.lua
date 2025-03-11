@@ -1,5 +1,17 @@
 vim.opt.exrc = true -- ローカルの設定ファイル有効化
 
+-- filetype --------------------------------------------------
+vim.opt.fileencodings = "utf-8,sjis"
+
+-- .fishを.shとして扱う
+vim.api.nvim_create_autocmd("BufEnter", {
+    pattern = "*.fish",
+    callback = function()
+        vim.opt.filetype = "sh"
+    end,
+})
+
+
 -- style --------------------------------------------------
 vim.opt.termguicolors = true -- truecolor有効化
 vim.opt.number = true
@@ -60,11 +72,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
         vim.cmd('silent! normal! g`"zv')
     end,
 })
-
--- .fishを.shとして扱う
-vim.cmd [[
-    autocmd BufEnter *.fish set filetype=sh
-]]
 
 -- :s<Space> で :%s//　/g に展開
 -- https://zenn.dev/vim_jp/articles/2023-06-30-vim-substitute-tips
