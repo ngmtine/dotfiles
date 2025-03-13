@@ -62,7 +62,7 @@ abbr -a g git
 abbr -a gin "git init && echo node_modules >> .gitignore"
 abbr -a gad git add
 abbr -a gada git add --all
-abbr -a gcm git commit -v
+abbr -a gcm git commit
 abbr -a gcma git commit --amend
 abbr -a gcman git commit --amend --no-edit
 abbr -a grb git rebase -i
