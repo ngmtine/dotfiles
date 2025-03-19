@@ -1,0 +1,20 @@
+\encoding unicode
+
+-- nullはデフォで空文字なので明示
+\pset null NULL
+
+-- レコード毎表示
+\x on
+
+-- プロンプト
+\set PROMPT1 '%[%033[1;32m%]%n@%M:%> %/ =%# %[%033[0m%]'
+\set PROMPT2 '%[%033[1;32m%]%n@%M:%> %/ =%# %[%033[0m%]'
+
+-- 罫線をunicodeに（デフォはascii）
+\pset linestyle unicode
+
+-- ページャとしてnvimを指定
+\pset pager on
+\setenv PAGER nvim
+
+\echo
