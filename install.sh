@@ -22,3 +22,7 @@ if [ $? -ne 0 ] ; then
 	echo "source ~/.bashrc_cmn" >> ~/.bashrc
 	echo "fi" >> ~/.bashrc
 fi
+
+# ~/.config以下のリンク切れのシンボリックリンクを削除
+find "$HOME/.config" -xtype l -exec rm -v {} \;
+
