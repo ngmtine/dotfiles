@@ -20,7 +20,6 @@ if not is_vscode then
     require("plugins/fidget")
     require("plugins/dapconfig")
     require("plugins/dapconfig-jsts")
-    require("plugins/copilot")
     require("plugins/hlchunk")
     require("plugins/vim-tmux-navigator")
     require("plugins/lualine")
