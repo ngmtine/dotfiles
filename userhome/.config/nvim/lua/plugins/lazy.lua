@@ -67,7 +67,6 @@ local cui_plugins = {
     { "nvim-neotest/nvim-nio" },          -- 非同期APIユーティリティ（nvim-dap-uiの依存）
     { "kyazdani42/nvim-web-devicons" },   -- アイコン（lualine, lspsaga, bufferlineの依存）
     { "nvim-lualine/lualine.nvim" },      -- ステータスライン
-    { "akinsho/bufferline.nvim" },        -- タブ強化
     { "christoomey/vim-tmux-navigator" }, -- nvimとtmuxのペイン移動
     { "lambdalisue/suda.vim" },           -- sudo
     {
