@@ -36,7 +36,6 @@ local common_plugins = {
 
 local cui_plugins = {
     { "cocopon/iceberg.vim" },         -- カラースキーム
-    { "nvim-lua/plenary.nvim" },       -- ユーティリティライブラリ（copilotchat, telescopeの依存）
     { "williamboman/mason.nvim" },     -- mason
     { "williamboman/mason-lspconfig.nvim" },
     { "neovim/nvim-lspconfig" },       -- lsp
@@ -66,7 +65,6 @@ local cui_plugins = {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
-    { "nvim-telescope/telescope.nvim" }, -- ファジーファインダー
 }
 
 -- プラグイン読み込み
