@@ -24,7 +24,7 @@ if not is_vscode then
     require("plugins/vim-tmux-navigator")
     require("plugins/lualine")
     require("plugins/suda")
-    require("plugins/fzf")
+    require("plugins/fzf-lua")
 end
 
 -- ディレクトリ以下のluaを自動でrequireする

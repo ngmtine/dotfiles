@@ -65,6 +65,7 @@ local cui_plugins = {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
+    { "ibhagwan/fzf-lua" } -- fuzzy finder
 }
 
 -- プラグイン読み込み
