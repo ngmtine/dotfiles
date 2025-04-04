@@ -1,4 +1,4 @@
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
 local nvim_cmp = require("plugins_cli/nvim-cmp")
 
@@ -43,7 +43,7 @@ null_ls.setup({
             command = "sql-formatter",
             args = {
                 "--config",
-                '{ "keywordCase": "upper", "tabWidth": 4, "expressionWidth": 120 }',
+                "{ 'keywordCase': 'upper', 'tabWidth': 4, 'expressionWidth': 120 }",
             },
         }),
     },

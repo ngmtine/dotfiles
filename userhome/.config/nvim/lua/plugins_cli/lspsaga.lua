@@ -1,4 +1,4 @@
-require('lspsaga').setup({
+require("lspsaga").setup({
     -- パンくずリスト
     symbol_in_winbar = {},
 
@@ -6,7 +6,7 @@ require('lspsaga').setup({
     -- :Lspsaga code_action
     code_action = {
         keys = {
-            quit = { 'q', '<Esc>' },
+            quit = { "q", "<Esc>" },
         },
     },
 
@@ -17,11 +17,11 @@ require('lspsaga').setup({
         width = 1.0, -- ISSUE: 刻むと左に寄る
         height = 0.7,
         keys = {
-            edit = 'e',
-            vsplit = '<leader>v', -- 右に開く
-            split = '<leader>h',  -- 下に開く
-            tabe = '<leader>t',
-            quit = { 'q', '<Esc>' },
+            edit = "e",
+            vsplit = "<leader>v", -- 右に開く
+            split = "<leader>h",  -- 下に開く
+            tabe = "<leader>t",
+            quit = { "q", "<Esc>" },
         },
     },
 
@@ -30,7 +30,7 @@ require('lspsaga').setup({
     -- :Lspsaga diagnostic_jump_prev
     diagnostic = {
         keys = {
-            quit = { 'q', '<ESC>' }
+            quit = { "q", "<ESC>" }
         }
     },
 
@@ -43,7 +43,7 @@ require('lspsaga').setup({
     },
 })
 
-vim.keymap.set('n', '<F12>', '<cmd>Lspsaga peek_definition<CR>', { noremap = true, silent = true })
+vim.keymap.set("n", "<F12>", "<cmd>Lspsaga peek_definition<CR>", { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>j', '<cmd>Lspsaga term_toggle<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>o', '<cmd>Lspsaga outline<CR>', { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>j", "<cmd>Lspsaga term_toggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { noremap = true, silent = true })

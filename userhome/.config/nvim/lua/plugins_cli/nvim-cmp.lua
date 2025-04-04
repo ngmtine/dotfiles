@@ -43,16 +43,6 @@ local keybindings = {
             fallback()
         end
     end, { "i", "c", "s" }),
-
-    -- 補完ウィンドウ表示時のescは、入力中の文字列に戻してウィンドウ閉じる
-    -- FIXME: ウィンドウ表示されてない通常のインサートモードでのescに待ちが発生する
-    -- ["<c-j>"] = cmp.mapping(function(fallback)
-    -- if cmp.visible() then
-    -- cmp.abort()
-    -- else
-    -- fallback()
-    -- end
-    -- end, { "i", "c" }),
 }
 
 -- コマンドモードキーバインド

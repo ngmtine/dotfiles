@@ -1,4 +1,4 @@
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 local nvim_cmp = require("plugins_cli/nvim-cmp")
 
 lspconfig["lua_ls"].setup({
@@ -31,6 +31,6 @@ lspconfig["lua_ls"].setup({
 })
 
 -- mason_lspconfig.setup_handlers({ function(server_name)
--- require('lspconfig')[server_name].setup {}
+-- require("lspconfig")[server_name].setup {}
 -- end,
 -- })

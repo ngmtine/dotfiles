@@ -16,6 +16,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+    { "nvim-lua/plenary.nvim" },       -- ユーティリティライブラリ なんかの依存
     { "monaqa/dial.nvim" },            -- c-a, c-x の強化
     { "norcalli/nvim-colorizer.lua" }, -- カラーコードに背景色つける
     { "preservim/nerdcommenter" },     -- コメントアウト
@@ -51,8 +52,8 @@ local plugins = {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
-    { "ibhagwan/fzf-lua" },       -- fuzzy finder
-    { "akinsho/bufferline.nvim" } -- バッファをタブエディタっぽく表示するやつ
+    { "ibhagwan/fzf-lua" },        -- fuzzy finder
+    { "akinsho/bufferline.nvim" }, -- バッファをタブエディタっぽく表示するやつ
 }
 
 -- プラグイン読み込み
@@ -63,3 +64,8 @@ require("lazy").setup(plugins, {
     },
 })
 
+-- edkolev/tmuxlineについて
+-- tmuxlineはvim/vim-airline/lightline.vimのカラースキームを流用する（？）
+-- ところで現在のdotfiles以下の.tmuxline.confは、vim-airlineから生成（:TmuxlineSnapshot）したもの
+-- その後vim-airlineは重くてlualineに変更したが、これはtmuxlineが対応していない
+-- 過去に生成した.tmuxline.confを引き続き使用するとして、プラグインとしてのtmuxlineは一旦削除の方向で
