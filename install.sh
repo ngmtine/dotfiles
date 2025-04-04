@@ -23,6 +23,6 @@ if [ $? -ne 0 ] ; then
 	echo "fi" >> ~/.bashrc
 fi
 
-# ~/.config以下のリンク切れのシンボリックリンクを削除
-find "$HOME/.config" -xtype l -exec rm -v {} \;
+# ~/.config/nvim 以下のリンク切れのシンボリックリンクを削除
+find "$HOME/.config/nvim" -xtype l -exec rm -v {} \;
 
