@@ -51,7 +51,8 @@ local plugins = {
         "shellRaining/hlchunk.nvim",      -- インデントとかの可視化
         event = { "BufReadPre", "BufNewFile" },
     },
-    { "ibhagwan/fzf-lua" } -- fuzzy finder
+    { "ibhagwan/fzf-lua" },               -- fuzzy finder
+    { "akinsho/bufferline.nvim" }         -- バッファをタブエディタっぽく表示するやつ
 }
 
 -- プラグイン読み込み
