@@ -1,5 +1,5 @@
 local lspconfig = require('lspconfig')
-local nvim_cmp = require("plugins/nvim-cmp")
+local nvim_cmp = require("plugins_cli/nvim-cmp")
 
 lspconfig["lua_ls"].setup({
     cmd = { "lua-language-server" },

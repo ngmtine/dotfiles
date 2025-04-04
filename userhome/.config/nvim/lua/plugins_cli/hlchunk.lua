@@ -1,3 +1,4 @@
+-- コードのブロック可視化プラグイン
 require("hlchunk").setup({
     chunk = {
         enable = true,

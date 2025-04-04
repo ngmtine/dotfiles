@@ -1,6 +1,6 @@
 local lspconfig = require('lspconfig')
 local null_ls = require("null-ls")
-local nvim_cmp = require("plugins/nvim-cmp")
+local nvim_cmp = require("plugins_cli/nvim-cmp")
 
 -- config.yml の存在をチェック
 -- vim起動ディレクトリ直下にlspconfig.ymlがある場合はそれを使う

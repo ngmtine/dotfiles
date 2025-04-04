@@ -1,3 +1,5 @@
+-- fzfのパス通しておくことが必要
+
 local act = require("fzf-lua").actions
 
 require('fzf-lua').setup({

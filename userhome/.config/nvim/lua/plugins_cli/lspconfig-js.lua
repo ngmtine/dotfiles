@@ -1,6 +1,6 @@
-local lspconfig = require('lspconfig')
+local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
-local nvim_cmp = require("plugins/nvim-cmp")
+local nvim_cmp = require("plugins_cli/nvim-cmp")
 
 lspconfig["ts_ls"].setup({
     on_attach = function(client)

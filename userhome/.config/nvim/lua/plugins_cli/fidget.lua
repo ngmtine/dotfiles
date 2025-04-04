@@ -1,3 +1,4 @@
+-- lspメッセージ表示プラグイン
 require("fidget").setup({
     notification = {
         window = {

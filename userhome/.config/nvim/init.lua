@@ -1,45 +1,40 @@
-local is_vscode = vim.g.vscode == 1
 vim.lsp.set_log_level("warn")
 
-require("common")
-require("keymap")
-require("plugins/lazy")
-require("plugins/nerdcommenter")
-require("plugins/dial")
-require("plugins/colorizer")
-
-if not is_vscode then
-    require("plugins/theme")
-    require("plugins/treesitter")
-    require("plugins/mason")
-    require("plugins/lspconfig")
-    require("plugins/lspconfig-lua")
-    require("plugins/lspconfig-jsts")
-    require("plugins/lspconfig-sql")
-    require("plugins/lspsaga")
-    require("plugins/fidget")
-    require("plugins/dapconfig")
-    require("plugins/dapconfig-jsts")
-    require("plugins/hlchunk")
-    require("plugins/vim-tmux-navigator")
-    require("plugins/lualine")
-    require("plugins/suda")
-    require("plugins/fzf-lua")
+-- エラーを出さずにrequireする関数
+local function safe_require(module)
+    local ok, ret = pcall(require, module)
+    if not ok then
+        print("require failed: " .. module)
+    end
+    return ret
 end
 
--- ディレクトリ以下のluaを自動でrequireする
+-- ディレクトリ以下のluaを全てrequireする関数
 local function require_all(dir)
-    local command_dir = vim.fn.stdpath('config') .. '/lua/' .. dir
+    local command_dir = vim.fn.stdpath("config") .. "/lua/" .. dir
     for _, file in ipairs(vim.fn.readdir(command_dir)) do
         if file:match("%.lua$") then
-            local module_name = dir:gsub("/", ".") .. "." .. file:gsub("%.lua$", "")
-            require(module_name)
+            local module = dir:gsub("/", ".") .. "." .. file:gsub("%.lua$", "")
+            safe_require(module)
         end
     end
 end
 
--- commandsディレクトリ以下全てrequire
+-- 個別読み込み
+safe_require("basicconfig")
+safe_require("keymap")
+safe_require("lazyconfig")
+
+-- ディレクトリ以下全て読み込み
 require_all("commands")
+require_all("plugins")
+
+-- ターミナルでnvimを起動した場合に必要な設定ファイルを読み込む（vscode-neovimとして起動した時に競合するものは読み込まない）
+local is_vscode = vim.g.vscode == 1
+if not is_vscode then
+    safe_require("masonconfig")
+    require_all("plugins_cli")
+end
 
 -- edkolev/tmuxlineについて
 -- tmuxlineはvim/vim-airline/lightline.vimのカラースキームを流用する（？）
