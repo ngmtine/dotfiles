@@ -1,4 +1,4 @@
--- コードのブロック可視化プラグイン
+-- コードブロック可視化プラグイン
 require("hlchunk").setup({
     chunk = {
         enable = true,
@@ -12,13 +12,11 @@ require("hlchunk").setup({
         },
         duration = 100,
         delay = 100,
-        textobject = "ac",
+        textobject = "ac", -- テキストオブジェクト定義 dac, yac等でチャンク全体を操作できる
     },
     indent = {
         enable = true,
         use_treesitter = true,
-        duration = 80,
-        delay = 80,
     },
     line_num = {
         enable = true,

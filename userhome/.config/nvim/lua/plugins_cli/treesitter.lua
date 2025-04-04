@@ -1,13 +1,43 @@
-require 'nvim-treesitter.configs'.setup {
-    -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+require("nvim-treesitter.configs").setup({
+    -- 自動インストールするパーサーのリスト
     ensure_installed = { "vim", "vimdoc", "query", "lua", "javascript", "typescript", "tsx", "python", "markdown" },
 
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
+    auto_install = true,           -- 自動インストール有効化（tree-sitter-cliがなければfalseにすること）
+    sync_install = false,          -- 非同期インストール有効化
+    ignore_install = {},           -- 自動インストール無視リスト空
 
-    -- Automatically install missing parsers when entering buffer
-    -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-    -- auto_install = true,
+    highlight = { enable = true }, -- treesitterによるハイライト有効化
 
-    highlight = { enable = true, },
-}
+    modules = {},
+
+    indent = {
+        enable = true
+    },
+
+    -- 選択範囲拡張 TODO: 全く活用できてないしテキストオブジェクトの文字列も適当なのであとで見直す
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    }
+})
+
+-- TODO: 関数・クラス・条件文など、構文単位で移動・選択ができる強力機能です
+-- これはプラグイン依存（例：nvim-treesitter-textobjects）があるので、必要なときだけ導入でOKです
+-- textobjects = {
+    -- select = {
+        -- enable = true,
+        -- lookahead = true,
+        -- keymaps = {
+            -- ["af"] = "@function.outer",
+            -- ["if"] = "@function.inner",
+            -- ["ac"] = "@class.outer",
+            -- ["ic"] = "@class.inner",
+        -- },
+    -- },
+-- }
+

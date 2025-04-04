@@ -2,7 +2,7 @@
 
 local act = require("fzf-lua").actions
 
-require('fzf-lua').setup({
+require("fzf-lua").setup({
     actions = {
         files = {
             ["enter"]  = act.file_edit_or_qf,

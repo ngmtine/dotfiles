@@ -6,8 +6,8 @@ vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 vim.keymap.set("i", "<c-a>", "<c-o>^")
 vim.keymap.set("i", "<c-e>", "<esc>$i<right>")
-vim.keymap.set("i", "<c-k>", "<esc><right>d$i")
-vim.keymap.set("n", "U", "<c-r>")
+vim.keymap.set("i", "<c-k>", "<esc><right>d$a")
+vim.keymap.set("n", "U", "<c-r>", { desc = "Redo" })
 vim.keymap.set("n", "<", "<<")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("n", ">", ">>")
@@ -16,6 +16,8 @@ vim.keymap.set("n", "<c-l>", ":<c-u>nohlsearch<cr><c-l>") -- 検索ハイライ�
 vim.keymap.set("c", "<c-a>", "<home>")
 vim.keymap.set("c", "<c-e>", "<end>")
 vim.keymap.set("n", "*", "*N")
+vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true }) -- x削除はブラックホールレジスタ
+vim.keymap.set("n", "J", "Jx") -- 行結合時に挿入されるスペースを削除
 
 -- map leader
 vim.g.mapleader = " "
@@ -28,8 +30,8 @@ vim.keymap.set("n", "<Leader>a", "ggVG")
 
 -- バッファ操作系
 vim.keymap.set("n", "<c-w>n", ":vnew<cr>", { desc = "右ウィンドウに新規バッファ" })
-vim.keymap.set("n", "<c-w>n", ":vnew<cr>", { desc = "右ウィンドウに新規バッファ" })
 
+-- TODO: 修正する
 local function move_buffer_to_right()
     local win_count = #vim.api.nvim_list_wins() -- nvim_list_wins() はテーブルを返す関数 #は長さ演算子
     if win_count == 1 then

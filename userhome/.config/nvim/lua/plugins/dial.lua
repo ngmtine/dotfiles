@@ -1,6 +1,12 @@
+-- c-a, c-xを強化するやつ
+
 vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
+vim.keymap.set("v", "<C-a>", require("dial.map").inc_normal(), { noremap = true })
 vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true })
+vim.keymap.set("v", "<C-x>", require("dial.map").dec_normal(), { noremap = true })
+
 local augend = require("dial.augend")
+
 require("dial.config").augends:register_group({
     default = {
         augend.integer.alias.decimal,
