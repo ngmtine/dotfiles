@@ -1,7 +1,7 @@
-local cmp = require("cmp")
+local cmp                 = require("cmp")
 
 -- 共通キーバインド
-local keybindings = {
+local keybindings         = {
     -- 補完ウィンドウ表示
     ["<c-space>"] = cmp.mapping.complete(),
 
@@ -58,6 +58,21 @@ local keybindings_cmdline = vim.tbl_deep_extend("force", keybindings, {
     end, { "c" }),
 })
 
+-- 補完ポップアップウィンドウ内の文字列フォーマット
+local formatting_conf     = {
+    fields = { "menu", "kind", "abbr" }, -- 補完ソース、種別、補完後文字列 の3列で表示
+    format = function(entry, vim_item)
+        vim_item.menu = ({
+            nvim_lsp = "lsp:",
+            buffer = "buf:",
+            path = "path:",
+            cmdline = "cmd:",
+            luasnip = "snip:",
+        })[entry.source.name] or (entry.source.name .. ":")
+        return vim_item
+    end,
+}
+
 cmp.setup({
     -- 補完ウィンドウの外見
     window = {
@@ -77,16 +92,27 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "buffer" },
-    })
+    }),
+
+    formatting = formatting_conf,
 })
 
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.insert(keybindings_cmdline),
+
     sources = cmp.config.sources({
         { name = "path" },
         { name = "cmdline" }, -- hrsh7th/cmp-cmdline
     }),
-    matching = { disallow_symbol_nonprefix_matching = false }
+
+    matching = { disallow_symbol_nonprefix_matching = false },
+
+    completion = {
+        completeopt = "menu,menuone,noinsert",
+        keyword_length = 1, -- vim標準の動作も考慮（コマンドラインに移行直後の上下キーで履歴を辿る）
+    },
+
+    formatting = formatting_conf,
 })
 
 cmp.setup.cmdline({ "/", "?" }, {

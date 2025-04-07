@@ -13,7 +13,8 @@ require("fzf-lua").setup({
 
     files = {
         -- previewer = "bat", -- icebergカラースキーム効かないのが嫌
-        find_opts = [[-type f \! -path '*/.git/*']], -- 除外ディレクトリ
+        find_opts = [[ -type f \! -path '*/.git/*' \! -path '*/.next/*' ]], -- 除外ディレクトリ
+        fd_opts = [[ --exclude '**/.git' --exclude '**/.next' ]],           -- fdfindを使用する場合の除外ディレクトリ
     }
 })
 
@@ -21,4 +22,3 @@ require("fzf-lua").setup({
 vim.keymap.set("n", "<leader>f", "<cmd>lua require('fzf-lua').files()<cr>", { desc = "fzf: ファイル検索" })
 vim.keymap.set("n", "<c-p>", "<cmd>lua require('fzf-lua').files()<cr>", { desc = "fzf: ファイル検索" }) -- vscodeと同等
 vim.keymap.set("n", "<leader>b", "<cmd>lua require('fzf-lua').buffers()<cr>", { desc = "fzf: バッファ検索" })
-

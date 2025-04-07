@@ -15,8 +15,8 @@ mason_null_ls.setup({
     ensure_installed = { "prettier", "sql-formatter", "beautysh" },
 })
 
--- 保存時フォーマット実行フラグ vim.bはバッファローカル変数
-vim.b.isFormatting = true
+-- 保存時フォーマット実行フラグ
+vim.g.isFormatting = true
 
 -- フォーマット実行コマンド
 vim.api.nvim_create_user_command("Format", function()
@@ -25,7 +25,7 @@ end, {})
 
 -- フォーマットせずに保存するコマンド
 vim.api.nvim_create_user_command("SaveWithoutFormatting", function()
-    vim.b.isFormatting = false
+    vim.g.isFormatting = false
     vim.cmd("write")
-    vim.b.isFormatting = true
+    vim.g.isFormatting = true
 end, {})

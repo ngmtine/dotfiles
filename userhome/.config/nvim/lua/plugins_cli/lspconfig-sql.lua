@@ -22,7 +22,7 @@ lspconfig["sqls"].setup({
             group = vim.api.nvim_create_augroup("sqlsFormatting", { clear = true }),
             buffer = bufnr,
             callback = function()
-                if vim.b.isFormatting then
+                if vim.g.isFormatting then
                     vim.lsp.buf.format({ bufnr = bufnr })
                 end
             end,

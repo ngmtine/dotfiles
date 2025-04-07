@@ -33,4 +33,3 @@ if not is_vscode then
     safe_require("masonconfig")
     require_all("plugins_cli")
 end
-

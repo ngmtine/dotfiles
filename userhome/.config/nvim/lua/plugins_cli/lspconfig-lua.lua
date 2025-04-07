@@ -8,7 +8,7 @@ lspconfig["lua_ls"].setup({
             group = vim.api.nvim_create_augroup("luaFormatting", { clear = true }),
             buffer = bufnr,
             callback = function()
-                if vim.b.isFormatting then
+                if vim.g.isFormatting then
                     -- フォーマット実行
                     vim.lsp.buf.format({ async = false })
                 end
