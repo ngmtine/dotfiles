@@ -34,9 +34,10 @@ local plugins = {
         "jay-babu/mason-null-ls.nvim", -- masonでnull-lsを使うやつ（sql-formatterの依存）
         event = { "BufReadPre", "BufNewFile" },
     },
-    { "nvim-treesitter/nvim-treesitter" }, -- treesitter（hlchunk, lspsagaの依存）
+    { "nvim-treesitter/nvim-treesitter" },             -- treesitter（hlchunk, lspsagaの依存）
+    { "nvim-treesitter/nvim-treesitter-textobjects" }, -- treesitterでテキストオブジェクトを拡張するやつ
     {
-        "nvimdev/lspsaga.nvim",            -- lspのUI
+        "nvimdev/lspsaga.nvim",                        -- lspのUI
         event = { "LspAttach" }
     },
     { "j-hui/fidget.nvim" },              -- lspの状態通知

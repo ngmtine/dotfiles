@@ -24,20 +24,26 @@ require("nvim-treesitter.configs").setup({
             scope_incremental = "grc",
             node_decremental = "grm",
         },
-    }
-})
+    },
 
--- TODO: 関数・クラス・条件文など、構文単位で移動・選択ができる強力機能です
--- これはプラグイン依存（例：nvim-treesitter-textobjects）があるので、必要なときだけ導入でOKです
--- textobjects = {
---     select = {
---         enable = true,
---         lookahead = true,
---         keymaps = {
---             ["af"] = "@function.outer",
---             ["if"] = "@function.inner",
---             ["ac"] = "@class.outer",
---             ["ic"] = "@class.inner",
---         },
---     },
--- }
+    -- テキストオブジェクト拡張
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+                ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+            },
+            selection_modes = {
+                ['@parameter.outer'] = 'v',
+                ['@function.outer'] = 'V',
+                ['@class.outer'] = '<c-v>',
+            },
+            include_surrounding_whitespace = true,
+        },
+    },
+})
