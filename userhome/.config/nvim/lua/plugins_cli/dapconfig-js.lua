@@ -1,8 +1,8 @@
-local dap = require('dap')
-local mason_nvim_dap = require('mason-nvim-dap')
+local dap = require("dap")
+local mason_nvim_dap = require("mason-nvim-dap")
 
 mason_nvim_dap.setup({
-    ensure_installed = { "node-debug2-adapter", "chrome-debug-adapter" },
+    ensure_installed = { "js" },
     automatic_installation = true,
 })
 
@@ -27,52 +27,61 @@ local function pick_node_process()
     return nil
 end
 
--- node-debug2-adapterの設定
-dap.adapters.node = {
-    type = 'executable',
-    command = 'node',
-    args = { os.getenv('HOME') .. '/.local/share/nvim/mason/packages/node-debug2-adapter/out/src/nodeDebug.js' },
-}
-
 -- jsデバッグ設定
-dap.configurations.javascript = {
-    {
-        name = 'Launch js',
-        type = 'node',
-        request = 'launch',
-        program = '${file}',
-        cwd = vim.fn.getcwd(),
-        sourceMaps = true,
-        protocol = 'inspector',
-        console = 'integratedTerminal',
-    },
-    {
-        -- プロセスアタッチにはnodeを`--inspect`フラグつきで起動しておくこと
-        name = 'Attach js',
-        type = 'node',
-        request = 'attach',
-        -- processId = require 'dap.utils'.pick_process, -- 手動でプロセスを選択
-        -- processId = function() return require('dap.utils').pick_process({ filter = "node" }) end, -- 手動でプロセスを選択（nodeでフィルタ）
-        processId = pick_node_process, -- 自動でプロセスを選択
-    },
-}
+-- dap.configurations.javascript = {
+--     {
+--         name = 'Launch js',
+--         type = 'node',
+--         request = 'launch',
+--         program = '${file}',
+--         cwd = vim.fn.getcwd(),
+--         sourceMaps = true,
+--         protocol = 'inspector',
+--         console = 'integratedTerminal',
+--     },
+--     {
+--         -- プロセスアタッチにはnodeを`--inspect`フラグつきで起動しておくこと
+--         name = 'Attach js',
+--         type = 'node',
+--         request = 'attach',
+--         -- processId = require 'dap.utils'.pick_process, -- 手動でプロセスを選択
+--         -- processId = function() return require('dap.utils').pick_process({ filter = "node" }) end, -- 手動でプロセスを選択（nodeでフィルタ）
+--         processId = pick_node_process, -- 自動でプロセスを選択
+--     },
+-- }
 
--- tsデバッグ設定
-dap.configurations.typescript = {
-    {
-        -- ts-nodeで実行（要 npm i -D -g ts-node）
-        name = "Launch ts (ts-node)",
-        type = "node",
+-- -- tsデバッグ設定
+-- dap.configurations.typescript = {
+--     {
+--         -- ts-nodeで実行（要 npm i -D -g ts-node）
+--         name = "Launch ts (ts-node)",
+--         type = "node",
+--         request = "launch",
+--         runtimeExecutable = "node",
+--         runtimeArgs = { "-r", "ts-node/register" },
+--         args = { "--inspect", "${file}" },
+--         skipFiles = { "node_modules/**" },
+--     },
+--     {
+--         -- `--inspect`で実行中のnodeプロセスにアタッチ（例 ts-node-dev --inspect=0.0.0.0:9229 hoge.ts）
+--         name = "Attach ts",
+--         type = "node",
+--         request = "attach",
+--     },
+-- }
+
+for _, language in ipairs({ "javascript", "typescript", "javascriptreact", "typescriptreact" }) do
+    if not dap.configurations[language] then
+        dap.configurations[language] = {}
+    end
+    table.insert(dap.configurations[language], {
+        type = "pwa-node",
         request = "launch",
-        runtimeExecutable = "node",
-        runtimeArgs = { "-r", "ts-node/register" },
-        args = { "--inspect", "${file}" },
-        skipFiles = { "node_modules/**" },
-    },
-    {
-        -- `--inspect`で実行中のnodeプロセスにアタッチ（例 ts-node-dev --inspect=0.0.0.0:9229 hoge.ts）
-        name = "Attach ts",
-        type = "node",
-        request = "attach",
-    },
-}
+        name = "Launch file",
+        program = "${file}",
+        cwd = "${workspaceFolder}",
+        sourceMaps = true,
+        protocol = "inspector",
+        console = "integratedTerminal",
+    })
+end
