@@ -17,7 +17,6 @@ vim.keymap.set("c", "<c-a>", "<home>")
 vim.keymap.set("c", "<c-e>", "<end>")
 vim.keymap.set("n", "*", "*N")
 vim.keymap.set("n", "x", '"_x', { noremap = true, silent = true }) -- x削除はブラックホールレジスタ
-vim.keymap.set("n", "J", "Jx") -- 行結合時に挿入されるスペースを削除
 
 -- map leader
 vim.g.mapleader = " "
