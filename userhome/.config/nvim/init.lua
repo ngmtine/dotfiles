@@ -30,6 +30,5 @@ safe_require_all("plugins")
 -- ターミナルでnvimを起動した場合に必要な設定ファイルを読み込む（vscode-neovimとして起動した時に競合するものは読み込まない）
 local is_vscode = vim.g.vscode == 1
 if not is_vscode then
-    safe_require("masonconfig")
     safe_require_all("plugins_cli")
 end

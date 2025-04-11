@@ -23,24 +23,29 @@ local plugins = {
     { "machakann/vim-sandwich" },      -- vim-surrond的なやつ
     { "cohama/lexima.vim" },           -- 括弧補完
     { "cocopon/iceberg.vim" },         -- カラースキーム
-    { "williamboman/mason.nvim" },     -- mason
+
+    -- lsp関係
+    { "neovim/nvim-lspconfig" },
+    { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" },       -- lsp
-    { "hrsh7th/nvim-cmp" },            -- 補完
-    { "hrsh7th/cmp-nvim-lsp" },        -- 補完のlspソース
-    { "hrsh7th/cmp-cmdline" },         -- 補完のlspソース
-    { "nvimtools/none-ls.nvim" },      -- null-lsフォーク
+    { -- null-lsフォーク
+        "nvimtools/none-ls.nvim",
+        config = true,
+    },
     {
         "jay-babu/mason-null-ls.nvim", -- masonでnull-lsを使うやつ（sql-formatterの依存）
         event = { "BufReadPre", "BufNewFile" },
     },
-    { "nvim-treesitter/nvim-treesitter" },             -- treesitter（hlchunk, lspsagaの依存）
-    { "nvim-treesitter/nvim-treesitter-textobjects" }, -- treesitterでテキストオブジェクトを拡張するやつ
     {
-        "nvimdev/lspsaga.nvim",                        -- lspのUI
+        "nvimdev/lspsaga.nvim", -- lspのUI
         event = { "LspAttach" }
     },
-    { "j-hui/fidget.nvim" },              -- lspの状態通知
+
+    { "nvim-treesitter/nvim-treesitter" },             -- treesitter（hlchunk, lspsagaの依存）
+    { "nvim-treesitter/nvim-treesitter-textobjects" }, -- treesitterでテキストオブジェクトを拡張するやつ
+    { "j-hui/fidget.nvim" },                           -- lspの状態通知
+
+    -- dap
     { "mfussenegger/nvim-dap" },          -- dap
     { "jay-babu/mason-nvim-dap.nvim" },   -- masonでdapを使うやつ
     { "rcarriga/nvim-dap-ui" },           -- dapのui
@@ -72,9 +77,3 @@ require("lazy").setup(plugins, {
         -- backdrop = 100 -- 効かない（wezterm）
     },
 })
-
--- edkolev/tmuxlineについて
--- tmuxlineはvim/vim-airline/lightline.vimのカラースキームを流用する（？）
--- ところで現在のdotfiles以下の.tmuxline.confは、vim-airlineから生成（:TmuxlineSnapshot）したもの
--- その後vim-airlineは重くてlualineに変更したが、これはtmuxlineが対応していない
--- 過去に生成した.tmuxline.confを引き続き使用するとして、プラグインとしてのtmuxlineは一旦削除の方向で
