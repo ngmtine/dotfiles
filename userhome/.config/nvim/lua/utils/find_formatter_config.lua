@@ -1,7 +1,7 @@
 -- 設定ファイルを現在のディレクトリから親ディレクトリに向かって検索
 -- @param filenames (string|table) 検索するファイル名のリストまたは単一ファイル名
 -- @param bufnr (number, optional) 対象のバッファ番号
--- @return boolean 設定ファイルが見つかったかどうか
+-- @return string|nil 見つかったファイルのフルパス、または見つからなければ nil
 function find_formatter_config(filenames, bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
     local buf_path = vim.api.nvim_buf_get_name(bufnr)
@@ -16,7 +16,7 @@ function find_formatter_config(filenames, bufnr)
     end
 
     if not start_dir then
-        return false
+        return nil
     end
 
     if type(filenames) == "string" then
@@ -31,7 +31,12 @@ function find_formatter_config(filenames, bufnr)
         type = "file"
     })
 
-    return #found_files > 0
+    -- 見つかったらファイルパス返す、見つからなければnil
+    if #found_files > 0 then
+        return found_files[1]
+    else
+        return nil
+    end
 end
 
 return find_formatter_config
