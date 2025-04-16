@@ -14,7 +14,7 @@ require("lspsaga").setup({
     -- :Lspsaga peek_definition
     -- :Lspsaga peek_type_definition
     definition = {
-        width = 1.0, -- ISSUE: 刻むと左に寄る
+        width = 1.0, -- FIXME: 刻むと左に寄る
         height = 0.7,
         keys = {
             edit = "e",
@@ -42,10 +42,6 @@ require("lspsaga").setup({
         sign = false -- 左側にアイコンを描画する機能であるが、ガタつく
     },
 })
-
-vim.keymap.set("n", "<F12>", "<cmd>Lspsaga peek_definition<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<f8>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<f8>", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>j", "<cmd>Lspsaga term_toggle<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { noremap = true, silent = true })
