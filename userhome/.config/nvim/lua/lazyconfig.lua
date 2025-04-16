@@ -44,6 +44,7 @@ local plugins = {
     { "nvim-treesitter/nvim-treesitter" },             -- treesitter（hlchunk, lspsagaの依存）
     { "nvim-treesitter/nvim-treesitter-textobjects" }, -- treesitterでテキストオブジェクトを拡張するやつ
     { "j-hui/fidget.nvim" },                           -- lspの状態通知
+    { "hrsh7th/nvim-cmp" },                            -- 補完
 
     -- dap
     { "mfussenegger/nvim-dap" },          -- dap

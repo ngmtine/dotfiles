@@ -10,7 +10,7 @@ require("mason-lspconfig").setup({
 })
 
 require("mason-null-ls").setup({
-    ensure_installed = { "biome" },
+    ensure_installed = { "biome", "prettierd", "eslint_d" },
     automatic_installation = true,
     handlers = {},
 })
@@ -31,7 +31,8 @@ require("lspconfig").lua_ls.setup({
     -- グローバル変数vimの未定義警告の抑制
     settings = {
         Lua = {
-            diagnostics = { globals = { "vim" } }
+            diagnostics = { globals = { "vim" } },
+            max_line_length = 200
         },
     },
 })
