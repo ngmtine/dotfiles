@@ -28,11 +28,6 @@ local plugins = {
     { "neovim/nvim-lspconfig" },
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
-    { "nvimtools/none-ls.nvim" },      -- null-lsフォーク
-    {
-        "jay-babu/mason-null-ls.nvim", -- masonでnull-lsを使うやつ（sql-formatterの依存）
-        event = { "BufReadPre", "BufNewFile" },
-    },
     {
         "nvimdev/lspsaga.nvim", -- lspのUI
         event = { "LspAttach" }
