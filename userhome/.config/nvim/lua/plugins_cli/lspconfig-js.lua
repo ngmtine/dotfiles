@@ -1,5 +1,4 @@
 local U = require("U")
-local G = require("utils/G")
 local keymap_lsp = require("keymap_lsp")
 local lspconfig = require("lspconfig")
 
@@ -41,8 +40,6 @@ local function get_project_type(bufnr)
     local filename = vim.api.nvim_buf_get_name(bufnr)
     local msg = string.format("[efm get_project_type] filename: %s, root_dir: %s, project_type: %s", filename or "unknown", root_dir or "unknown", project_type)
     vim.notify(msg)
-
-    G.project_types[bufnr] = project_type
 
     return project_type
 end
@@ -157,8 +154,3 @@ lspconfig.efm.setup({
     -- プロジェクトがbiome, prettier, eslintのどれを採用しているかによって動的に設定
     settings = build_efm_settings()
 })
-
-return {
-    get_project_type = get_project_type
-}
-
