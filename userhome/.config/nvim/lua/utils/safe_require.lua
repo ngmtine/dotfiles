@@ -7,11 +7,8 @@ local function safe_require(module)
 
     -- 失敗した場合、エラー通知
     if not ok then
-        vim.notify(
-            string.format("safe_require: Error requiring module '%s':\n%s", module, tostring(result)),
-            vim.log.levels.ERROR,
-            { title = "Module Load Error" }
-        )
+        local msg = string.format("[safe_require] Error requiring module '%s':\n%s", module, tostring(result))
+        vim.notify(msg, vim.log.levels.WARN, { title = "Module Load Error" })
         return false, result
     end
 

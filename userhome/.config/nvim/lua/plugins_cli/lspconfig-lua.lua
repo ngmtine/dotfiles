@@ -4,7 +4,8 @@ local keymap_lsp = require("keymap_lsp")
 -- luaのlsp設定
 require("lspconfig").lua_ls.setup({
     on_attach = function(client, bufnr)
-        vim.notify(string.format("[lspconfig-lua] LSP client '%s' attached to buffer %d", client.name, bufnr))
+        local msg = string.format("[lspconfig-lua] LSP client '%s' attached to buffer %d", client.name, bufnr)
+        vim.notify(msg)
 
         -- キーマップ
         keymap_lsp(bufnr)

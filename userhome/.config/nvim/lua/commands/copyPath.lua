@@ -10,5 +10,6 @@ vim.api.nvim_create_user_command("CopyPath", function()
     vim.fn.setreg("+", filepath)
     vim.fn.setreg("*", filepath)
 
-    print("Copied file path: " .. filepath)
+    local msg = "[copyPath] Copied file path: " .. filepath
+    vim.notify(msg)
 end, {})

@@ -38,7 +38,7 @@ local function get_project_type(bufnr)
     end
 
     local filename = vim.api.nvim_buf_get_name(bufnr)
-    local msg = string.format("[efm get_project_type] filename: %s, root_dir: %s, project_type: %s", filename or "unknown", root_dir or "unknown", project_type)
+    local msg = string.format("[lspconfig-js get_project_type] filename: %s, root_dir: %s, project_type: %s", filename or "unknown", root_dir or "unknown", project_type)
     vim.notify(msg)
 
     return project_type
@@ -116,12 +116,15 @@ end
 
 -- 共通on_attach関数
 local on_attach = function(client, bufnr)
-    vim.notify(string.format("LSP client '%s' attached to buffer %d", client.name, bufnr))
+    local msg = string.format("[lspconfig-js] LSP client '%s' attached to buffer %d", client.name or "unknown", bufnr or "empty buffer")
+    vim.notify(msg)
 end
 
 -- js, tsのlsp設定
 lspconfig.ts_ls.setup({
     on_attach = function(client, bufnr)
+        on_attach(client, bufnr)
+
         -- キーマップ
         keymap_lsp(bufnr)
 
