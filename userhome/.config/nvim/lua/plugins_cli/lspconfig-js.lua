@@ -61,14 +61,19 @@ local function build_efm_settings()
 
     -- プロジェクトタイプ毎に設定を変更
     if project_type == "biome" then
-        -- Biome
+        -- Biome formatter
         table.insert(tool_config, {
-            lintCommand = "biome check --apply-unsafe --no-errors-on-unmatched ${FILENAME}", -- check コマンド例 (lint と format を含む, ファイルパス渡し)
-            -- lintCommand = "biome lint --diagnostic-level=error ${FILENAME}", -- lint のみの場合
-            lintFormats = { '%f:%l:%c %t:%*[^:]:%*[^ ] %m' },
+            formatCommand = "biome format --stdin-file-path ${INPUT}",
+            formatStdin = true,
+        })
+        -- Biome Linter
+        table.insert(tool_config, {
+            lintCommand = "biome lint ${FILENAME} --no-errors-on-unmatched",
             lintStdin = false,
-            formatCommand = "biome format --write ${FILENAME}",
-            formatStdin = false,
+            lintFormats = {
+                '%f:%l:%c - %t: %m',
+                '%f:%l:%c %t: %m',
+            },
         })
     elseif project_type == "prettier_eslint" then
         -- Prettier
@@ -79,8 +84,8 @@ local function build_efm_settings()
         -- ESLint
         table.insert(tool_config, {
             lintCommand = "eslint --format=compact --stdin --stdin-filename ${INPUT}",
-            lintFormats = { '%f:%l:%c: %m [%t/%e]', '%f:%l:%c: %m' },
             lintStdin = true,
+            lintFormats = { '%f:%l:%c: %m [%t/%e]', '%f:%l:%c: %m' },
         })
     elseif project_type == "prettier" then
         -- Prettier
@@ -91,7 +96,6 @@ local function build_efm_settings()
     end
 
     -- デフォルト設定
-    -- TODO: 今はprettierだけど、何もない場合はdotfilesで管理しているbiome.jsonを使用する形に変更
     if project_type == nil then
         table.insert(tool_config, { formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true })
     end
