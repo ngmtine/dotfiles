@@ -80,3 +80,11 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 vim.cmd([[
     cnoreabbrev <expr> s getcmdtype() .. getcmdline() ==# ':s' ? [getchar(), ''][1] .. "%s///g<Left><Left>" : 's'
 ]])
+
+-- ヤンクした箇所をハイライト
+vim.api.nvim_create_autocmd("TextYankPost", {
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank({ timeout = 300 })
+    end,
+})
