@@ -37,6 +37,8 @@ local plugins = {
     { "nvim-treesitter/nvim-treesitter-textobjects" }, -- treesitterでテキストオブジェクトを拡張するやつ
     { "j-hui/fidget.nvim" },                           -- lspの状態通知
     { "hrsh7th/nvim-cmp" },                            -- 補完
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/cmp-cmdline" },
 
     -- dap
     { "mfussenegger/nvim-dap" },          -- dap
