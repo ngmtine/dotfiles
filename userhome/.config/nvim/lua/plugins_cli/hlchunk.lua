@@ -15,8 +15,8 @@ require("hlchunk").setup({
         textobject = "ac", -- テキストオブジェクト定義 dac, yac等でチャンク全体を操作できる
     },
     indent = {
-        enable = true,
-        use_treesitter = true,
+        enable = false,
+        use_treesitter = false, -- trueにするとエラーになる（という問題もあり、そもそもこの機能がそんなに有用だと思ってないのでenable=false）
     },
     line_num = {
         enable = true,
