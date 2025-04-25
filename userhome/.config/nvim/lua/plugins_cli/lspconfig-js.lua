@@ -37,9 +37,10 @@ local function get_project_type(bufnr)
         end
     end
 
-    local filename = vim.api.nvim_buf_get_name(bufnr)
-    local msg = string.format("[lspconfig-js get_project_type] filename: %s, root_dir: %s, project_type: %s", filename or "unknown", root_dir or "unknown", project_type)
-    vim.notify(msg)
+    -- 画面上に通知（邪魔かも）
+    -- local filename = vim.api.nvim_buf_get_name(bufnr)
+    -- local msg = string.format("[lspconfig-js get_project_type] filename: %s, root_dir: %s, project_type: %s", filename or "unknown", root_dir or "unknown", project_type)
+    -- vim.notify(msg)
 
     return project_type
 end
@@ -61,34 +62,26 @@ local function build_efm_settings()
 
     -- プロジェクトタイプ毎に設定を変更
     if project_type == "biome" then
-        -- Biome formatter
         table.insert(tool_config, {
             formatCommand = "biome format --stdin-file-path ${INPUT}",
             formatStdin = true,
         })
-        -- Biome Linter
         table.insert(tool_config, {
             lintCommand = "biome lint ${FILENAME} --no-errors-on-unmatched",
             lintStdin = false,
-            lintFormats = {
-                '%f:%l:%c - %t: %m',
-                '%f:%l:%c %t: %m',
-            },
+            lintFormats = { '%f:%l:%c - %t: %m', '%f:%l:%c %t: %m' },
         })
     elseif project_type == "prettier_eslint" then
-        -- Prettier
         table.insert(tool_config, {
             formatCommand = "prettier --stdin-filepath ${INPUT}",
             formatStdin = true,
         })
-        -- ESLint
         table.insert(tool_config, {
             lintCommand = "eslint --format=compact --stdin --stdin-filename ${INPUT}",
             lintStdin = true,
             lintFormats = { '%f:%l:%c: %m [%t/%e]', '%f:%l:%c: %m' },
         })
     elseif project_type == "prettier" then
-        -- Prettier
         table.insert(tool_config, {
             formatCommand = "prettier --stdin-filepath ${INPUT}",
             formatStdin = true,
