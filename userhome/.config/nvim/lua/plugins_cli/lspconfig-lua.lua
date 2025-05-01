@@ -1,4 +1,3 @@
-local format_on_save_augroup = require("plugins_cli/format")
 local keymap_lsp = require("keymap_lsp")
 
 -- luaのlsp設定
@@ -13,7 +12,7 @@ require("lspconfig").lua_ls.setup({
         -- 保存時フォーマット
         if client.supports_method("textDocument/formatting") then
             vim.api.nvim_create_autocmd("BufWritePre", {
-                group = format_on_save_augroup,
+                group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
                 buffer = bufnr,
                 callback = function()
                     vim.lsp.buf.format({

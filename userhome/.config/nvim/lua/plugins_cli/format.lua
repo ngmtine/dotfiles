@@ -30,7 +30,3 @@ vim.api.nvim_create_user_command(
         nargs = 0
     }
 )
-
--- 保存時フォーマットのaugroup （参考 #80750b5）
-local format_on_save_augroup = vim.api.nvim_create_augroup("FormatOnSave", { clear = true })
-return format_on_save_augroup

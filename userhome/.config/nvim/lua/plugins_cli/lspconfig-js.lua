@@ -2,51 +2,9 @@ local U = require("U")
 local keymap_lsp = require("keymap_lsp")
 local lspconfig = require("lspconfig")
 
-local biome_config_files = { "biome.json" }
-local prettier_config_files = { ".prettierrc", ".prettierrc.json" }
-local eslint_config_files = { ".eslintrc", ".eslintrc.json", "eslint.config.js" }
-
--- プロジェクトタイプを判定する関数
-local function get_project_type(bufnr)
-    local project_type = nil
-    local root_dir = U.get_project_root(bufnr)
-
-    local biome_found = nil
-    local prettier_found = nil
-    local eslint_found = nil
-
-    if root_dir then
-        biome_found = U.find_formatter_config(biome_config_files, bufnr) ~= nil
-        prettier_found = U.find_formatter_config(prettier_config_files, bufnr) ~= nil
-        eslint_found = U.find_formatter_config(eslint_config_files, bufnr) ~= nil
-
-        if biome_found then
-            if eslint_found then
-                project_type = "biome_eslint"
-            else
-                project_type = "biome"
-            end
-        elseif prettier_found then
-            if eslint_found then
-                project_type = "prettier_eslint"
-            else
-                project_type = "prettier"
-            end
-        elseif eslint_found then
-            project_type = "eslint"
-        end
-    end
-
-    -- 画面上に通知（邪魔かも）
-    -- local filename = vim.api.nvim_buf_get_name(bufnr)
-    -- local msg = string.format("[lspconfig-js get_project_type] filename: %s, root_dir: %s, project_type: %s", filename or "unknown", root_dir or "unknown", project_type)
-    -- vim.notify(msg)
-
-    return project_type
-end
-
 -- efmのsettingsテーブルを動的に構築する関数
 local function build_efm_settings()
+    -- 返却値
     local settings = {
         version = 2,
         rootMarkers = { ".git", "package.json" },
@@ -54,50 +12,62 @@ local function build_efm_settings()
         languages = {},
     }
 
-    -- 現在のバッファ情報に基づいてプロジェクトタイプを判定
+    local format_settings = {}
     local bufnr = vim.api.nvim_get_current_buf()
-    local project_type = get_project_type(bufnr)
+    local js_config = U.get_js_config(bufnr)
 
-    local tool_config = {}
-
-    -- プロジェクトタイプ毎に設定を変更
-    if project_type == "biome" then
-        table.insert(tool_config, {
-            formatCommand = "biome format --stdin-file-path ${INPUT}",
-            formatStdin = true,
-        })
-        table.insert(tool_config, {
-            lintCommand = "biome lint ${FILENAME} --no-errors-on-unmatched",
-            lintStdin = false,
-            lintFormats = { '%f:%l:%c - %t: %m', '%f:%l:%c %t: %m' },
-        })
-    elseif project_type == "prettier_eslint" then
-        table.insert(tool_config, {
+    -- 現在のバッファ情報に基づいてフォーマッタ, リンタ設定を決定
+    if js_config.biome_config then
+        if js_config.eslint_config then
+            -- biomeかつeslint
+            -- TODO: あとで書く
+        else
+            -- biome単体
+            table.insert(format_settings, {
+                formatCommand = "biome format --stdin-file-path ${INPUT}",
+                formatStdin = true,
+            })
+            table.insert(format_settings, {
+                lintCommand = "biome lint ${FILENAME} --no-errors-on-unmatched",
+                lintStdin = false,
+                lintFormats = { "%f:%l:%c - %t: %m", "%f:%l:%c %t: %m" },
+            })
+        end
+    elseif js_config.prettier_config then
+        if js_config.eslint_config then
+            -- prettierかつeslint
+            table.insert(format_settings, {
+                formatCommand = "prettier --stdin-filepath ${INPUT}",
+                formatStdin = true,
+            })
+            table.insert(format_settings, {
+                lintCommand = "eslint --format=compact --stdin --stdin-filename ${INPUT}",
+                lintStdin = true,
+                lintFormats = { "%f:%l:%c: %m [%t/%e]", "%f:%l:%c: %m" },
+            })
+        else
+            -- prettier単体
+            table.insert(format_settings, {
+                formatCommand = "prettier --stdin-filepath ${INPUT}",
+                formatStdin = true,
+            })
+        end
+    elseif js_config.eslint_config then
+        -- eslint単体（そんな場合ある？）
+        -- TODO: あとで書く
+    else
+        -- デフォルト設定（prettierを適用）
+        table.insert(format_settings, {
             formatCommand = "prettier --stdin-filepath ${INPUT}",
-            formatStdin = true,
+            formatStdin = true
         })
-        table.insert(tool_config, {
-            lintCommand = "eslint --format=compact --stdin --stdin-filename ${INPUT}",
-            lintStdin = true,
-            lintFormats = { '%f:%l:%c: %m [%t/%e]', '%f:%l:%c: %m' },
-        })
-    elseif project_type == "prettier" then
-        table.insert(tool_config, {
-            formatCommand = "prettier --stdin-filepath ${INPUT}",
-            formatStdin = true,
-        })
-    end
-
-    -- デフォルト設定
-    if project_type == nil then
-        table.insert(tool_config, { formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true })
     end
 
     -- 各言語に構築したツールのリストを割り当て
-    settings.languages["javascript"] = tool_config
-    settings.languages["typescript"] = tool_config
-    settings.languages["javascriptreact"] = tool_config
-    settings.languages["typescriptreact"] = tool_config
+    settings.languages["javascript"] = format_settings
+    settings.languages["typescript"] = format_settings
+    settings.languages["javascriptreact"] = format_settings
+    settings.languages["typescriptreact"] = format_settings
 
     -- JSON設定
     settings.languages["json"] = {
@@ -113,9 +83,19 @@ local on_attach = function(client, bufnr)
     vim.notify(msg)
 end
 
+-- フォーマット対象ファイルタイプ
+-- local target_filetypes = {
+--     javascript = true,
+--     typescript = true,
+--     javascriptreact = true,
+--     typescriptreact = true,
+--     json = true,
+-- }
+
 -- js, tsのlsp設定
 lspconfig.ts_ls.setup({
     on_attach = function(client, bufnr)
+        -- 共通on_attach
         on_attach(client, bufnr)
 
         -- キーマップ
@@ -130,19 +110,24 @@ lspconfig.ts_ls.setup({
             group = vim.api.nvim_create_augroup("EfmFormatting", { clear = true }),
             buffer = bufnr,
             callback = function()
+                -- local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+                -- if not target_filetypes[filetype] then
+                --     return
+                -- end
+                U.notify_formatting_info(bufnr)
                 vim.lsp.buf.format({
                     filter = function(c) return c.name == "efm" end, -- フォーマットはefmに一任
-                    async = false
+                    async = false                                    -- 非同期にするとなんかバグるので無効化
                 })
             end,
         })
     end
 })
 
--- efm設定
+-- efmのlsp設定（js, ts以外のファイルで実行させないために、この場所で指定）
 lspconfig.efm.setup({
-    on_attach = on_attach,
-
+    -- on_attach(client, bufnr),                -- 共通on_attach
+    settings = build_efm_settings(), -- プロジェクトがbiome, prettier, eslintのどれを採用しているかによって動的に設定
     init_options = {
         documentFormatting = true,
         documentRangeFormatting = false,
@@ -150,7 +135,4 @@ lspconfig.efm.setup({
         hover = false,
         completion = false,
     },
-
-    -- プロジェクトがbiome, prettier, eslintのどれを採用しているかによって動的に設定
-    settings = build_efm_settings()
 })

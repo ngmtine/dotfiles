@@ -3,13 +3,17 @@ local get_project_root = require("utils/get_project_root")
 -- 設定ファイルを現在のディレクトリから親ディレクトリに向かって検索
 -- @param filenames (string|table) 検索するファイル名のリストまたは単一ファイル名
 -- @param bufnr (number, optional) 対象のバッファ番号
+-- @param findroot (string) 検索するディレクトリ
 -- @return string|nil 見つかったファイルのフルパス、または見つからなければ nil
-function find_formatter_config(filenames, bufnr)
+function find_formatter_config(filenames, bufnr, findroot)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
     local buf_path = vim.api.nvim_buf_get_name(bufnr)
     local start_dir
 
-    if buf_path and buf_path ~= "" then
+    if findroot then
+        -- findrootが渡されているならばそれを開始点とする
+        start_dir = findroot
+    elseif buf_path and buf_path ~= "" then
         -- 開いているバッファのパスを開始点とする
         start_dir = vim.fn.fnamemodify(buf_path, ":h")
     else
@@ -51,14 +55,14 @@ function find_formatter_config(filenames, bufnr)
             return found_file_path
         else
             -- プロジェクトルート外で見つかった場合、nil返して終了
-            -- local msg = string.format("[find_formatter_config] Found '%s' but it is outside project root '%s'. Ignored.", found_file_path, project_root_dir)
-            -- vim.notify(msg)
+            local msg = string.format("[find_formatter_config] Found '%s' but it is outside project root '%s'. Ignored.", found_file_path, project_root_dir)
+            vim.notify(msg)
             return nil
         end
     else
         -- プロジェクトルートまで遡っても見つからなかった場合、nil返して終了
-        -- local msg = string.format("[find_formatter_config] '%s' is not found.", filenames)
-        -- vim.notify(msg)
+        local msg = string.format("[find_formatter_config] '%s' is not found.", filenames)
+        vim.notify(msg)
         return nil
     end
 end

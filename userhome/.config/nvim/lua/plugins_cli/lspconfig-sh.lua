@@ -1,4 +1,3 @@
--- local format_on_save_augroup = require("plugins_cli/format")
 local keymap_lsp = require("keymap_lsp")
 
 -- シェルスクリプトのlsp設定
@@ -51,6 +50,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     buffer = 0, -- 現在のバッファにのみ適用
     desc = "Format shell script with beautysh on save (ftplugin)",
     callback = function(args)
+            local current_bufnr = args.buf
+        local filetype = vim.api.nvim_buf_get_option(current_bufnr, 'filetype')
+        if filetype ~= "sh" then
+            return
+        end
         format_with_beautysh(args.buf)
     end,
 })
