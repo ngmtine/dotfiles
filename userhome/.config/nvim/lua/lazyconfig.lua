@@ -15,6 +15,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- cliとvscodeとで共通して読み込むプラグイン
 local plugins = {
     { "nvim-lua/plenary.nvim" },       -- ユーティリティライブラリ なんかの依存
     { "monaqa/dial.nvim" },            -- c-a, c-x の強化
@@ -23,7 +24,10 @@ local plugins = {
     { "machakann/vim-sandwich" },      -- vim-surrond的なやつ
     { "cohama/lexima.vim" },           -- 括弧補完
     { "cocopon/iceberg.vim" },         -- カラースキーム
+}
 
+-- vscodeでは読み込まないプラグイン
+local cli_only_plugins = {
     -- lsp関係
     { "neovim/nvim-lspconfig" },
     { "williamboman/mason.nvim" },
@@ -64,6 +68,14 @@ local plugins = {
         dependencies = { "mfussenegger/nvim-dap" },
     },
 }
+
+-- 最終的に読み込むプラグインリストの作成
+local is_vscode = vim.g.vscode == 1
+if not is_vscode then
+    for _, additional in ipairs(cli_only_plugins) do
+        table.insert(plugins, additional)
+    end
+end
 
 -- プラグイン読み込み
 require("lazy").setup(plugins, {
