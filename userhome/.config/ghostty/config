@@ -1,0 +1,9 @@
+# リガチャ無効
+font-feature = "-calt"
+font-feature = "-dlig"
+font-feature = "-liga"
+
+background-opacity = 0.95
+keybind = ctrl+enter=unbind
+mouse-hide-while-typing = true
+
