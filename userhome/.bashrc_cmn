@@ -2,19 +2,14 @@
 export LANG=ja_JP.UTF-8
 export LANGUAGE=en_US.UTF-8
 
+# git logの日本語対応
+export LESSCHARSET=utf-8
+
 # alias
 alias e=explorer.exe
 alias vi=nvim
 alias f=fish
 alias t=tmux
-
-# asdf
-# v15
-# . $HOME/.asdf/asdf.sh
-# . $HOME/.asdf/completions/asdf.bash
-# v16
-export ASDF_DATA_DIR="$HOME/.asdf"
-export PATH="$ASDF_DATA_DIR/bin:$ASDF_DATA_DIR/shims:$PATH"
 
 # poetry
 export PATH=$HOME/.local/bin:$PATH
