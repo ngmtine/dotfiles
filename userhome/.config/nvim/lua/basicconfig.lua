@@ -27,10 +27,32 @@ vim.opt.listchars = { tab = "▸-", trail = "_", eol = "↲" }
 
 -- edit --------------------------------------------------
 vim.opt.mouse = "a"
-vim.opt.clipboard = "unnamedplus" -- クリップボード共有 .bashrcとかでwin32yank.exeへのパス通しておく必要あり
 vim.opt.encoding = "utf-8"
 vim.scriptencoding = "utf-8"
 vim.opt.swapfile = false
+
+-- clipboard ---------------------------------------------
+-- クリップボード共有
+vim.opt.clipboard = 'unnamedplus'
+
+-- WSL環境かどうかを判定
+if vim.fn.has('wsl') == 1 then
+    -- WSLの場合: win32yank.exeを使用 win32yank.exeへのパス通しておく必要あり
+    vim.g.clipboard = {
+        name = 'win32yank-wsl',
+        copy = {
+            ['+'] = 'win32yank.exe -i --crlf',
+            ['*'] = 'win32yank.exe -i --crlf',
+        },
+        paste = {
+            ['+'] = 'win32yank.exe -o --lf',
+            ['*'] = 'win32yank.exe -o --lf',
+        },
+        cache_enabled = 1,
+    }
+else
+    -- Linux環境の場合: xclipまたはxselがインストールされていれば、Neovimが自動でそれを使用ため、特別な設定は不要
+end
 
 -- インデント
 vim.opt.expandtab = true
