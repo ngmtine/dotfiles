@@ -236,6 +236,35 @@ function nyaf
     end
 end
 
+# git difftoolのラッパー関数
+# ~/.gitconfigに以下を追加しておくこと
+# [difftool "vscode"]
+#     cmd = code --wait --diff $LOCAL $REMOTE
+function vsd
+
+    # gitリポジトリ外なら終了
+    set -l repo_root (git rev-parse --show-toplevel)
+    if not test $status -eq 0
+        echo "Error: Not a git repository." >&2
+        return 1
+    end
+
+    # diffのあるファイルリストを取得
+    set -l files (git diff --name-only $argv)
+    if not set -q files[1]
+        return
+    end
+
+    for file in $files
+        set -l absolute_path "$repo_root/$file"
+        if test -f "$absolute_path"
+            # git difftoolにコミット指定($argv)とファイルパス(-- "$absolute_path")を渡す
+            git difftool --no-prompt $argv -- "$absolute_path" &
+            disown
+        end
+    end
+end
+
 # 個別設定読み込み
 if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
