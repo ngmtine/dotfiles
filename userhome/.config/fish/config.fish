@@ -257,11 +257,10 @@ function vsd
 
     for file in $files
         set -l absolute_path "$repo_root/$file"
-        if test -f "$absolute_path"
-            # git difftoolにコミット指定($argv)とファイルパス(-- "$absolute_path")を渡す
-            git difftool --no-prompt $argv -- "$absolute_path" &
-            disown
-        end
+        # git difftoolにコミット指定($argv)とファイルパス(-- "$absolute_path")を渡す
+        echo $absolute_path
+        git difftool --no-prompt $argv -- "$absolute_path" &
+        disown
     end
 end
 
