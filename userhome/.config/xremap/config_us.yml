@@ -1,0 +1,59 @@
+virtual_modifiers:
+  - fn_1
+
+modmap:
+  - remap:
+      space:
+        held: fn_1
+        alone: space
+        alone_timeout_millis: 300
+
+keymap:
+  - name: custom key bindings for us keymap
+    remap:
+      ctrl-j: [muhenkan, esc]
+      apostrophe: enter          # :          -> enter
+      semicolon: apostrophe      # ;          -> :
+      shift-semicolon: semicolon # s-:        -> ;
+      leftbrace: backspace       # @          -> backspace
+      shift-leftbrace: delete    # s-@        -> delete
+      ctrl-leftbrace: delete     # c-@        -> delete
+      shift-slash: ro            # s-/        -> \
+      capslock: enter            # caps       -> enter
+      grave: backspace           # 半角全角   -> backspace
+      shift-grave: delete        # s-半角全角 -> backspace
+      ctrl-grave: delete         # c-半角全角 -> backspace
+
+      # vim-like
+      fn_1-h: left
+      fn_1-j: down
+      fn_1-k: up
+      fn_1-l: right
+
+      # 記号類
+      fn_1-a: leftbrace          # @
+      fn_1-b: shift-leftbrace    # `
+      fn_1-c: equal              # ^
+      fn_1-d: shift-4            # $
+      fn_1-e: shift-6            # &
+      # fn_1-f
+      # fn_1-g
+      # fn_1-h: shift-3          # #
+      fn_1-i: shift-1            # !
+      # fn_1-j
+      # fn_1-k
+      # fn_1-l: shift-yen        # |
+      fn_1-m: shift-semicolon    # +
+      fn_1-n: henkan
+      # fn_1-o: space
+      fn_1-p: shift-5            # %
+      fn_1-q: shift-slash        # ?
+      # fn_1-r
+      fn_1-s: shift-7            # '
+      fn_1-t: shift-equal        # ~
+      fn_1-u: shift-ro           # _
+      fn_1-v: muhenkan
+      fn_1-w: shift-2            # "
+      fn_1-x: shift-apostrophe   # *
+      # fn_1-y
+      # fn_1-z
