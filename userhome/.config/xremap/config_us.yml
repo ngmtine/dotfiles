@@ -3,6 +3,14 @@ virtual_modifiers:
 
 modmap:
   - remap:
+      leftalt:
+        alone: muhenkan
+        held: leftalt
+        alone_timeout_millis: 300
+      rightalt:
+        alone: henkan
+        held: rightalt
+        alone_timeout_millis: 300
       space:
         held: fn_1
         alone: space
@@ -44,7 +52,7 @@ keymap:
       # fn_1-k
       # fn_1-l: shift-yen        # |
       fn_1-m: shift-semicolon    # +
-      fn_1-n: henkan
+      # fn_1-n: henkan
       # fn_1-o: space
       fn_1-p: shift-5            # %
       fn_1-q: shift-slash        # ?
@@ -52,7 +60,7 @@ keymap:
       fn_1-s: shift-7            # '
       fn_1-t: shift-equal        # ~
       fn_1-u: shift-ro           # _
-      fn_1-v: muhenkan
+      # fn_1-v: muhenkan
       fn_1-w: shift-2            # "
       fn_1-x: shift-apostrophe   # *
       # fn_1-y
