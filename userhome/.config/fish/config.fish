@@ -34,6 +34,7 @@ set -g theme_git_worktree_support yes # リポジトリの場合はブランチ�
 # alias ----------------------------------------
 # 基本
 abbr -a vi nvim
+abbr -a ゔぃ nvim
 abbr -a view nvim -R
 abbr -a :q exit
 abbr -a cd pushd
