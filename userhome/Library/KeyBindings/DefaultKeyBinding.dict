@@ -1,0 +1,4 @@
+{
+    "^\U0075" = "deleteToBeginningOfLine:";
+    "^\U006B" = "deleteToEndOfLine:";
+}
