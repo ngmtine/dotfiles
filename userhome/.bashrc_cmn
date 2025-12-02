@@ -26,3 +26,11 @@ export PATH=$PATH:$GOPATH/bin
 # 実行するとクリップボードに文字列が入るので、vscodeのターミナルのtmux上で以下を実行する
 # export VSCODE_IPC_HOOK_CLI=[クリップボードの文字列]
 alias recode='cd ~ && echo $VSCODE_IPC_HOOK_CLI | win32yank.exe -i'
+
+# lessのオプション
+export LESS="-i -M -R -W"
+# -i   検索時に全部小文字で入力したときだけ、大文字小文字を無視する。
+# -M   詳しいプロンプトを表示する。
+# -R   ANSI カラーエスケープシーケンスを解するようになる。
+# -W   一度に2行以上移動した場合、新たに表示した最初の行をハイライトする。
+export PAGER=less

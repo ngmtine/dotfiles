@@ -172,10 +172,10 @@ function greprep
 	end
 	
 	echo ファイル中身置換 --------------
-	grep -rl $argv[1] --exclude-dir=.git
+	grep -rl $argv[1] --exclude-dir={node_modules,.next,.venv,__pycache__,.pytest,.pytest_cache,htmlcov,.ruff_cache} --exclude="*.log"
 	echo 上記の $argv[1] を $argv[2] へ置換します
 	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
-		grep -rl $argv[1] --exclude-dir=.git | xargs sed -i "s/$argv[1]/$argv[2]/g"
+		grep -rl $argv[1] --exclude-dir={node_modules,.next,.venv,__pycache__,.pytest,.pytest_cache,htmlcov,.ruff_cache} --exclude="*.log" | xargs sed -i "s/$argv[1]/$argv[2]/g"
 	end
 	echo 
 
