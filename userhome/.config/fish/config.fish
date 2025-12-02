@@ -243,7 +243,6 @@ end
 # [difftool "vscode"]
 #     cmd = code --wait --diff $LOCAL $REMOTE
 function vsd
-
     # gitリポジトリ外なら終了
     set -l repo_root (git rev-parse --show-toplevel)
     if not test $status -eq 0
@@ -251,18 +250,60 @@ function vsd
         return 1
     end
 
-    # diffのあるファイルリストを取得
-    set -l files (git diff --name-only $argv)
-    if not set -q files[1]
+    # 1. --raw オプションで情報を取得
+    set -l diff_output (git diff --raw -M $argv)
+
+    if not set -q diff_output[1]
         return
     end
 
-    for file in $files
-        set -l absolute_path "$repo_root/$file"
-        # git difftoolにコミット指定($argv)とファイルパス(-- "$absolute_path")を渡す
-        echo $absolute_path
-        git difftool --no-prompt $argv -- "$absolute_path" &
-        disown
+    set -l tmp_dir "/tmp/vsd_diff"
+    mkdir -p $tmp_dir
+
+    for line in $diff_output
+        # タブで分割してメタデータとパスを分ける
+        # 出力例 (変更): メタデータ(スペース区切り) \t パス
+        # 出力例 (移動): メタデータ(スペース区切り) \t 旧パス \t 新パス
+        set -l segments (string split \t -- $line)
+
+        # メタデータ部分をスペースで分割 (:100644 100644 old_hash new_hash Status)
+        set -l meta_parts (string split " " -- $segments[1])
+
+        # ステータスを取得 (M, A, R100 など)
+        set -l status_full $meta_parts[-1]
+        set -l status_code (string sub -l 1 $status_full)
+        set -l old_blob $meta_parts[3]
+
+        if test "$status_code" = "R"
+            # --- リネームファイルの場合 ---
+            # segments[2] = 旧パス, segments[3] = 新パス
+            set -l old_path $segments[2]
+            set -l new_path $segments[3]
+            set -l absolute_new_path "$repo_root/$new_path"
+
+            # 旧ファイルの中身を一時ファイルとして復元
+            set -l tmp_old_file "$tmp_dir/$old_path"
+            mkdir -p (dirname $tmp_old_file)
+            git show $old_blob > $tmp_old_file
+
+            echo "Renamed: $old_path -> $new_path"
+
+            # 手動でDiff起動 (左:一時ファイルの旧版, 右:現在の実ファイル)
+            code --diff "$tmp_old_file" "$absolute_new_path" &
+            disown
+
+        else
+            # --- 通常の変更(M) / 追加(A) / 削除(D) などの場合 ---
+            # segments[2] = パス
+            set -l file_path $segments[2]
+            set -l absolute_path "$repo_root/$file_path"
+
+            echo "Modified/Other: $file_path"
+
+            # 通常のgit difftoolに任せる
+            git difftool --no-prompt $argv -- "$absolute_path" &
+            disown
+        end
     end
 end
 
