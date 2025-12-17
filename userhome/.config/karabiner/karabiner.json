@@ -19,26 +19,7 @@
                         }
                     ]
                 },
-                {
-                    "from": {
-                        "key_code": "left_control"
-                    },
-                    "to": [
-                        {
-                            "key_code": "return_or_enter"
-                        }
-                    ]
-                },
-                {
-                    "from": {
-                        "key_code": "left_option"
-                    },
-                    "to": [
-                        {
-                            "key_code": "left_command"
-                        }
-                    ]
-                },
+
                 {
                     "from": {
                         "key_code": "left_command"
@@ -76,13 +57,23 @@
                             "key_code": "semicolon"
                         }
                     ]
+                },
+                {
+                    "from": {
+                        "key_code": "left_control"
+                    },
+                    "to": [
+                        {
+                            "key_code": "return_or_enter"
+                        }
+                    ]
                 }
             ],
             "complex_modifications": {
-                "parameters": {
-                    "basic.to_if_alone_timeout_milliseconds": 300,
-                    "basic.to_if_held_down_threshold_milliseconds": 300
-                },
+                 "parameters": {
+                     "basic.to_if_alone_timeout_milliseconds": 500,
+                     "basic.to_if_held_down_threshold_milliseconds": 3000
+                 },
                 "rules": [
                     {
                         "description": "Muhenkan (lang2) to fn_1 modifier when held",
@@ -180,6 +171,30 @@
                             { "type": "basic", "from": {"key_code": "u"}, "to": [{"key_code": "international3", "modifiers": ["left_shift"]}], "conditions": [{"type": "variable_if", "name": "henkan_modifier", "value": 1}]},
                             { "type": "basic", "from": {"key_code": "w"}, "to": [{"key_code": "2", "modifiers": ["left_shift"]}], "conditions": [{"type": "variable_if", "name": "henkan_modifier", "value": 1}]},
                             { "type": "basic", "from": {"key_code": "x"}, "to": [{"key_code": "quote", "modifiers": ["left_shift"]}], "conditions": [{"type": "variable_if", "name": "henkan_modifier", "value": 1}]}
+                        ]
+                    },
+                    {
+                        "description": "Option to Spotlight when alone",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "left_option"
+                                },
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "spacebar",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
+                                "to_if_held_down": [
+                                    {
+                                        "key_code": "left_command"
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ]
