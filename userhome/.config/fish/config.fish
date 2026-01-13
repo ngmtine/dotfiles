@@ -312,3 +312,6 @@ if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
 
+
+# Amp CLI
+export PATH="/home/nag/.amp/bin:$PATH"
