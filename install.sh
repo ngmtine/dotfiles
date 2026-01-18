@@ -21,6 +21,13 @@ find . -mindepth 1 -not -type d | sed 's|^./||' | while read -r file; do
     ln -sfv "$USERHOME/$file" "$HOME/$file"
 done
 
+# Create opencode config directory if it doesn't exist
+mkdir -p "$HOME/.config/opencode"
+
+# Create symlink for AGENTS.md
+ln -sfv "$BASEDIR/ai/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+ln -sfv "$BASEDIR/ai/AGENTS.md" "$HOME/.codex/AGENTS.md"
+
 # .bashrc_cmn を展開
 # bash向け
 BASH_CONFIG_FILE="$HOME/.bashrc"
