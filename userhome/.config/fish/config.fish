@@ -244,6 +244,23 @@ end
 # [difftool "vscode"]
 #     cmd = code --wait --diff $LOCAL $REMOTE
 function vsd
+    # オプション解析
+    argparse --ignore-unknown --name vsd 'e/exclude-dir=' -- $argv
+    or return 1
+    set -l exclude_dirs $_flag_exclude_dir
+
+    # ヘルパー関数: パスが除外ディレクトリに含まれるかチェック
+    function _vsd_is_excluded
+        set -l path $argv[1]
+        set -l excludes $argv[2..]
+        for exclude in $excludes
+            if string match -q "*/$exclude/*" "$path" or string match -q "$exclude*" "$path"
+                return 0
+            end
+        end
+        return 1
+    end
+
     # gitリポジトリ外なら終了
     set -l repo_root (git rev-parse --show-toplevel)
     if not test $status -eq 0
@@ -280,6 +297,11 @@ function vsd
             # segments[2] = 旧パス, segments[3] = 新パス
             set -l old_path $segments[2]
             set -l new_path $segments[3]
+            # 除外チェック
+            if _vsd_is_excluded "$old_path" $exclude_dirs or _vsd_is_excluded "$new_path" $exclude_dirs
+                echo "Excluded: $old_path -> $new_path"
+                continue
+            end
             set -l absolute_new_path "$repo_root/$new_path"
 
             # 旧ファイルの中身を一時ファイルとして復元
@@ -297,6 +319,11 @@ function vsd
             # --- 通常の変更(M) / 追加(A) / 削除(D) などの場合 ---
             # segments[2] = パス
             set -l file_path $segments[2]
+            # 除外チェック
+            if _vsd_is_excluded "$file_path" $exclude_dirs
+                echo "Excluded: $file_path"
+                continue
+            end
             set -l absolute_path "$repo_root/$file_path"
 
             echo "Modified/Other: $file_path"
