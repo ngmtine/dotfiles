@@ -243,97 +243,97 @@ end
 # ~/.gitconfigに以下を追加しておくこと
 # [difftool "vscode"]
 #     cmd = code --wait --diff $LOCAL $REMOTE
-function vsd
-    # オプション解析
-    argparse --ignore-unknown --name vsd 'e/exclude-dir=' -- $argv
-    or return 1
-    set -l exclude_dirs $_flag_exclude_dir
+# function vsd
+#     # オプション解析
+#     argparse --ignore-unknown --name vsd 'e/exclude-dir=' -- $argv
+#     or return 1
+#     set -l exclude_dirs $_flag_exclude_dir
 
-    # ヘルパー関数: パスが除外ディレクトリに含まれるかチェック
-    function _vsd_is_excluded
-        set -l path $argv[1]
-        set -l excludes $argv[2..]
-        for exclude in $excludes
-            if string match -q "*/$exclude/*" "$path" or string match -q "$exclude*" "$path"
-                return 0
-            end
-        end
-        return 1
-    end
+#     # ヘルパー関数: パスが除外ディレクトリに含まれるかチェック
+#     function _vsd_is_excluded
+#         set -l path $argv[1]
+#         set -l excludes $argv[2..]
+#         for exclude in $excludes
+#             if string match -q "*/$exclude/*" "$path" or string match -q "$exclude*" "$path"
+#                 return 0
+#             end
+#         end
+#         return 1
+#     end
 
-    # gitリポジトリ外なら終了
-    set -l repo_root (git rev-parse --show-toplevel)
-    if not test $status -eq 0
-        echo "Error: Not a git repository." >&2
-        return 1
-    end
+#     # gitリポジトリ外なら終了
+#     set -l repo_root (git rev-parse --show-toplevel)
+#     if not test $status -eq 0
+#         echo "Error: Not a git repository." >&2
+#         return 1
+#     end
 
-    # 1. --raw オプションで情報を取得
-    set -l diff_output (git diff --raw -M $argv)
+#     # 1. --raw オプションで情報を取得
+#     set -l diff_output (git diff --raw -M $argv)
 
-    if not set -q diff_output[1]
-        return
-    end
+#     if not set -q diff_output[1]
+#         return
+#     end
 
-    set -l tmp_dir "/tmp/vsd_diff"
-    mkdir -p $tmp_dir
+#     set -l tmp_dir "/tmp/vsd_diff"
+#     mkdir -p $tmp_dir
 
-    for line in $diff_output
-        # タブで分割してメタデータとパスを分ける
-        # 出力例 (変更): メタデータ(スペース区切り) \t パス
-        # 出力例 (移動): メタデータ(スペース区切り) \t 旧パス \t 新パス
-        set -l segments (string split \t -- $line)
+#     for line in $diff_output
+#         # タブで分割してメタデータとパスを分ける
+#         # 出力例 (変更): メタデータ(スペース区切り) \t パス
+#         # 出力例 (移動): メタデータ(スペース区切り) \t 旧パス \t 新パス
+#         set -l segments (string split \t -- $line)
 
-        # メタデータ部分をスペースで分割 (:100644 100644 old_hash new_hash Status)
-        set -l meta_parts (string split " " -- $segments[1])
+#         # メタデータ部分をスペースで分割 (:100644 100644 old_hash new_hash Status)
+#         set -l meta_parts (string split " " -- $segments[1])
 
-        # ステータスを取得 (M, A, R100 など)
-        set -l status_full $meta_parts[-1]
-        set -l status_code (string sub -l 1 $status_full)
-        set -l old_blob $meta_parts[3]
+#         # ステータスを取得 (M, A, R100 など)
+#         set -l status_full $meta_parts[-1]
+#         set -l status_code (string sub -l 1 $status_full)
+#         set -l old_blob $meta_parts[3]
 
-        if test "$status_code" = "R"
-            # --- リネームファイルの場合 ---
-            # segments[2] = 旧パス, segments[3] = 新パス
-            set -l old_path $segments[2]
-            set -l new_path $segments[3]
-            # 除外チェック
-            if _vsd_is_excluded "$old_path" $exclude_dirs or _vsd_is_excluded "$new_path" $exclude_dirs
-                echo "Excluded: $old_path -> $new_path"
-                continue
-            end
-            set -l absolute_new_path "$repo_root/$new_path"
+#         if test "$status_code" = "R"
+#             # --- リネームファイルの場合 ---
+#             # segments[2] = 旧パス, segments[3] = 新パス
+#             set -l old_path $segments[2]
+#             set -l new_path $segments[3]
+#             # 除外チェック
+#             if _vsd_is_excluded "$old_path" $exclude_dirs or _vsd_is_excluded "$new_path" $exclude_dirs
+#                 echo "Excluded: $old_path -> $new_path"
+#                 continue
+#             end
+#             set -l absolute_new_path "$repo_root/$new_path"
 
-            # 旧ファイルの中身を一時ファイルとして復元
-            set -l tmp_old_file "$tmp_dir/$old_path"
-            mkdir -p (dirname $tmp_old_file)
-            git show $old_blob > $tmp_old_file
+#             # 旧ファイルの中身を一時ファイルとして復元
+#             set -l tmp_old_file "$tmp_dir/$old_path"
+#             mkdir -p (dirname $tmp_old_file)
+#             git show $old_blob > $tmp_old_file
 
-            echo "Renamed: $old_path -> $new_path"
+#             echo "Renamed: $old_path -> $new_path"
 
-            # 手動でDiff起動 (左:一時ファイルの旧版, 右:現在の実ファイル)
-            code --diff "$tmp_old_file" "$absolute_new_path" &
-            disown
+#             # 手動でDiff起動 (左:一時ファイルの旧版, 右:現在の実ファイル)
+#             code --diff "$tmp_old_file" "$absolute_new_path" &
+#             disown
 
-        else
-            # --- 通常の変更(M) / 追加(A) / 削除(D) などの場合 ---
-            # segments[2] = パス
-            set -l file_path $segments[2]
-            # 除外チェック
-            if _vsd_is_excluded "$file_path" $exclude_dirs
-                echo "Excluded: $file_path"
-                continue
-            end
-            set -l absolute_path "$repo_root/$file_path"
+#         else
+#             # --- 通常の変更(M) / 追加(A) / 削除(D) などの場合 ---
+#             # segments[2] = パス
+#             set -l file_path $segments[2]
+#             # 除外チェック
+#             if _vsd_is_excluded "$file_path" $exclude_dirs
+#                 echo "Excluded: $file_path"
+#                 continue
+#             end
+#             set -l absolute_path "$repo_root/$file_path"
 
-            echo "Modified/Other: $file_path"
+#             echo "Modified/Other: $file_path"
 
-            # 通常のgit difftoolに任せる
-            git difftool --no-prompt $argv -- "$absolute_path" &
-            disown
-        end
-    end
-end
+#             # 通常のgit difftoolに任せる
+#             git difftool --no-prompt $argv -- "$absolute_path" &
+#             disown
+#         end
+#     end
+# end
 
 # 個別設定読み込み
 if test -f $__fish_config_dir/config_indiv.fish
