@@ -51,6 +51,12 @@ abbr -a f fzf --exit-0 | xargs -r
 abbr -a vs code
 alias gs='echo "do nothing"'
 
+# gitlab cli
+abbr -a gl glab
+abbr --add --command glab is issue
+
+eval "$(gh completion -s bash)"
+
 # known_hostsを見ないssh
 alias ssh-unsafe='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias scp-unsafe='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
@@ -111,7 +117,6 @@ abbr -a recode export VSCODE_IPC_HOOK_CLI=
 
 # ghq
 abbr -a gg ghq get -p
-abbr -a gl ghq list --full-path
 
 # fzf
 abbr -a fn 'find . -type f -not -path "**/node_modules/*" -not -path "**/.git/*" -not -path "**/.docker/*" | fzf --reverse --exit-0 | xargs -r nvim'
