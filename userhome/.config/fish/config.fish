@@ -55,7 +55,7 @@ alias gs='echo "do nothing"'
 abbr -a gl glab
 abbr --add --command glab is issue
 
-eval "$(gh completion -s bash)"
+eval (gh completion -s bash)
 
 # known_hostsを見ないssh
 alias ssh-unsafe='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
@@ -252,6 +252,8 @@ if test -f $__fish_config_dir/config_indiv.fish
 	source $__fish_config_dir/config_indiv.fish
 end
 
-
 # Amp CLI
 export PATH="/home/nag/.amp/bin:$PATH"
+
+# mise
+~/.local/bin/mise activate fish | source
