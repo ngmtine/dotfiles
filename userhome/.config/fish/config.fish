@@ -175,24 +175,46 @@ bobthefish_colors
 # set fish_cursor_visual      block
 
 function greprep
-	if test (count $argv) -ne 2 ;
+	argparse 'e/exclude-dir=+' -- $argv
+	or return
+
+	if test (count $argv) -ne 2
 		echo 引数が2つじゃないよ
+		echo "Usage: greprep [-e/--exclude-dir DIR]... BEFORE AFTER"
 		return
 	end
-	
+
+	# デフォルト除外ディレクトリ
+	set -l exclude_dirs node_modules .next .venv __pycache__ .pytest .pytest_cache htmlcov .ruff_cache .git
+	if set -q _flag_exclude_dir
+		set -a exclude_dirs $_flag_exclude_dir
+	end
+
+	# grep用の除外オプションを構築
+	set -l grep_excludes
+	for d in $exclude_dirs
+		set -a grep_excludes "--exclude-dir=$d"
+	end
+
+	# find用の除外オプションを構築
+	set -l find_excludes
+	for d in $exclude_dirs
+		set -a find_excludes -not -path "*/$d/*"
+	end
+
 	echo ファイル中身置換 --------------
-	grep -rl $argv[1] --exclude-dir={node_modules,.next,.venv,__pycache__,.pytest,.pytest_cache,htmlcov,.ruff_cache} --exclude="*.log"
+	grep -rl $argv[1] $grep_excludes --exclude="*.log"
 	echo 上記の $argv[1] を $argv[2] へ置換します
 	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
-		grep -rl $argv[1] --exclude-dir={node_modules,.next,.venv,__pycache__,.pytest,.pytest_cache,htmlcov,.ruff_cache} --exclude="*.log" | xargs sed -i "s/$argv[1]/$argv[2]/g"
+		grep -rl $argv[1] $grep_excludes --exclude="*.log" | xargs sed -i "s/$argv[1]/$argv[2]/g"
 	end
 	echo 
 
 	echo ファイル名置換 ------------------
-	find . -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 echo
+	find . $find_excludes -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 echo
 	echo 上記を置換します
 	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
-		find . -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 mv
+		find . $find_excludes -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 mv
 	end
 	echo 
 
