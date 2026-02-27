@@ -174,9 +174,28 @@ bobthefish_colors
 # set fish_cursor_replace_one underscore blink
 # set fish_cursor_visual      block
 
+function __clip
+    if is_wsl; win32yank.exe -i; else; xsel --input --clipboard; end
+end
+
 function cpb
-    git rev-parse --abbrev-ref HEAD | tr -d '\n' | if is_wsl; win32yank.exe -i; else; xsel --input --clipboard; end
+    git rev-parse --abbrev-ref HEAD | tr -d '\n' | __clip
     echo "Copied: "(git rev-parse --abbrev-ref HEAD)
+end
+
+function cph
+    git rev-parse --short HEAD | tr -d '\n' | __clip
+    echo "Copied: "(git rev-parse --short HEAD)
+end
+
+function cpr
+    git remote get-url origin | tr -d '\n' | __clip
+    echo "Copied: "(git remote get-url origin)
+end
+
+function cpd
+    pwd | tr -d '\n' | __clip
+    echo "Copied: "(pwd)
 end
 
 function greprep
