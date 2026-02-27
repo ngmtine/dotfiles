@@ -174,6 +174,11 @@ bobthefish_colors
 # set fish_cursor_replace_one underscore blink
 # set fish_cursor_visual      block
 
+function cpb
+    git rev-parse --abbrev-ref HEAD | tr -d '\n' | if is_wsl; win32yank.exe -i; else; xsel --input --clipboard; end
+    echo "Copied: "(git rev-parse --abbrev-ref HEAD)
+end
+
 function greprep
 	argparse 'e/exclude-dir=+' -- $argv
 	or return
