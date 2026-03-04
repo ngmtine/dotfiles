@@ -302,4 +302,4 @@ end
 export PATH="/home/nag/.amp/bin:$PATH"
 
 # mise
-~/.local/bin/mise activate fish | source
+# ~/.local/bin/mise activate fish | source
