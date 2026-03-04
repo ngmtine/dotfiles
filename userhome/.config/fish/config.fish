@@ -121,7 +121,7 @@ abbr -a gg ghq get -p
 # fzf
 abbr -a fn 'find . -type f -not -path "**/node_modules/*" -not -path "**/.git/*" -not -path "**/.docker/*" | fzf --reverse --exit-0 | xargs -r nvim'
 abbr -a fr 'pushd (ghq list -p | fzf --reverse --exit-0)'
-abbr -a fw 'pushd (find ~/worktrees -name .git | xargs -I {} dirname {} | fzf --reverse --exit-0)'
+abbr -a fw 'pushd (find ~/worktrees -maxdepth 5 -name .git | xargs -I {} dirname {} | fzf --reverse --exit-0)'
 
 # color setting -------------------------------------
 set -l crow       121421 #121421
