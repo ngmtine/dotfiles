@@ -209,7 +209,7 @@ function greprep
 	end
 
 	# デフォルト除外ディレクトリ
-	set -l exclude_dirs node_modules .next .venv __pycache__ .pytest .pytest_cache htmlcov .ruff_cache .git
+	set -l exclude_dirs node_modules .next .venv __pycache__ .pytest .pytest_cache htmlcov .ruff_cache .git debug dist
 	if set -q _flag_exclude_dir
 		set -a exclude_dirs $_flag_exclude_dir
 	end
