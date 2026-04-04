@@ -9,7 +9,7 @@ export EDITOR="/usr/bin/nvim"
 
 # wsl判定
 function is_wsl
-  [ -e /proc/sys/fs/binfmt_misc/WSLInterop ]
+  grep -qi microsoft /proc/version 2>/dev/null
 end
 
 # truecolor有効化
