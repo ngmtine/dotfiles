@@ -6,7 +6,6 @@ export LANGUAGE=en_US.UTF-8
 export LESSCHARSET=utf-8
 
 # alias
-alias e=explorer.exe
 alias vi=nvim
 alias f=fish
 alias t=tmux
@@ -21,11 +20,6 @@ export PATH=$PATH:$GOPATH/bin
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# vscodeのターミナルでtmux実行時にcodeコマンドに失敗する問題を解消するコマンド
-# 実行するとクリップボードに文字列が入るので、vscodeのターミナルのtmux上で以下を実行する
-# export VSCODE_IPC_HOOK_CLI=[クリップボードの文字列]
-alias recode='cd ~ && echo $VSCODE_IPC_HOOK_CLI | win32yank.exe -i'
 
 # lessのオプション
 export LESS="-i -M -R -W"
