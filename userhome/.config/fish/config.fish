@@ -1,40 +1,52 @@
-# fishをログインシェルにすることは想定していません
-# PATH等は ~/.bashrc 側で設定すること
+# minipc検証環境用の fish 設定
+# fishをログインシェルにすることは想定していない。PATH等は ~/.bashrc 側で設定する
 
 # 右側の時刻表示削除
 functions --erase fish_right_prompt
 
 # 基本
-export EDITOR="/usr/bin/nvim"
-
-# wsl判定
-function is_wsl
-  grep -qi microsoft /proc/version 2>/dev/null
-end
+set -gx EDITOR /usr/bin/nvim
 
 # truecolor有効化
 # https://fishshell.com/docs/current/cmds/set_color.html
 set -g fish_term24bit 1
-set -x COLORTERM truecolor
+set -gx COLORTERM truecolor
 
-# fish settings -------------------------------------
-set -g theme_color_scheme base16-light
-set -g theme_display_docker_machine yes
-set -g theme_display_virtualenv yes
-set -g theme_nerd_fonts yes
-set -g theme_title_use_abbreviated_path no
-set -g theme_newline_cursor yes
-set -g theme_newline_prompt '$ '
-set -g theme_display_git_master_branch yes # masterでもブランチ名を表示
-set -g theme_display_cmd_duration yes # コマンドの実行時間を表示
-set -g theme_show_exit_status yes # exitステータスを表示
-set -g fish_prompt_pwd_dir_length 0 # ディレクトリ名を省略しない
-set -g theme_git_worktree_support yes # リポジトリの場合はブランチ表示
+# ディレクトリ名を省略しない
+set -g fish_prompt_pwd_dir_length 0
 
-# alias ----------------------------------------
+# プロンプト ----------------------------------------
+# [minipc] cwd (branch) »
+#   branch色: 未編集=緑 / 編集あり=赤 / add済み=オレンジ
+function fish_prompt
+    set -l red (set_color -o red)
+    set -l blue (set_color -o cyan)
+    set -l reset (set_color normal)
+
+    echo -n -s $red'[minipc] '$blue(prompt_pwd)$reset
+
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1
+        set -l branch (git symbolic-ref --short HEAD 2>/dev/null; or git rev-parse --short HEAD 2>/dev/null)
+        if test -n "$branch"
+            set -l untracked (git ls-files --others --exclude-standard 2>/dev/null)
+            set -l git_color
+            if git diff --quiet HEAD -- 2>/dev/null; and test (count $untracked) -eq 0
+                set git_color (set_color -o green)
+            else if not git diff --quiet -- 2>/dev/null; or test (count $untracked) -gt 0
+                set git_color (set_color -o red)
+            else
+                set git_color (set_color -o FFA500)
+            end
+            echo -n -s ' '$git_color'('$branch')'$reset
+        end
+    end
+
+    echo -n -s ' » '
+end
+
+# abbr ----------------------------------------
 # 基本
 abbr -a vi nvim
-abbr -a ゔぃ nvim
 abbr -a view nvim -R
 abbr -a :q exit
 abbr -a cd pushd
@@ -45,32 +57,15 @@ abbr -a l1 ls -1
 abbr -a lx "ls -1 | xargs -n1 "
 abbr -a cp cp -rp
 abbr -a scp scp -rp
-abbr -a ydl youtube-dl -f bestvideo+bestaudio --merge-output-format mp4
 abbr -a x xargs
 abbr -a f fzf --exit-0 | xargs -r
-abbr -a vs code
-alias gs='echo "do nothing"'
 
-# gitlab cli
-abbr -a gl glab
-abbr --add --command glab is issue
-
-eval (gh completion -s bash)
-
-# known_hostsを見ないssh
+# known_hostsを見ないssh (明示名なので事故は起きにくい)
 alias ssh-unsafe='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 alias scp-unsafe='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
-if is_wsl
-    abbr -a e explorer.exe
-    abbr -a yank win32yank.exe -i
-    abbr -a ff '"/mnt/c/Program Files/Mozilla Firefox/firefox.exe"'
-else
-    abbr -a e nautilus
-    abbr -a yank xsel --input --clipboard
-end
-
 # git
+# 事故防止: push系 (ps/psf) と reset --hard系 (rsh/rss) はminipcでは登録しない
 abbr -a g git
 abbr --add --command git co checkout
 abbr --add --command git a add
@@ -82,15 +77,9 @@ abbr --add --command git ss status -s
 abbr --add --command git lg log
 abbr --add --command git df diff
 abbr --add --command git br branch
-abbr --add --command git ps push
-abbr --add --command git psf push --force
 abbr --add --command git pl pull
-# abbr --add --command git r remote
 abbr --add --command git fe fetch
 abbr --add --command git mg merge
-abbr --add --command git rs reset
-abbr --add --command git rsh reset --hard
-abbr --add --command git rss reset --soft
 abbr --add --command git cp cherry-pick
 abbr --add --command git rb rebase
 abbr --add --command git rbi rebase -i
@@ -110,147 +99,96 @@ abbr --add --command 'docker compose' u up
 abbr --add --command 'docker compose' d down
 
 # tmux
+abbr -a ta tmux new-session -A -s main
 abbr -a tlh tmux select-layout even-horizontal
 abbr -a tlv tmux select-layout even-vertical
-# tmux使うとvscodeのターミナルからvscodeに送るやつが壊れるやつの対応
-abbr -a recode export VSCODE_IPC_HOOK_CLI=
 
-# ghq
+# ghq / gwq / fzf
 abbr -a gg ghq get -p
-
-# fzf
-abbr -a fn 'find . -type f -not -path "**/node_modules/*" -not -path "**/.git/*" -not -path "**/.docker/*" | fzf --reverse --exit-0 | xargs -r nvim'
 abbr -a fr 'pushd (ghq list -p | fzf --reverse --exit-0)'
-abbr -a fw 'pushd (find ~/worktrees -maxdepth 5 -name .git | xargs -I {} dirname {} | fzf --reverse --exit-0)'
+abbr -a fw 'pushd (gwq list -p | fzf --reverse --exit-0)'
+abbr -a fn 'find . -type f -not -path "**/node_modules/*" -not -path "**/.git/*" | fzf --reverse --exit-0 | xargs -r nvim'
 
-# color setting -------------------------------------
-set -l crow       121421 #121421
-set -l bluegrey   282c44 #282c44
-set -l bluegrey_  3d415d #3d415d
-set -l bluegrey__ 74778c #74778c
-set -l icegrey    c7c9d1 #c7c9d1
-set -l lavender   a191c9 #a191c9
-set -l hyacinthus 859fc8 #859fc8
-set -l lightblue  89b8c1 #89b8c1
-set -l wasabi     b7c685 #b7c685
-set -l apricot    e3a676 #e3a676
-set -l coralred   e27a79 #e27a79
-
-# set -g fish_color_operator 91acd1 #91acd1
-# set -g fish_color_error 6b6f86 #6b6f86 
-
-set -l fish_color_normal $icegrey
-
-# https://fishshell.com/docs/current/interactive.html?highlight=fish_color_operator
-
-set -g fish_color_normal $icegrey	# default color
-set -g fish_color_command $hyacinthus # commands like echo
-set -g fish_color_keyword $hyacinthus	# keywords like if - this falls back on the command color if unset
-set -g fish_color_quote $lightblue	# quoted text like "abc"
-set -g fish_color_redirection $wasabi	# IO redirections like >/dev/null
-set -g fish_color_end $wasabi	# process separators like ; and &
-set -g fish_color_error	$bluegrey__ # syntax errors
-set -g fish_color_param $lightblue	# ordinary command parameters
-set -g fish_color_option $wasabi	# options starting with “-”, up to the first “--” parameter
-set -g fish_color_comment $wasabi	# comments like ‘# important’
-# set -g fish_color_selection	# selected text in vi visual mode
-set -g fish_color_operator $lightblue	# parameter expansion operators like * and ~
-set -g fish_color_escape $lightblue	# character escapes like \n and \x70
-# set -g fish_color_autosuggestion	# autosuggestions (the proposed rest of a command)
-# set -g fish_color_cwd	# the current working directory in the default prompt
-# set -g fish_color_user	# the username in the default prompt
-# set -g fish_color_host	# the hostname in the default prompt
-# set -g fish_color_host_remote	# the hostname in the default prompt for remote sessions (like ssh)
-# set -g fish_color_cancel	# the ‘^C’ indicator on a canceled command
-# set -g fish_color_search_match	# history search matches and selected pager items (background only)
-
-# カラーテーマ読み込み
-bobthefish_colors
-
-# viモードなーんか微妙だったのでコメントアウト
-# fish_vi_key_bindings 
-# set fish_cursor_default     block      blink
-# set fish_cursor_insert      line       blink
-# set fish_cursor_replace_one underscore blink
-# set fish_cursor_visual      block
-
+# clipboard / functions ----------------------------------------
+# OSC52でホスト側(Windows Terminal)のクリップボードへ送る
 function __clip
-    if is_wsl; win32yank.exe -i; else; xsel --input --clipboard; end
+    set -l input
+    if test (count $argv) -gt 0
+        set input (string join \n $argv)
+    else
+        set input (cat)
+    end
+    printf '\e]52;c;%s\a' (printf '%s' $input | base64 -w0)
 end
 
 function cpb
-    git rev-parse --abbrev-ref HEAD | tr -d '\n' | __clip
-    echo "Copied: "(git rev-parse --abbrev-ref HEAD)
+    set -l b (git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    test -z "$b"; and return
+    printf '%s' $b | __clip
+    echo "Copied: $b"
 end
 
 function cph
-    git rev-parse --short HEAD | tr -d '\n' | __clip
-    echo "Copied: "(git rev-parse --short HEAD)
+    set -l h (git rev-parse --short HEAD 2>/dev/null)
+    test -z "$h"; and return
+    printf '%s' $h | __clip
+    echo "Copied: $h"
 end
 
 function cpr
-    git remote get-url origin | tr -d '\n' | __clip
-    echo "Copied: "(git remote get-url origin)
+    set -l r (git remote get-url origin 2>/dev/null)
+    test -z "$r"; and return
+    printf '%s' $r | __clip
+    echo "Copied: $r"
 end
 
 function cpd
-    pwd | tr -d '\n' | __clip
+    printf '%s' (pwd) | __clip
     echo "Copied: "(pwd)
 end
 
 function greprep
-	argparse 'e/exclude-dir=+' -- $argv
-	or return
+    argparse 'e/exclude-dir=+' -- $argv
+    or return
 
-	if test (count $argv) -ne 2
-		echo 引数が2つじゃないよ
-		echo "Usage: greprep [-e/--exclude-dir DIR]... BEFORE AFTER"
-		return
-	end
+    if test (count $argv) -ne 2
+        echo 引数が2つじゃないよ
+        echo "Usage: greprep [-e/--exclude-dir DIR]... BEFORE AFTER"
+        return
+    end
 
-	# デフォルト除外ディレクトリ
-	set -l exclude_dirs node_modules .next .venv __pycache__ .pytest .pytest_cache htmlcov .ruff_cache .git debug dist
-	if set -q _flag_exclude_dir
-		set -a exclude_dirs $_flag_exclude_dir
-	end
+    set -l exclude_dirs node_modules .next .venv __pycache__ .pytest .pytest_cache htmlcov .ruff_cache .git debug dist
+    if set -q _flag_exclude_dir
+        set -a exclude_dirs $_flag_exclude_dir
+    end
 
-	# grep用の除外オプションを構築
-	set -l grep_excludes
-	for d in $exclude_dirs
-		set -a grep_excludes "--exclude-dir=$d"
-	end
+    set -l grep_excludes
+    for d in $exclude_dirs
+        set -a grep_excludes "--exclude-dir=$d"
+    end
 
-	# find用の除外オプションを構築
-	set -l find_excludes
-	for d in $exclude_dirs
-		set -a find_excludes -not -path "*/$d/*"
-	end
+    set -l find_excludes
+    for d in $exclude_dirs
+        set -a find_excludes -not -path "*/$d/*"
+    end
 
-	echo ファイル中身置換 --------------
-	grep -rl $argv[1] $grep_excludes --exclude="*.log"
-	echo 上記の $argv[1] を $argv[2] へ置換します
-	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
-		grep -rl $argv[1] $grep_excludes --exclude="*.log" | xargs sed -i "s/$argv[1]/$argv[2]/g"
-	end
-	echo 
+    echo ファイル中身置換 --------------
+    grep -rl $argv[1] $grep_excludes --exclude="*.log"
+    echo 上記の $argv[1] を $argv[2] へ置換します
+    echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
+        grep -rl $argv[1] $grep_excludes --exclude="*.log" | xargs sed -i "s/$argv[1]/$argv[2]/g"
+    end
+    echo
 
-	echo ファイル名置換 ------------------
-	find . $find_excludes -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 echo
-	echo 上記を置換します
-	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
-		find . $find_excludes -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 mv
-	end
-	echo 
-
+    echo ファイル名置換 ------------------
+    find . $find_excludes -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 echo
+    echo 上記を置換します
+    echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
+        find . $find_excludes -name "*$argv[1]*" | sed -E "p;s/$argv[1]/$argv[2]/" | xargs -n2 mv
+    end
+    echo
 end
 
-function yntest
-	echo "実行しますか?(y/N): " ; read ans ; if test "$ans" != "y" ; echo 中止しました ; return ; else ; echo 実行します
-	# ここに処理を書く
-	end
-end
-
-# ただのcatのラッパー
 function nya
     if test (count $argv) -gt 0
         for file in $argv
@@ -265,11 +203,8 @@ function nya
     end
 end
 
-# fzfでファイルを選択してnyaで表示する関数
 function nyaf
-    # 検索コマンド初期化
     set find ""
-
     if command -v fdfind > /dev/null
         set find fdfind --type f --hidden
     else
@@ -281,7 +216,6 @@ function nyaf
         return 1
     end
 
-    # $findの結果をfzfにパイプしてnyaに渡す
     if $find | fzf --reverse --multi --preview "nya {}" | read -z -a selected_files
         if test (count $selected_files) -gt 0
             nya $selected_files
@@ -289,17 +223,6 @@ function nyaf
             commandline -f repaint
         end
     else
-      commandline -f repaint
+        commandline -f repaint
     end
 end
-
-# 個別設定読み込み
-if test -f $__fish_config_dir/config_indiv.fish
-	source $__fish_config_dir/config_indiv.fish
-end
-
-# Amp CLI
-export PATH="/home/nag/.amp/bin:$PATH"
-
-# mise
-# ~/.local/bin/mise activate fish | source

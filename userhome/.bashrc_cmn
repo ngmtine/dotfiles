@@ -9,6 +9,8 @@ export LESSCHARSET=utf-8
 alias vi=nvim
 alias f=fish
 alias t=tmux
+# main セッションへの attach / 不在なら作成 (複数端末から接続しても同じセッションを共有)
+alias ta='tmux new-session -A -s main'
 
 # poetry
 export PATH=$HOME/.local/bin:$PATH
