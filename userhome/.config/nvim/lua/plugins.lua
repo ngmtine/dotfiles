@@ -70,6 +70,16 @@ require("lazy").setup({
         end,
     },
 
+    -- surround: cs"' で " を ' に変換、ds" で " を削除、ysiw) で単語を () で囲む
+    {
+        "kylechui/nvim-surround",
+        version = "*",
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({})
+        end,
+    },
+
     -- バッファタブ
     { "nvim-tree/nvim-web-devicons" },
     {
