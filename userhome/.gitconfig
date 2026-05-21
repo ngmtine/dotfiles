@@ -1,0 +1,41 @@
+; minipc検証環境用のグローバルgit設定
+; user.name / user.email は意図的に書かない (リポジトリごと/環境ごとに設定する想定)
+; エイリアスは fish の abbr (g s, g co, g lg, ...) で代用するので書かない
+
+[init]
+    defaultBranch = main
+
+[push]
+    ; git push のみでデフォルトブランチを設定し、現在のブランチをpushする
+    autoSetupRemote = true
+    default = current
+
+[fetch]
+    ; リモートで削除されたブランチを fetch 時に追跡しないようにする
+    prune = true
+
+[pull]
+    ; rebase を強制するとマージコミットが消えて事故になりがちなので明示的に false
+    ; 各リポジトリで必要に応じて上書き
+    rebase = false
+
+[merge]
+    ; 衝突マーカに共通祖先版も表示する (--patience より見やすい)
+    conflictStyle = zdiff3
+
+[rerere]
+    ; 同じ衝突を一度解決すれば次回以降は自動再現
+    enabled = true
+
+[diff]
+    ; 移動した行をハイライト
+    colorMoved = default
+
+[core]
+    ; 改行の自動変換は無効 (LFのまま扱う)
+    autocrlf = false
+
+; ホスト固有設定 (user.name/email, safe.directory 等) は dotfiles に commit せず
+; ~/.gitconfig.local に置く。後置 include で local 側が dotfiles 側を上書きできる
+[include]
+    path = ~/.gitconfig.local
