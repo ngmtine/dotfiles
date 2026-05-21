@@ -15,6 +15,14 @@ set -gx COLORTERM truecolor
 # ディレクトリ名を省略しない
 set -g fish_prompt_pwd_dir_length 0
 
+# history を多端末で共有
+# fish の履歴ファイルはデフォで上限実質無し。複数 ssh 接続から同じユーザで
+# ログインした際、コマンド実行毎に他セッションの履歴も取込んで横断検索できるよう
+# fish_postexec イベントで history merge する
+function fish_postexec_history_sync --on-event fish_postexec
+    history merge
+end
+
 # mise (言語バージョン管理)
 if command -v mise >/dev/null 2>&1
     mise activate fish | source
