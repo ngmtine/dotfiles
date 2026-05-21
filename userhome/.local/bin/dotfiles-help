@@ -19,6 +19,87 @@ ${D}main ブランチには絶対マージしない (検証環境専用)${R}
   ${S}撤去   ${R} bash ~/ghq/github.com/ngmtine/dotfiles/cleanup.sh
   ${S}検索   ${R} less 中で / でフリーワード検索、q で終了
 
+${H}== 依存コマンド ==${R}
+${S}[必須]${R}
+  ${K}bash / fish${R}        login shell は bash、常用 shell は fish
+  ${K}tmux 3.2+${R}          display-popup を使う (prefix C-p 等)
+  ${K}nvim 0.10+${R}         vim.ui.clipboard.osc52, vim.pack, vim.highlight 等
+  ${K}git${R}                .gitconfig / lazy.nvim プラグイン取得
+  ${K}less${R}               dotfiles-help / man / git pager
+  ${K}base64${R}             cpb/cph/cpr/cpd の OSC52 エンコード (今は tmux 経由)
+${S}[推奨 (主要機能で使用)]${R}
+  ${K}fzf${R}                fr / fw / fn / nyaf / f abbr で必須
+  ${K}ghq${R}                fr (ghq list -p から fzf で選択)
+  ${K}gwq${R}                fw (gwq list -p から fzf で選択)
+  ${K}gcc / make${R}         nvim-treesitter のパーサービルド
+${S}[任意 (該当機能を使う時のみ)]${R}
+  ${K}gh${R}                 gh の abbr (prc/prv/prl/prm/prch/prd/isc/isv/isl/rv)
+  ${K}glab${R}               glab の abbr (mr 系/issue 系) + top-level gl
+  ${K}docker${R}             docker の abbr 全般
+  ${K}psql${R}               .psqlrc が読まれる
+  ${K}mise${R}               bash/fish 起動時に自動 activate (なければスキップ)
+  ${K}fdfind${R}             nyaf が優先利用 (無ければ find にフォールバック)
+  ${K}Nerd Font${R}          端末側に入っていれば bufferline のアイコンが綺麗
+
+${H}== ユースケース ==${R}
+${S}[ ターミナル ]${R}
+  ${D}画面の出力を vim 操作で検索/コピーしたい${R}
+    → ${K}prefix C-p${R} で popup の nvim で履歴を開く
+    → 中で / 検索、 v/V 選択、 y で WT クリップボードへ
+  ${D}複数端末で同じ作業を続けたい${R}
+    → ssh 後に ${K}ta${R} で tmux main セッションへ attach (なければ作成)
+    → 別端末から繋いでも ta すれば同じ pane が見える
+  ${D}別端末で打ったコマンドを呼び戻したい${R}
+    → ${K}Ctrl-R${R} で fzf 履歴検索 (履歴は postexec で多端末共有済)
+  ${D}ペインを別ウィンドウへ動かしたい${R}
+    → ${K}prefix !${R} 新ウィンドウへ分離 (break-pane)
+    → ${K}prefix J${R} 既存ウィンドウへ統合 (join-pane)
+  ${D}ウィンドウの並び順を入れ替えたい${R}
+    → ${K}prefix < / >${R} で ±1 swap (リピート可)
+  ${D}tmux 設定を編集して即反映${R}
+    → ${K}prefix r${R}
+
+${S}[ リポジトリ ]${R}
+  ${D}ghq でクローン済みのリポジトリへ素早く移動${R}
+    → ${K}fr${R}  (fzf でリポジトリ選択)
+  ${D}gwq の worktree を行き来したい${R}
+    → ${K}fw${R}
+  ${D}ブランチ名/ハッシュ/origin URL/cwd をクリップボードへ${R}
+    → ${K}cpb / cph / cpr / cpd${R} (どれも引数なし)
+
+${S}[ git ]${R}
+  ${D}直前コミットにファイル追加し忘れた${R}
+    → ${K}g a 忘れたファイル && g cane${R} (commit --amend --no-edit)
+  ${D}rebase 後に安全に push${R}
+    → ${K}g pf${R} (push --force-with-lease。--force より履歴差し戻し検知)
+  ${D}staged のみの差分が見たい${R}
+    → ${K}g dc${R} (diff --cached)
+  ${D}log にグラフ付きで全ブランチを俯瞰したい${R}
+    → ${K}g lol${R} (log --oneline --graph --all)
+
+${S}[ nvim ]${R}
+  ${D}文字列を別の引用符に変える${R}
+    → ${K}cs"'${R}  ("..." を '...' へ。nvim-surround)
+  ${D}単語を () で囲む${R}
+    → ${K}ysiw)${R}
+  ${D}検索ヒットを順に確認したい (カーソル動かさず)${R}
+    → ${K}*${R} でハイライト+同位置キープ → ${K}n / N${R}
+  ${D}ファイル全選択${R}
+    → ${K}<Space>a${R} (Leader+a = ggVG)
+  ${D}検証中にバッファ閉じる${R}
+    → ${K}<Space>x${R}
+
+${S}[ LLM/Claude 関連 ]${R}
+  ${D}複数ファイルをまとめて LLM へ貼り付けたい${R}
+    → ${K}nyaf${R}  (fzf で複数選択 → "# FILE\\n<内容>" を連結)
+    → 1ファイルなら ${K}nya path/to/file${R}
+
+${S}[ 検証/その他 ]${R}
+  ${D}プロジェクト横断で文字列置換 (内容 + ファイル名)${R}
+    → ${K}greprep BEFORE AFTER${R} (確認プロンプト付き)
+  ${D}コンテナへ入る${R}
+    → ${K}d eb 名前${R} (bash) / ${K}d esh 名前${R} (sh, alpine等)
+
 ${H}== fish abbrs : git ==${R}
   ${K}g${R}     git                       ${K}br${R}     branch
   ${K}co${R}    checkout                  ${K}sw / swc${R} switch / -c (新規)
