@@ -47,6 +47,7 @@ end
 # abbr ----------------------------------------
 # 基本
 abbr -a vi nvim
+abbr -a ゔぃ nvim
 abbr -a view nvim -R
 abbr -a :q exit
 abbr -a cd pushd
@@ -65,7 +66,8 @@ alias ssh-unsafe='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/nul
 alias scp-unsafe='scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 # git
-# 事故防止: push系 (ps/psf) と reset --hard系 (rsh/rss) はminipcでは登録しない
+# 事故防止: push --force (psf) と reset --hard (rsh) は引き続き未登録
+# push は ps、強制 push は --force-with-lease の pf を採用
 abbr -a g git
 abbr --add --command git co checkout
 abbr --add --command git a add
@@ -102,6 +104,16 @@ abbr --add --command git wt worktree
 abbr --add --command git wta worktree add
 abbr --add --command git wtl worktree list
 abbr --add --command git wtr worktree remove
+abbr --add --command git ps push
+abbr --add --command git pf push --force-with-lease
+abbr --add --command git dc diff --cached
+abbr --add --set-cursor=% --command git cmm 'commit -m "%"'
+abbr --add --command git cane commit --amend --no-edit
+abbr --add --command git rs reset
+abbr --add --command git rss reset --soft
+
+# glab (top-level)
+abbr -a gl glab
 
 # docker
 abbr -a d docker
@@ -128,6 +140,11 @@ abbr --add --command 'docker compose' b build
 abbr --add --command 'docker compose' ps ps
 abbr --add --command 'docker compose' l logs
 abbr --add --command 'docker compose' lf 'logs -f'
+abbr --add --command docker st start
+abbr --add --command docker sto stop
+abbr --add --command docker rs restart
+abbr --add --command docker in inspect
+abbr --add --command docker v volume
 
 # gh (GitHub CLI)
 abbr --add --command gh prc 'pr create'
@@ -160,7 +177,7 @@ abbr -a tlv tmux select-layout even-vertical
 abbr -a gg ghq get -p
 abbr -a fr 'pushd (ghq list -p | fzf --reverse --exit-0)'
 abbr -a fw 'pushd (gwq list -p | fzf --reverse --exit-0)'
-abbr -a fn 'find . -type f -not -path "**/node_modules/*" -not -path "**/.git/*" | fzf --reverse --exit-0 | xargs -r nvim'
+abbr -a fn 'find . -type f -not -path "**/node_modules/*" -not -path "**/.git/*" -not -path "**/.docker/*" | fzf --reverse --exit-0 | xargs -r nvim'
 
 # clipboard / functions ----------------------------------------
 # OSC52でホスト側(Windows Terminal)のクリップボードへ送る
