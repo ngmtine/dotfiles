@@ -46,9 +46,10 @@ for rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
     fi
 done
 
-# ~/.config/fish 配下の壊れたシンボリックリンクを掃除
-if [ -d "$HOME/.config/fish" ]; then
-    find "$HOME/.config/fish" -maxdepth 2 -xtype l -exec rm -v {} \;
-fi
+# ~/.config/fish, ~/.config/nvim 配下の壊れたシンボリックリンクを掃除
+for dir in "$HOME/.config/fish" "$HOME/.config/nvim"; do
+    [ -d "$dir" ] || continue
+    find "$dir" -xtype l -exec rm -v {} \;
+done
 
 echo "Cleanup complete."
