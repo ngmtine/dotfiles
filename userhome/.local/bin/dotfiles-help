@@ -1,0 +1,163 @@
+#!/usr/bin/env bash
+# minipc dotfiles チートシート (静的記述)
+# 設定変更時は手動で更新する
+
+set -eu
+
+H=$'\033[1;33m'   # 見出し (太字黄)
+S=$'\033[1;36m'   # 小見出し (太字シアン)
+K=$'\033[1;32m'   # キー (太字緑)
+D=$'\033[2m'      # dim
+R=$'\033[0m'      # reset
+
+less -R << EOF
+${H}=== dotfiles (minipc) ===${R}
+${D}Repo : ~/ghq/github.com/ngmtine/dotfiles (branch: minipc)${R}
+${D}main ブランチには絶対マージしない (検証環境専用)${R}
+
+  ${S}更新   ${R} bash ~/ghq/github.com/ngmtine/dotfiles/install.sh
+  ${S}撤去   ${R} bash ~/ghq/github.com/ngmtine/dotfiles/cleanup.sh
+  ${S}検索   ${R} less 中で / でフリーワード検索、q で終了
+
+${H}== fish abbrs : git ==${R}
+  ${K}g${R}     git                       ${K}br${R}     branch
+  ${K}co${R}    checkout                  ${K}sw / swc${R} switch / -c (新規)
+  ${K}cl${R}    clone                     ${K}wt${R}     worktree
+  ${K}a / aa${R}  add / add -A            ${K}wta/wtl/wtr${R} worktree add/list/remove
+  ${K}cm${R}    commit                    ${K}lg${R}     log
+  ${K}cma${R}   commit --amend            ${K}lo / lol${R} log --oneline / +graph --all
+  ${K}cmm${R}   commit -m "%" (カーソル)  ${K}sh${R}     show
+  ${K}cane${R}  commit --amend --no-edit  ${K}bl${R}     blame
+  ${K}s / ss${R}  status / -s             ${K}rl${R}     reflog
+  ${K}df${R}    diff                      ${K}sta/stp/stl${R} stash / pop / list
+  ${K}dc${R}    diff --cached             ${K}mg${R}     merge
+  ${K}ps${R}    push                      ${K}cp${R}     cherry-pick
+  ${K}pf${R}    push --force-with-lease   ${K}rb / rbi${R}  rebase / -i
+  ${K}pl / fe${R}  pull / fetch           ${K}rba / rbc${R} rebase abort/continue
+  ${K}rs / rss${R} reset / --soft         ${K}rh${R}     reset HEAD (unstage)
+                                          ${K}rs${R}     restore --staged
+
+  ${D}除外: push --force (psf), reset --hard (rsh) は事故防止のため未登録${R}
+
+${H}== fish abbrs : docker ==${R}
+  ${K}d${R}      docker                   ${K}r${R}      run -it
+  ${K}i / il / ir${R}  image / ls / rm    ${K}b${R}      build
+  ${K}c / cl / cr${R}  container / ls -a / rm   ${K}l / lf${R}  logs / -f
+  ${K}n${R}      network                  ${K}st / sto${R} start / stop
+  ${K}s / sp${R}   system / system prune  ${K}rs${R}     restart
+  ${K}v${R}      volume                   ${K}in${R}     inspect
+  ${K}eb${R}     exec -it % /bin/bash     ${K}esh${R}    exec -it % /bin/sh
+
+  ${S}docker compose${R}
+  ${K}u / ud${R}  up / up -d              ${K}r${R}      restart
+  ${K}d${R}      down                     ${K}b${R}      build
+  ${K}l / lf${R}  logs / -f               ${K}ps${R}     ps
+
+${H}== fish abbrs : gh / glab ==${R}
+  ${S}gh${R}                                ${S}glab${R}  (top-level: ${K}gl${R})
+  ${K}prc/prv/prl/prm${R} pr create/view/  ${K}mrc/mrv/mrl/mrm${R} mr create/view/
+                  list/merge                            list/merge
+  ${K}prch / prd${R}  pr checkout/diff    ${K}mrch${R}   mr checkout
+  ${K}isc/isv/isl${R} issue create/view/  ${K}isc/isv/isl${R} issue create/view/
+                  list                                  list
+  ${K}rv${R}      repo view
+
+${H}== fish abbrs : その他 ==${R}
+  ${K}vi / view / ゔぃ${R}  nvim / nvim -R / (IMEミスのリカバリ)
+  ${K}:q${R}     exit
+  ${K}cd / po / cdrr${R}  pushd / popd / pushd (git toplevel)
+  ${K}ll / l1 / lx${R}  ls -lah / -1 / -1 | xargs -n1
+  ${K}cp / scp${R} cp -rp / scp -rp
+  ${K}x / f${R}  xargs / fzf --exit-0 | xargs -r
+  ${K}ssh-unsafe / scp-unsafe${R}  StrictHostKeyChecking=no 付き
+  ${K}ta${R}     tmux new-session -A -s main
+  ${K}tlh / tlv${R}  select-layout even-horizontal/vertical
+  ${K}gg${R}     ghq get -p
+  ${K}fr${R}     fzf で ghq リポジトリを選んで cd
+  ${K}fw${R}     fzf で gwq worktree を選んで cd
+  ${K}fn${R}     fzf でファイル選んで nvim (.git/.node_modules/.docker は除外)
+
+${H}== fish 関数 ==${R}
+  ${K}cpb${R}      現在のブランチ名をクリップボードへ
+  ${K}cph${R}      現在の短縮コミットハッシュをクリップボードへ
+  ${K}cpr${R}      origin URL をクリップボードへ
+  ${K}cpd${R}      現在の cwd をクリップボードへ
+  ${K}greprep${R}  対話的 grep + sed 一括置換 (ファイル名置換も)
+  ${K}nya FILES${R}    LLM 投入用に "# FILE\\n<contents>" を連結出力
+  ${K}nyaf${R}     fzf で複数選択 → nya
+
+${H}== tmux キーバインド ==${R}
+${D}prefix は C-b (デフォルト)${R}
+
+  ${S}prefix 無し (no-prefix)${R}
+  ${K}Alt-h/j/k/l${R}  nvim/tmux ペイン間を透過的に移動 (vim-tmux-navigator)
+  ${K}Alt-H / Alt-L${R}  ウィンドウ prev / next
+
+  ${S}prefix 付き${R}
+  ${K}prefix J${R}       現ペインを別ウィンドウへ移動 (join-pane / 番号入力)
+  ${K}prefix <${R}       ウィンドウ位置を -1 swap (リピート可)
+  ${K}prefix >${R}       ウィンドウ位置を +1 swap (リピート可)
+  ${K}prefix C-p${R}     現ペインの履歴を popup の nvim で開く (q で閉じる)
+  ${K}prefix P${R}       現ペインの履歴を新ウィンドウで開く (持続用)
+  ${K}prefix r${R}       ~/.tmux.conf をリロード
+  ${K}prefix %${R}       水平分割 (current_path を維持)
+  ${K}prefix "${R}       垂直分割 (current_path を維持)
+  ${K}prefix !${R}       ペインを新ウィンドウへ分離 (標準/break-pane)
+  ${K}prefix ?${R}       全キーバインド一覧 (標準/tmux)
+
+${H}== nvim キーマップ (Leader = Space) ==${R}
+  ${S}基本${R}
+  ${K}j / k${R}          表示行単位で上下移動
+  ${K}Tab / S-Tab${R}    バッファ次 / 前
+  ${K}C-l${R}            検索ハイライト解除
+  ${K}U${R}              redo (C-r のシフト)
+  ${K}Y${R}              y\$ (行末までヤンク, C/D と対称)
+  ${K}<  /  >${R}        インデント (visual で <gv/>gv なので選択維持)
+  ${K}x${R}              "_x (yank レジスタを汚さない)
+  ${K}*${R}              現在語ハイライト + カーソル維持
+  ${K}c-mode C-a / C-e${R}  cmdline で Home / End
+  ${K}<Leader>a${R}      全選択 (ggVG)
+  ${K}<Leader>x${R}      バッファ閉じる
+
+  ${S}プラグイン由来${R}
+  ${K}Alt-h/j/k/l${R}    vim-tmux-navigator (tmux と透過移動)
+  ${K}cs"'${R}           " を ' に置換 (nvim-surround)
+  ${K}ds"${R}            " を削除 (nvim-surround)
+  ${K}ysiw)${R}          単語を () で囲む (nvim-surround)
+
+${H}== nvim プラグイン (lazy.nvim) ==${R}
+  ${K}iceberg.vim${R}          colorscheme (背景透過化)
+  ${K}vim-tmux-navigator${R}   Alt+hjkl で tmux/nvim 透過移動
+  ${K}nvim-treesitter${R}      シンタックスハイライト (v0.9 master 固定)
+  ${K}bufferline.nvim${R}      バッファタブ
+  ${K}nvim-surround${R}        cs/ds/ys
+  ${K}nvim-web-devicons${R}    bufferline のアイコン
+
+${H}== クリップボード経路 ==${R}
+  fish cpb/cph/cpr/cpd / nvim yank ('+ register)
+    → tmux load-buffer -w
+    → tmux が OSC52 で outer terminal (Windows Terminal) へ送信
+    → ホスト Windows のクリップボードへ
+
+${H}== .gitconfig 方針 ==${R}
+  ${K}defaultBranch${R} = main
+  ${K}push.autoSetupRemote${R} = true, ${K}push.default${R} = current
+  ${K}fetch.prune${R} = true
+  ${K}pull.rebase${R} = false (各リポで上書き可)
+  ${K}merge.conflictStyle${R} = zdiff3
+  ${K}rerere.enabled${R} = true
+  ${K}diff.colorMoved${R} = default
+  ${D}user.name/email / safe.directory はホスト固有なので ~/.gitconfig.local 側に
+   置く (後置 [include] で .local が dotfiles 側を上書き)${R}
+
+${H}== psql (.psqlrc) ==${R}
+  ${K}\\x on${R}            レコード毎表示
+  ${K}\\pset linestyle unicode${R}   罫線を Unicode に
+  ${K}PAGER=nvim${R}       ページャに nvim
+
+${H}== 補足 ==${R}
+  ${S}mise${R}     bash/fish 起動時に自動 activate
+  ${S}fish history${R}  postexec で history merge (多端末で共有)
+  ${S}tmux mainセッション${R}  alias \`ta\` で attach/create
+                          (ソケットは /tmux-\$UID/ なのでユーザ毎に分離)
+EOF
