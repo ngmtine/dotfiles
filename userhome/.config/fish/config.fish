@@ -15,6 +15,11 @@ set -gx COLORTERM truecolor
 # ディレクトリ名を省略しない
 set -g fish_prompt_pwd_dir_length 0
 
+# mise (言語バージョン管理)
+if command -v mise >/dev/null 2>&1
+    mise activate fish | source
+end
+
 # プロンプト ----------------------------------------
 # [minipc] cwd (branch) »
 #   branch色: 未編集=緑 / 編集あり=赤 / add済み=オレンジ
