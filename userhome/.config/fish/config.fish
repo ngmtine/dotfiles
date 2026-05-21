@@ -85,18 +85,71 @@ abbr --add --command git rb rebase
 abbr --add --command git rbi rebase -i
 abbr --add --command git rba rebase --abort
 abbr --add --command git rbc rebase --continue
+abbr --add --command git cl clone
+abbr --add --command git sw switch
+abbr --add --command git swc switch -c
+abbr --add --command git sh show
+abbr --add --command git bl blame
+abbr --add --command git rl reflog
+abbr --add --command git rh reset HEAD
+abbr --add --command git rs restore --staged
+abbr --add --command git lo log --oneline
+abbr --add --command git lol log --oneline --graph --all
+abbr --add --command git sta stash
+abbr --add --command git stp stash pop
+abbr --add --command git stl stash list
+abbr --add --command git wt worktree
+abbr --add --command git wta worktree add
+abbr --add --command git wtl worktree list
+abbr --add --command git wtr worktree remove
 
 # docker
 abbr -a d docker
 abbr --add --command docker i image
 abbr --add --command docker il 'image ls'
+abbr --add --command docker ir 'image rm'
 abbr --add --command docker c container
 abbr --add --command docker cl 'container ls -a'
+abbr --add --command docker cr 'container rm'
 abbr --add --command docker n network
 abbr --add --command docker s system
+abbr --add --command docker sp 'system prune'
+abbr --add --command docker r 'run -it'
+abbr --add --command docker b build
+abbr --add --command docker l logs
+abbr --add --command docker lf 'logs -f'
 abbr --add --set-cursor=% --command docker eb 'exec -it % /bin/bash'
+abbr --add --set-cursor=% --command docker esh 'exec -it % /bin/sh'
 abbr --add --command 'docker compose' u up
+abbr --add --command 'docker compose' ud 'up -d'
 abbr --add --command 'docker compose' d down
+abbr --add --command 'docker compose' r restart
+abbr --add --command 'docker compose' b build
+abbr --add --command 'docker compose' ps ps
+abbr --add --command 'docker compose' l logs
+abbr --add --command 'docker compose' lf 'logs -f'
+
+# gh (GitHub CLI)
+abbr --add --command gh prc 'pr create'
+abbr --add --command gh prv 'pr view'
+abbr --add --command gh prl 'pr list'
+abbr --add --command gh prm 'pr merge'
+abbr --add --command gh prch 'pr checkout'
+abbr --add --command gh prd 'pr diff'
+abbr --add --command gh isc 'issue create'
+abbr --add --command gh isv 'issue view'
+abbr --add --command gh isl 'issue list'
+abbr --add --command gh rv 'repo view'
+
+# glab (GitLab CLI)
+abbr --add --command glab mrc 'mr create'
+abbr --add --command glab mrv 'mr view'
+abbr --add --command glab mrl 'mr list'
+abbr --add --command glab mrm 'mr merge'
+abbr --add --command glab mrch 'mr checkout'
+abbr --add --command glab isc 'issue create'
+abbr --add --command glab isv 'issue view'
+abbr --add --command glab isl 'issue list'
 
 # tmux
 abbr -a ta tmux new-session -A -s main
