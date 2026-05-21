@@ -23,6 +23,15 @@ require("lazy").setup({
         lazy = false,
         config = function()
             vim.cmd.colorscheme("iceberg")
+            -- 背景透過: 端末側 (Windows Terminal) の背景色を見せる
+            for _, group in ipairs({
+                "Normal", "NormalNC", "NormalFloat",
+                "SignColumn", "EndOfBuffer", "TabLineFill",
+            }) do
+                local hl = vim.api.nvim_get_hl(0, { name = group })
+                hl.bg = nil
+                vim.api.nvim_set_hl(0, group, hl)
+            end
         end,
     },
 
