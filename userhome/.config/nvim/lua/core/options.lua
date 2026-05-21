@@ -34,16 +34,34 @@ vim.opt.smarttab = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- OSC52でホスト側(Windows Terminal)のクリップボードへ送る
+-- ホスト側(Windows Terminal)のクリップボードへ送る
+-- minipcは常にtmux内でnvimを使う前提。tmux popup内では nvim→OSC52 の経路が
+-- 不安定だったため、tmux自身に load-buffer -w させる方式を採用
+-- (tmux load-buffer -w が outer terminal へ OSC52 を emit する)
 vim.opt.clipboard = "unnamedplus"
-vim.g.clipboard = {
-    name = "OSC 52",
-    copy = {
-        ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-        ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-    },
-    paste = {
-        ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-        ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-    },
-}
+if vim.env.TMUX then
+    vim.g.clipboard = {
+        name = "tmux",
+        copy = {
+            ["+"] = { "tmux", "load-buffer", "-w", "-" },
+            ["*"] = { "tmux", "load-buffer", "-w", "-" },
+        },
+        paste = {
+            ["+"] = { "tmux", "save-buffer", "-" },
+            ["*"] = { "tmux", "save-buffer", "-" },
+        },
+        cache_enabled = true,
+    }
+else
+    vim.g.clipboard = {
+        name = "OSC 52",
+        copy = {
+            ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+            ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+        },
+        paste = {
+            ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+            ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+        },
+    }
+end
