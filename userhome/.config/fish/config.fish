@@ -302,4 +302,11 @@ end
 export PATH="/home/nag/.amp/bin:$PATH"
 
 # mise
-# ~/.local/bin/mise activate fish | source
+~/.local/bin/mise activate fish | source
+
+# pnpm
+set -gx PNPM_HOME "/home/nag/.local/share/pnpm"
+if not string match -q -- "$PNPM_HOME/bin" $PATH
+  set -gx PATH "$PNPM_HOME/bin" $PATH
+end
+# pnpm end
